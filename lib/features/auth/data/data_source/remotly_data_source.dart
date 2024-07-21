@@ -1,20 +1,65 @@
-// import 'package:dartz/dartz.dart';
-//
-// import 'package:dio/dio.dart';
-// import 'package:globaladvice_new/features/auth/data/model/login_model.dart';
-// import 'package:google_sign_in/google_sign_in.dart';
-//
-// abstract class BaseRemotelyDataSource {
-//   Future<LoginModel> loginWithEmailAndPassword(AuthModel authModel);
-//
-//   Future<AuthWithGoogleModel> sigInWithGoogle();
-//
-//   Future<LoginModel> signupWithEmailAndPassword(SignupAuthModel signupAuthModel);
-//
-//   Future<CitiesList> getCities(CitiesAuthModel citiesAuthModel);
-//   Future<CountriesList> getCountries();
-// }
-//
+import 'package:Learn_U/features/auth/data/model/login_model.dart';
+
+import 'package:dio/dio.dart';
+
+import '../../../../core/utils/api_helper.dart';
+import '../../../../core/utils/constant_api.dart';
+import '../../../../core/utils/methods.dart';
+
+abstract class BaseRemotelyDataSource {
+  Future<RegisterModel> RegisterWithEmailAndPassword(
+      RegisterModel registerModel);
+
+  // Future<AuthWithGoogleModel> sigInWithGoogle();
+
+  // Future<LoginModel> signupWithEmailAndPassword(SignupAuthModel signupAuthModel);
+
+  // Future<CitiesList> getCities(CitiesAuthModel citiesAuthModel);
+  // Future<CountriesList> getCountries();
+}
+
+class AuthRemotelyDateSource extends BaseRemotelyDataSource {
+  @override
+  Future<RegisterModel> RegisterWithEmailAndPassword(
+      RegisterModel registerModel) async {
+    final body = {
+      "country_id": registerModel.country_id,
+      "first_name": registerModel.first_name,
+      "middle_name": registerModel.middle_name,
+      "last_name": registerModel.last_name,
+      "birthdate": registerModel.birthdate,
+      "education": registerModel.education,
+      "email": registerModel.email,
+      "password": registerModel.password,
+      "mobile": registerModel.mobile,
+    };
+
+    try {
+      final response = await Dio().post(
+        ConstantApi.register,
+        data: body,
+        // options: Options(contentType: Headers.jsonContentType),
+      );
+      Map<String, dynamic> jsonData = response.data;
+
+      if (jsonData['status'] != 200) {
+        print(jsonData);
+        throw new Exception(jsonData['error']);
+      }
+
+      RegisterModel authModelResponse = RegisterModel.fromJson(jsonData);
+
+      Methods.instance.saveUserToken(authToken: authModelResponse.token);
+      return authModelResponse;
+    } on DioException catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "SignupWithEmailAndPassword");
+    }
+  }
+}
+ 
+
+
 // class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 //   @override
 //   Future<LoginModel> loginWithEmailAndPassword(AuthModel authModel) async {
