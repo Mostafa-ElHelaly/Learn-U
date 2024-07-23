@@ -6,7 +6,11 @@ import 'package:Learn_U/core/service/service_locator.dart';
 import 'package:Learn_U/core/translations/codegen_loader.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
+import 'features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,19 +38,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
-    return MaterialApp(
-      title: 'Be sure!',
-      debugShowCheckedModeBanner: false,
-      supportedLocales: context.supportedLocales,
-      localizationsDelegates: context.localizationDelegates,
-      locale: context.locale,
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(),
-      ),
-      navigatorKey: getIt<NavigationService>().navigatorKey,
-      onGenerateRoute: RouteGenerator.getRoute,
-      home: const LoginScreen(),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => getIt<RegisterBloc>()),
+          BlocProvider(create: (context) => getIt<LoginBloc>()),
+        ],
+        child: MaterialApp(
+          title: 'Be sure!',
+          debugShowCheckedModeBanner: false,
+          supportedLocales: context.supportedLocales,
+          localizationsDelegates: context.localizationDelegates,
+          locale: context.locale,
+          theme: ThemeData(
+            textTheme: GoogleFonts.poppinsTextTheme(),
+          ),
+          navigatorKey: getIt<NavigationService>().navigatorKey,
+          onGenerateRoute: RouteGenerator.getRoute,
+          home: const LoginScreen(),
+        ));
   }
 }
-

@@ -20,7 +20,6 @@ class CodegenLoader extends AssetLoader {
     StringManager.alreadyHaveAnAccount: 'عندي حساب',
     StringManager.forgetPassword: 'نسيت كلمة المرور الخاصة بك؟',
     StringManager.signUpWithUs: 'سجل معنا الان',
-    StringManager.firstName: 'الاسم الأول',
     StringManager.lastName: 'اسم العائلة',
     StringManager.gander: 'النوع',
     StringManager.city: 'مدينة',

@@ -12,10 +12,14 @@ abstract class StringManager {
   static const alreadyHaveAnAccount = 'Already Have An Account';
   static const forgetPassword = 'Forget Your Password ?';
   static const signUpWithUs = 'Sign Up With US';
-  static const firstName = 'First Name';
+  static const middleName = 'Middle Name';
   static const fullName = 'Full Name';
   static const lastName = 'Last Name';
   static const gander = 'Gander';
+  static const education = 'Education';
+  static const birthdate = 'Birthdate';
+  static const country_id = 'Country ID';
+
   static const licensed = 'Licensed';
   static const type = 'Type';
   static const carBrand = 'Car Brand';
@@ -104,8 +108,8 @@ abstract class StringManager {
   static const String lifeInsuranceForm = "Life Insurance";
   static const String propertyInsuranceForm = "property Insurance";
   static const String occupation = "Occupation";
-  static const String latestCourses= "Latest Courses";
-  static const String category= "Category";
+  static const String latestCourses = "Latest Courses";
+  static const String category = "Category";
   static const String insuranceType = "Insurance Type";
   static const String viewAll = "View All";
   static const String viewDetails = "View Details";
