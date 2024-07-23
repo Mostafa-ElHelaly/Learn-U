@@ -1,24 +1,14 @@
 import 'package:Learn_U/features/category/presentation/notification_screen.dart';
-import 'package:Learn_U/features/courses/presentation/my_polcies_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:Learn_U/core/resource_manger/asset_path.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/home/presentation/component/card_screen/latest_courses.dart';
 import 'package:Learn_U/features/home/presentation/component/card_screen/category_slider.dart';
-import 'package:Learn_U/features/profile/presentation/profile_screen.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:pinput/pinput.dart';
-import 'package:readmore/readmore.dart';
-
-import 'component/car_form/car_form_main_person_data .dart';
-import 'component/life_form/life_form_main_person_data .dart';
-import 'component/medical_form/medical_form_main_person_data .dart';
-import 'component/property_form/property_form_main_person_data .dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

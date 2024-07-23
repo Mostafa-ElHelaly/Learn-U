@@ -1,105 +1,91 @@
 class LoginModel {
-  int? status;
-  String? statusText;
-  dynamic error;
-  dynamic message;
-  Data? data;
-
-  LoginModel(
-      {this.status, this.statusText, this.error, this.message, this.data});
-
-  LoginModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    statusText = json['statusText'];
-    error = json['error'];
-    message = json['message'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['statusText'] = this.statusText;
-    data['error'] = this.error;
-    data['message'] = this.message;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
-}
-
-class Data {
-  String? uID;
-  Client? client;
-
-  Data({this.uID, this.client});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    uID = json['UID'];
-    client =
-    json['client'] != null ? new Client.fromJson(json['client']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['UID'] = this.uID;
-    if (this.client != null) {
-      data['client'] = this.client!.toJson();
-    }
-    return data;
-  }
-}
-
-class Client {
   int? id;
-  String? name;
+  String? countryId;
+  String? firstName;
+  String? middleName;
+  String? lastName;
   String? birthdate;
-  String? gender;
+  String? education;
   String? email;
-  String? telephone;
-  int? banned;
-  int? deleted;
+  String? token;
+
+  String? mobile;
+  String? password;
+  String? passwordToken;
+  String? banned;
+  String? deleted;
+  String? delstamp;
   String? addstamp;
   String? updatestamp;
 
-  Client(
+  DateTime? expiresOn;
+  DateTime? refreshTokenExpiration;
+
+
+  LoginModel(
       {this.id,
-        this.name,
+        this.countryId,
+        this.firstName,
+        this.middleName,
+        this.lastName,
         this.birthdate,
-        this.gender,
+        this.education,
         this.email,
-        this.telephone,
+        this.mobile,
+        this.password,
+        this.passwordToken,
         this.banned,
         this.deleted,
+        this.token,
+        this.delstamp,
+        this.expiresOn,
+        this.refreshTokenExpiration,
         this.addstamp,
         this.updatestamp});
 
-  Client.fromJson(Map<String, dynamic> json) {
+  LoginModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    countryId = json['country_id'];
+    firstName = json['first_name'];
+    middleName = json['middle_name'];
+    lastName = json['last_name'];
     birthdate = json['birthdate'];
-    gender = json['gender'];
+    education = json['education'];
     email = json['email'];
-    telephone = json['telephone'];
+    token = json['token'];
+    mobile = json['mobile'];
+    password = json['password'];
+    passwordToken = json['password_token'];
     banned = json['banned'];
     deleted = json['deleted'];
+    delstamp = json['delstamp'];
     addstamp = json['addstamp'];
     updatestamp = json['updatestamp'];
+    expiresOn = json['expiresOn'];
+    refreshTokenExpiration = json['refreshTokenExpiration'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name;
+    data['country_id'] = this.countryId;
+    data['first_name'] = this.firstName;
+    data['middle_name'] = this.middleName;
+    data['last_name'] = this.lastName;
     data['birthdate'] = this.birthdate;
-    data['gender'] = this.gender;
+    data['education'] = this.education;
     data['email'] = this.email;
-    data['telephone'] = this.telephone;
+    data['token'] = this.token;
+    data['mobile'] = this.mobile;
+    data['password'] = this.password;
+    data['password_token'] = this.passwordToken;
     data['banned'] = this.banned;
     data['deleted'] = this.deleted;
+    data['delstamp'] = this.delstamp;
     data['addstamp'] = this.addstamp;
     data['updatestamp'] = this.updatestamp;
+    data['expiresOn'] = this.expiresOn;
+    data['refreshTokenExpiration'] = this.refreshTokenExpiration;
     return data;
   }
 }
