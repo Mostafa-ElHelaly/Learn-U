@@ -28,6 +28,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -105,8 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             context,
                             screen: const ForgetPasswordScreen(),
                             withNavBar: false,
-                            pageTransitionAnimation: PageTransitionAnimation
-                                .fade,
+                            pageTransitionAnimation:
+                                PageTransitionAnimation.fade,
                           );
                         },
                         child: Text(

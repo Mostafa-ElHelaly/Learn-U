@@ -12,16 +12,17 @@ class RepositoryImp extends BaseRepository {
   RepositoryImp({required this.baseRemotelyDataSource});
 
   @override
-  Future<Either<LoginModel, Failure>> RegisterWithEmailAndPassword(
-      LoginModel loginModel) async {
+  Future<Either<Unit, Failure>> registerWithEmailAndPassword(
+      LoginModel registerAuthModel) async {
     try {
-      final result =
-          await baseRemotelyDataSource.RegisterWithEmailAndPassword(loginModel);
+      final result = await baseRemotelyDataSource
+          .registerWithEmailAndPassword(registerAuthModel);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
   }
+
 
   @override
   Future<Either<Unit, Failure>> loginWithEmailAndPassword(

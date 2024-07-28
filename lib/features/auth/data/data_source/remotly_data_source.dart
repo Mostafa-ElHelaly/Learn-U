@@ -1,6 +1,7 @@
+import 'dart:math';
+
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
-
 import 'package:dio/dio.dart';
 
 import '../../../../core/error/failures_strings.dart';
@@ -9,7 +10,7 @@ import '../../../../core/utils/constant_api.dart';
 import '../../../../core/utils/methods.dart';
 
 abstract class BaseRemotelyDataSource {
-  Future<LoginModel> RegisterWithEmailAndPassword(LoginModel loginModel);
+  Future<Unit> registerWithEmailAndPassword(LoginModel registerAuthModel);
 
   Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
 
@@ -23,39 +24,54 @@ abstract class BaseRemotelyDataSource {
 
 class AuthRemotelyDateSource extends BaseRemotelyDataSource {
   @override
-  Future<LoginModel> RegisterWithEmailAndPassword(LoginModel loginModel) async {
+  Future<Unit> registerWithEmailAndPassword(
+      LoginModel registerAuthModel) async {
     final body = {
-      "country_id": loginModel.countryId,
-      "first_name": loginModel.firstName,
-      "middle_name": loginModel.middleName,
-      "last_name": loginModel.lastName,
-      "birthdate": loginModel.birthdate,
-      "education": loginModel.education,
-      "email": loginModel.email,
-      "password": loginModel.password,
-      "mobile": loginModel.mobile,
+      "country_id": registerAuthModel.countryid,
+      "first_name": registerAuthModel.firstname,
+      "middle_name": registerAuthModel.middlename,
+      "last_name": registerAuthModel.lastname,
+      "email": registerAuthModel.email,
+      "password": registerAuthModel.password,
+      "mobile": registerAuthModel.mobile,
+      "education": registerAuthModel.education,
+      "birthdate": registerAuthModel.birthdate
     };
+
+    print(body['country_id']);
+    print(body['first_name']);
+    print(body['middle_name']);
+    print(body['last_name']);
+    print(body['email']);
+    print(body['password']);
+    print(body['mobile']);
+    print(body['education']);
+    print(body['birthdate']);
 
     try {
       final response = await Dio().post(
         ConstantApi.register,
-        data: body,
-        // options: Options(contentType: Headers.jsonContentType),
+        data: FormData.fromMap(body),
+        options: Options(
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+        ),
       );
-      Map<String, dynamic> jsonData = response.data;
 
-      if (jsonData['status'] != 200) {
-        print(jsonData);
-        throw new Exception(jsonData['error']);
+      if (response.statusCode!= 200) {
+        print('Registered Succesfully');      return Future.value(unit);
+
+      }
+      else{
+        throw new Exception('Register Failed');
+
       }
 
-      LoginModel authModelResponse = LoginModel.fromJson(jsonData);
-
-      Methods.instance.saveUserToken(authToken: authModelResponse.token);
-      return authModelResponse;
+      // Methods.instance.saveUserToken(authToken: authModelResponse.passwordToken);
     } on DioException catch (e) {
       throw DioHelper.handleDioError(
-          dioError: e, endpointName: "SignupWithEmailAndPassword");
+          dioError: e, endpointName: "RegisterWithEmailAndPassword");
     }
   }
 
