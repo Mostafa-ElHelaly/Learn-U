@@ -77,7 +77,7 @@ class _EditMyProfileScreenState extends State<EditMyProfileScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          StringManager.fullName.tr(),
+                          StringManager.firstName.tr(),
                           style: TextStyle(
                             fontSize: ConfigSize.defaultSize! * 1.6,
                             fontWeight: FontWeight.w600,

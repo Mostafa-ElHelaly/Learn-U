@@ -13,12 +13,12 @@ abstract class StringManager {
   static const forgetPassword = 'Forget Your Password ?';
   static const signUpWithUs = 'Sign Up With US';
   static const middleName = 'Middle Name';
-  static const fullName = 'Full Name';
+  static const firstName = 'First Name';
   static const lastName = 'Last Name';
   static const gander = 'Gander';
   static const education = 'Education';
   static const birthdate = 'Birthdate';
-  static const country_id = 'Country ID';
+  static const countryId = 'Country ID';
 
   static const licensed = 'Licensed';
   static const type = 'Type';

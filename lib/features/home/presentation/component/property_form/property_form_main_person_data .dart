@@ -1,3 +1,4 @@
+import 'package:Learn_U/features/home/presentation/home_screen.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,7 @@ class _PropertyFormMainPersonDataState extends State<PropertyFormMainPersonData>
                 height: ConfigSize.defaultSize! * 2,
               ),
               Text(
-                StringManager.fullName.tr(),
+                StringManager.firstName.tr(),
                 style: TextStyle(
                   fontSize: ConfigSize.defaultSize! * 1.6,
                   fontWeight: FontWeight.w600,
@@ -480,7 +481,7 @@ class _PropertyFormMainPersonDataState extends State<PropertyFormMainPersonData>
                   onTap: () {
                     PersistentNavBarNavigator.pushNewScreen(
                       context,
-                      screen: const DoneScreen(),
+                      screen: const HomeScreen(),
                       withNavBar: false,
                       pageTransitionAnimation: PageTransitionAnimation.fade,
                     );

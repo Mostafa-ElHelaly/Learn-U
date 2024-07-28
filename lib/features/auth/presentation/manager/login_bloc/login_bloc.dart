@@ -12,7 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>((event, emit) async {
       emit(const LoginLoadingState());
       final result = await loginUseCase
-          .call(LoginModel(email: event.email, password: event.password));
+          .call(LoginModel(email: event.email, password: event.password, countryid: ''));
       print(result);
       result.fold(
               (l) => emit(LoginSuccessState(

@@ -13,7 +13,11 @@ class RegisterBloc extends Bloc<RegisterBlocEvent, RegisterState> {
     on<RegisterBlocEvent>((event, emit) async {
       emit(const RegisterLoadingState());
       final result = await registerUseCase.call(LoginModel(
-        firstName: event.fullName,
+        firstname: event.first_name,
+        middlename: event.middle_name,
+        lastname: event.last_name,
+        education: event.education,
+        countryid: event.country_id,
         birthdate: event.birthdate,
         email: event.email,
         password: event.password,

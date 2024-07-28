@@ -1,4 +1,5 @@
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class RegisterState extends Equatable {
@@ -21,7 +22,7 @@ final class RegisterErrorState extends RegisterState {
 }
 
 final class RegisterSuccessState extends RegisterState {
-  final LoginModel registerModelResponse;
+  final Unit registerModelResponse;
 
   const RegisterSuccessState({required this.registerModelResponse});
 }

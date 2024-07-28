@@ -235,34 +235,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2,
                     ),
-                    Padding(
-                      padding:  EdgeInsets.symmetric(horizontal:  ConfigSize.defaultSize! *2),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            const CategoryScreen(
-                              text1: 'Programming',
-                              image: "assets/images/test111.jpg",
-                            ),
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 3,
-                            ),
-                            const CategoryScreen(
-                              text1: 'Engineering',
-                              image: "assets/images/test111.jpg",
-                            ),
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 3,
-                            ),
-                            const CategoryScreen(
-                              text1: 'Personal Development',
-                              image: "assets/images/test111.jpg",
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding:  EdgeInsets.symmetric(horizontal:  ConfigSize.defaultSize! *2),
+                    //   child: SingleChildScrollView(
+                    //     scrollDirection: Axis.horizontal,
+                    //     child: Row(
+                    //       children: [
+                    //         const CategoryScreen(
+                    //           text1: 'Programming',
+                    //           image: "assets/images/test111.jpg",
+                    //         ),
+                    //         SizedBox(
+                    //           width: ConfigSize.defaultSize! * 3,
+                    //         ),
+                    //         const CategoryScreen(
+                    //           text1: 'Engineering',
+                    //           image: "assets/images/test111.jpg",
+                    //         ),
+                    //         SizedBox(
+                    //           width: ConfigSize.defaultSize! * 3,
+                    //         ),
+                    //         const CategoryScreen(
+                    //           text1: 'Personal Development',
+                    //           image: "assets/images/test111.jpg",
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
