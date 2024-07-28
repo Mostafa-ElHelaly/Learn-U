@@ -17,12 +17,12 @@ class RepositoryImp extends BaseRepository {
     try {
       final result = await baseRemotelyDataSource
           .registerWithEmailAndPassword(registerAuthModel);
+      print('result :' + result.toString());
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
     }
   }
-
 
   @override
   Future<Either<Unit, Failure>> loginWithEmailAndPassword(

@@ -16,25 +16,24 @@ class LoginModel {
   // String? addstamp;
   // String? updatestamp;
 
-  LoginModel(
-      {
-        // this.id,
-        this.countryid,
-        this.firstname,
-        this.middlename,
-        this.lastname,
-        this.birthdate,
-        this.education,
-        this.email,
-        this.mobile,
-        this.password,
-        // this.passwordToken,
-        // this.banned,
-        // this.deleted,
-        // // this.delstamp,
-        // this.addstamp,
-        // this.updatestamp
-      });
+  LoginModel({
+    // this.id,
+    this.countryid,
+    this.firstname,
+    this.middlename,
+    this.lastname,
+    this.birthdate,
+    this.education,
+    this.email,
+    this.mobile,
+    this.password,
+    // this.passwordToken,
+    // this.banned,
+    // this.deleted,
+    // // this.delstamp,
+    // this.addstamp,
+    // this.updatestamp
+  });
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     // id = json['id'];

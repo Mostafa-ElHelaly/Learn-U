@@ -27,7 +27,7 @@ class RegisterAuthModel {
   final String birthdate;
   final String education;
   final String countryId;
-  final int mobile;
+  final String mobile;
 
   RegisterAuthModel({
     required this.email,

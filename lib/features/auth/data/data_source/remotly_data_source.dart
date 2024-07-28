@@ -7,7 +7,6 @@ import 'package:dio/dio.dart';
 import '../../../../core/error/failures_strings.dart';
 import '../../../../core/utils/api_helper.dart';
 import '../../../../core/utils/constant_api.dart';
-import '../../../../core/utils/methods.dart';
 
 abstract class BaseRemotelyDataSource {
   Future<Unit> registerWithEmailAndPassword(LoginModel registerAuthModel);
@@ -49,23 +48,23 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
     print(body['birthdate']);
 
     try {
+      print("---------------");
       final response = await Dio().post(
         ConstantApi.register,
-        data: FormData.fromMap(body),
+        data: body,
         options: Options(
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': Headers.formUrlEncodedContentType,
           },
         ),
       );
-
-      if (response.statusCode!= 200) {
-        print('Registered Succesfully');      return Future.value(unit);
-
-      }
-      else{
-        throw new Exception('Register Failed');
-
+      print("----${response.toString()}-----------");
+      // log(response.data ?? '');
+      if (response.statusCode == 200) {
+        print('Registered Succesfully');
+        return Future.value(unit);
+      } else {
+        throw Exception('Register Failed');
       }
 
       // Methods.instance.saveUserToken(authToken: authModelResponse.passwordToken);
