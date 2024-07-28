@@ -1,8 +1,7 @@
-
+import 'package:Learn_U/features/home/presentation/component/view_all_page/view_all_page.dart';
 import 'package:Learn_U/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';
-
 
 class Routes {
   static const String login = "/LoginScreen";
@@ -14,6 +13,7 @@ class Routes {
   static const String changePasswordScreen = "/ChangePasswordScreen";
   static const String homeScreen = "/HomeScreen";
   static const String serviceType = "/ServiceType";
+  static const String viewall = "/ViewAll";
   static const String matchingRequestScreen = "/MatchingRequestScreen";
   static const String editMyProfileScreen = "/EditMyProfileScreen";
   static const String editDogProfileScreen = "/EditDogProfileScreen";
@@ -33,7 +33,6 @@ class RouteGenerator {
         currentContext = Routes.homeScreen;
         return MaterialPageRoute(
             settings: settings, builder: (_) => const HomeScreen());
-
     }
     return unDefinedRoute();
   }

@@ -1,3 +1,6 @@
+import 'package:Learn_U/core/resource_manger/color_manager.dart';
+import 'package:Learn_U/features/home/presentation/home_screen.dart';
+import 'package:Learn_U/main_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/routs_manager.dart';
@@ -50,11 +53,18 @@ class MyApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,
           theme: ThemeData(
+            textButtonTheme: TextButtonThemeData(
+                style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(
+                  ColorManager.black), // Text color
+            )),
+            scaffoldBackgroundColor: ColorManager.whiteColor,
+            canvasColor: ColorManager.whiteColor,
             textTheme: GoogleFonts.poppinsTextTheme(),
           ),
           navigatorKey: getIt<NavigationService>().navigatorKey,
           onGenerateRoute: RouteGenerator.getRoute,
-          home: const LoginScreen(),
+          home: const MainScreen(),
         ));
   }
 }

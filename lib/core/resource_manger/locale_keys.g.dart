@@ -1,5 +1,8 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
+import 'package:Learn_U/features/courses/presentation/my_polcies_screen.dart';
+import 'package:Learn_U/features/home/presentation/component/Categories/Categories_Page.dart';
+
 abstract class StringManager {
   static const annualLimit = 'Annual limit';
   static const email = 'Email';
@@ -16,6 +19,10 @@ abstract class StringManager {
   static const fullName = 'Full Name';
   static const lastName = 'Last Name';
   static const gander = 'Gander';
+  static const search = 'Search';
+  static const courses = 'Courses';
+  static const categories = 'Categories';
+
   static const education = 'Education';
   static const birthdate = 'Birthdate';
   static const country_id = 'Country ID';
