@@ -12,6 +12,7 @@ import 'package:Learn_U/features/auth/presentation/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
 import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
 import 'features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context) => getIt<RegisterBloc>()),
           BlocProvider(create: (context) => getIt<LoginBloc>()),
+          BlocProvider(create: (context) => getIt<ForgetPasswordBloc>()),
         ],
         child: MaterialApp(
           title: 'Be sure!',

@@ -36,6 +36,18 @@ class RepositoryImp extends BaseRepository {
     }
   }
 
+  @override
+  Future<Either<Unit, Failure>> forgetpassword(
+      LoginModel resetPasswordModel) async {
+    try {
+      final result =
+          await baseRemotelyDataSource.forgetpassword(resetPasswordModel);
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
 // @override
 // Future<Either<LoginModel, Failure>> signupWithEmailAndPassword(SignupAuthModel signupAuthModel) async {
 //   try {

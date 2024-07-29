@@ -12,6 +12,7 @@ abstract class BaseRemotelyDataSource {
   Future<Unit> registerWithEmailAndPassword(LoginModel registerAuthModel);
 
   Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
+  Future<Unit> forgetpassword(LoginModel resetPasswordModel);
 
 // Future<AuthWithGoogleModel> sigInWithGoogle();
 
@@ -95,6 +96,35 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
     } on DioException catch (e) {
       throw DioHelper.handleDioError(
           dioError: e, endpointName: "loginWithEmailAndPassword");
+    }
+  }
+
+  @override
+  Future<Unit> forgetpassword(LoginModel resetPasswordModel) async {
+    final body = {
+      "email": resetPasswordModel.email,
+    };
+
+    try {
+      print("---------------");
+      final response = await Dio().post(
+        ConstantApi.forgetpassword,
+        data: body,
+        options: Options(
+          headers: {
+            'Content-Type': Headers.formUrlEncodedContentType,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print('Reset Password Succesfully');
+        return Future.value(unit);
+      } else {
+        throw Exception('Reset Password Failed');
+      }
+    } on DioException catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "RegisterWithEmailAndPassword");
     }
   }
 }
