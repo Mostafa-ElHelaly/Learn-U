@@ -91,9 +91,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(
                     controller: passwordController,
                     inputType: TextInputType.text,
-                    obscureText: true,
-                    suffix: const Icon(Icons.remove_red_eye_outlined),
+                    obscureText: isVisible,
+                    suffix: InkWell(
+                        onTap: () {
+                          {
+                            isVisible = !isVisible;
+                          }
+                          setState(() {});
+                        },
+                        child: Icon(isVisible
+                            ? Icons.visibility_off_outlined
+                            : Icons.remove_red_eye_outlined)),
                   ),
+
                   SizedBox(
                     height: ConfigSize.defaultSize! * 1,
                   ),
