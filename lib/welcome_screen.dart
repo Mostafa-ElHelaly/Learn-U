@@ -80,10 +80,10 @@ class WelcomeScreen extends StatelessWidget {
                         );
                       },
                       child: Text('Sign Up')),
-                  VerticalDivider(
-                    color: ColorManager.whiteColor,
-                    thickness: 2,
-                  ),
+                  // VerticalDivider(
+                  //   color: ColorManager.whiteColor,
+                  //   thickness: 2,
+                  // ),
                   TextButton(
                       style: ButtonStyle(
                         foregroundColor: MaterialStateProperty.all<Color>(

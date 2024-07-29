@@ -23,7 +23,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringManager.categories),
+        title: Text(
+          StringManager.categories,
+          style: TextStyle(
+              fontSize: ConfigSize.defaultSize! * 2.5,
+              fontWeight: FontWeight.bold,
+              color: ColorManager.black),
+        ),
         centerTitle: true,
         backgroundColor: ColorManager.mainColor,
       ),
@@ -105,6 +111,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   );
                 },
               ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

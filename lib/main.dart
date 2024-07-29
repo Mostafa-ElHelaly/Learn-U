@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
             textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
               textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
-                  fontSize: ConfigSize.defaultSize! * 2,
+                  fontSize: ConfigSize.defaultSize! * 2.5,
                   fontWeight: FontWeight.bold)),
               foregroundColor: MaterialStateProperty.all<Color>(
                   ColorManager.black), // Text color
