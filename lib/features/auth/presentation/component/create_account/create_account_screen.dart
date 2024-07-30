@@ -81,7 +81,6 @@ class _CreateAccountState extends State<CreateAccount> {
 
   final ImagePicker picker = ImagePicker();
   XFile? image;
-  GlobalKey<FormState> fromstate = new GlobalKey<FormState>();
 
   String? selectedValue;
   bool isVisible = true;
@@ -160,229 +159,223 @@ class _CreateAccountState extends State<CreateAccount> {
         body: Padding(
           padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
           child: SingleChildScrollView(
-            child: Form(
-              key: fromstate,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * 2,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        AssetsPath.logo,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * 5,
-                  ),
-                  Text(
-                    StringManager.firstName.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      AssetsPath.logo,
                     ),
+                  ],
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 5,
+                ),
+                Text(
+                  StringManager.firstName.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: firstNameController,
+                  inputType: TextInputType.emailAddress,
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.middleName.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
                   ),
-                  CustomTextField(
-                    controller: firstNameController,
-                    inputType: TextInputType.emailAddress,
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: middleNameController,
+                  inputType: TextInputType.emailAddress,
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.lastName.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.middleName.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: lastNameController,
+                  inputType: TextInputType.emailAddress,
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2,
+                ),
+                Text(
+                  StringManager.countryId.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    controller: middleNameController,
-                    inputType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.lastName.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    controller: lastNameController,
-                    inputType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * 2,
-                  ),
-                  Text(
-                    StringManager.countryId.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    suffix: CountryCodePicker(
-                      onChanged: (code) {
-                        setState(() {
-                          countryIdController.text = code.name.toString();
-                        });
-                      },
-                      initialSelection: 'EG',
-                      showFlag: true,
-                      showFlagDialog: true,
-                      showCountryOnly: true,
-                      showOnlyCountryWhenClosed: true,
-                    ),
-                    controller: countryIdController,
-                    inputType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.education.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    controller: educationController,
-                    inputType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.email.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    controller: emailController,
-                    inputType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.phone.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    controller: mobileController,
-                    inputType: TextInputType.phone,
-                  ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.birthdate.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    focusNode: _focusNode,
-                    controller: birthdateController,
-                    inputType: TextInputType.none,
-                    suffix: IconButton(
-                        onPressed: () {
-                          _selectDate(context);
-                        },
-                        icon: const Icon(Icons.calendar_today)),
-                  ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.password.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    controller: passwordController,
-                    inputType: TextInputType.text,
-                    obscureText: isVisible1,
-                    suffix: InkWell(
-                        onTap: () {
-                          {
-                            isVisible1 = !isVisible1;
-                          }
-                          setState(() {});
-                        },
-                        child: Icon(isVisible1
-                            ? Icons.visibility_off_outlined
-                            : Icons.remove_red_eye_outlined)),
-                  ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Text(
-                    StringManager.confirmPassword.tr(),
-                    style: TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 1.6,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! - 5,
-                  ),
-                  CustomTextField(
-                    validator: (value) {
-                      if (confirmPasswordController.text !=
-                          passwordController.text) {
-                        return "Wrong Password";
-                      }
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  suffix: CountryCodePicker(
+                    onChanged: (code) {
+                      setState(() {
+                        countryIdController.text = code.name.toString();
+                      });
                     },
-                    controller: confirmPasswordController,
-                    inputType: TextInputType.text,
-                    obscureText: isVisible,
-                    suffix: InkWell(
+                    initialSelection: 'EG',
+                    showFlag: true,
+                    showFlagDialog: true,
+                    showCountryOnly: true,
+                    showOnlyCountryWhenClosed: true,
+                  ),
+                  controller: countryIdController,
+                  inputType: TextInputType.emailAddress,
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.education.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: educationController,
+                  inputType: TextInputType.emailAddress,
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.email.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: emailController,
+                  inputType: TextInputType.emailAddress,
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.phone.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: mobileController,
+                  inputType: TextInputType.phone,
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.birthdate.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  focusNode: _focusNode,
+                  controller: birthdateController,
+                  inputType: TextInputType.none,
+                  suffix: IconButton(
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                      icon: const Icon(Icons.calendar_today)),
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.password.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: passwordController,
+                  inputType: TextInputType.text,
+                  obscureText: isVisible1,
+                  suffix: InkWell(
                       onTap: () {
                         {
-                          isVisible = !isVisible;
+                          isVisible1 = !isVisible1;
                         }
                         setState(() {});
                       },
-                      child: Icon(isVisible
+                      child: Icon(isVisible1
                           ? Icons.visibility_off_outlined
-                          : Icons.remove_red_eye_outlined),
-                    ),
+                          : Icons.remove_red_eye_outlined)),
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Text(
+                  StringManager.confirmPassword.tr(),
+                  style: TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 1.6,
+                    fontWeight: FontWeight.w600,
                   ),
-                  SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ConfigSize.defaultSize! * 3),
-                    child: MainButton(
-                      onTap: () {
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! - 5,
+                ),
+                CustomTextField(
+                  controller: confirmPasswordController,
+                  inputType: TextInputType.text,
+                  obscureText: isVisible,
+                  suffix: InkWell(
+                    onTap: () {
+                      {
+                        isVisible = !isVisible;
+                      }
+                      setState(() {});
+                    },
+                    child: Icon(isVisible
+                        ? Icons.visibility_off_outlined
+                        : Icons.remove_red_eye_outlined),
+                  ),
+                ),
+                SizedBox(height: ConfigSize.defaultSize! * 2),
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: ConfigSize.defaultSize! * 3),
+                  child: MainButton(
+                    onTap: () {
+                      if (passwordController.text ==
+                          confirmPasswordController.text) {
                         BlocProvider.of<RegisterBloc>(context)
                             .add(RegisterBlocEvent(
                           first_name: firstNameController.text,
@@ -395,66 +388,68 @@ class _CreateAccountState extends State<CreateAccount> {
                           country_id: countryIdController.text.toLowerCase(),
                           education: educationController.text,
                         ));
-                      },
-                      title: StringManager.next.tr(),
+                      } else {
+                        errorSnackBar(context,
+                            'Confirm Password doesn\'t match the password');
+                      }
+                    },
+                    title: StringManager.next.tr(),
+                  ),
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 3,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      StringManager.alreadyHaveAnAccount.tr(),
+                      style: TextStyle(
+                        color: ColorManager.kPrimaryBlueDark,
+                        fontWeight: FontWeight.bold,
+                        fontSize: ConfigSize.defaultSize! * 2,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: ConfigSize.defaultSize! * 3,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        StringManager.alreadyHaveAnAccount.tr(),
-                        style: TextStyle(
-                          color: ColorManager.kPrimaryBlueDark,
-                          fontWeight: FontWeight.bold,
-                          fontSize: ConfigSize.defaultSize! * 2,
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          PersistentNavBarNavigator.pushNewScreen(
-                            context,
-                            screen: const LoginScreen(),
-                            withNavBar: false,
-                            pageTransitionAnimation:
-                                PageTransitionAnimation.fade,
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                              ),
-                            ],
-                            color: ColorManager.lightGray2,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: ConfigSize.defaultSize! * 1.5,
-                              horizontal: ConfigSize.defaultSize! * 3,
+                    InkWell(
+                      onTap: () {
+                        PersistentNavBarNavigator.pushNewScreen(
+                          context,
+                          screen: const LoginScreen(),
+                          withNavBar: false,
+                          pageTransitionAnimation: PageTransitionAnimation.fade,
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.2),
+                              spreadRadius: 1,
+                              blurRadius: 2,
                             ),
-                            child: Text(
-                              StringManager.login.tr(),
-                              style: TextStyle(
-                                color: ColorManager.kPrimaryBlueDark,
-                                fontWeight: FontWeight.bold,
-                                fontSize: ConfigSize.defaultSize! * 2,
-                              ),
+                          ],
+                          color: ColorManager.lightGray2,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: ConfigSize.defaultSize! * 1.5,
+                            horizontal: ConfigSize.defaultSize! * 3,
+                          ),
+                          child: Text(
+                            StringManager.login.tr(),
+                            style: TextStyle(
+                              color: ColorManager.kPrimaryBlueDark,
+                              fontWeight: FontWeight.bold,
+                              fontSize: ConfigSize.defaultSize! * 2,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
