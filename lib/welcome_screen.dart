@@ -13,28 +13,51 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< Updated upstream
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             transform: GradientRotation(0.0),
-=======
-      body: SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              transform: GradientRotation(0.0),
->>>>>>> Stashed changes
 
-              colors: [
-                ColorManager.mainColor,
-                ColorManager.whiteColor,
-              ], // Gradient colors
-              begin: Alignment.bottomCenter,
-              end: Alignment.topCenter,
-              stops: [0.0, .6], // Stop values
+            colors: [
+              ColorManager.mainColor,
+              ColorManager.whiteColor,
+            ], // Gradient colors
+            begin: Alignment.bottomCenter,
+            end: Alignment.topCenter,
+            stops: [0.0, .6], // Stop values
+          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(height: ConfigSize.defaultSize! * 10),
+            Padding(
+              padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 35),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Image.asset(
+                    AssetsPath.logo,
+                    filterQuality: FilterQuality.high,
+                  ),
+                  Text(
+                    'Learning Has No Limits',
+                    style: TextStyle(
+                        fontSize: ConfigSize.defaultSize! * 2,
+                        fontWeight: FontWeight.bold,
+                        color: ColorManager.gray2),
+                  ),
+                  SizedBox(height: ConfigSize.defaultSize! * 2),
+                  Text(
+                    'Welcome to Learn U',
+                    style: TextStyle(
+                        fontSize: ConfigSize.defaultSize! * 2.5,
+                        fontWeight: FontWeight.bold,
+                        color: ColorManager.black),
+                  ),
+                ],
+              ),
             ),
-<<<<<<< Updated upstream
             // Spacer(
             //   flex: 1,
             // ),
@@ -76,87 +99,9 @@ class WelcomeScreen extends StatelessWidget {
                       },
                       child: const Text('Browse')),
                 ],
-=======
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(height: ConfigSize.defaultSize! * 10),
-              Padding(
-                padding: EdgeInsets.only(bottom: ConfigSize.defaultSize! * 35),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Image.asset(
-                      AssetsPath.logo,
-                      filterQuality: FilterQuality.high,
-                    ),
-                    Text(
-                      'Learning Has No Limits',
-                      style: TextStyle(
-                          fontSize: ConfigSize.defaultSize! * 2,
-                          fontWeight: FontWeight.bold,
-                          color: ColorManager.gray2),
-                    ),
-                    SizedBox(height: ConfigSize.defaultSize! * 2),
-                    Text(
-                      'Welcome to Learn U',
-                      style: TextStyle(
-                          fontSize: ConfigSize.defaultSize! * 2.5,
-                          fontWeight: FontWeight.bold,
-                          color: ColorManager.black),
-                    ),
-                  ],
-                ),
->>>>>>> Stashed changes
               ),
-              // Spacer(
-              //   flex: 1,
-              // ),
-              Container(
-                height: ConfigSize.defaultSize! * 10,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    TextButton(
-                        style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              ColorManager.whiteColor), // Text color
-                        ),
-                        onPressed: () {
-                          PersistentNavBarNavigator.pushNewScreen(
-                            context,
-                            screen: const LoginScreen(),
-                            withNavBar: false,
-                            pageTransitionAnimation:
-                                PageTransitionAnimation.fade,
-                          );
-                        },
-                        child: Text('Sign Up')),
-                    // VerticalDivider(
-                    //   color: ColorManager.whiteColor,
-                    //   thickness: 2,
-                    // ),
-                    TextButton(
-                        style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(
-                              ColorManager.whiteColor), // Text color
-                        ),
-                        onPressed: () {
-                          PersistentNavBarNavigator.pushNewScreen(
-                            context,
-                            screen: const MainScreenBrowse(),
-                            withNavBar: true,
-                            pageTransitionAnimation:
-                                PageTransitionAnimation.fade,
-                          );
-                        },
-                        child: Text('Browse')),
-                  ],
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );
