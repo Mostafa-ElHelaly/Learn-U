@@ -1,6 +1,7 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/features/home/presentation/home_screen.dart';
 import 'package:Learn_U/main_screen.dart';
+import 'package:Learn_U/welcome_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/routs_manager.dart';
@@ -57,6 +58,9 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
+              textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 2.5,
+                  fontWeight: FontWeight.bold)),
               foregroundColor: MaterialStateProperty.all<Color>(
                   ColorManager.black), // Text color
             )),
@@ -66,7 +70,7 @@ class MyApp extends StatelessWidget {
           ),
           navigatorKey: getIt<NavigationService>().navigatorKey,
           onGenerateRoute: RouteGenerator.getRoute,
-          home: const LoginScreen(),
+          home: const WelcomeScreen(),
         ));
   }
   // main

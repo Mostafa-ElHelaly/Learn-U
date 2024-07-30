@@ -1,4 +1,3 @@
-import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 

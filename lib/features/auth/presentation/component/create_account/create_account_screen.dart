@@ -4,6 +4,7 @@ import 'package:Learn_U/features/auth/presentation/login_screen.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_event.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_state.dart';
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
@@ -15,7 +16,6 @@ import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -222,6 +222,18 @@ class _CreateAccountState extends State<CreateAccount> {
                   height: ConfigSize.defaultSize! - 5,
                 ),
                 CustomTextField(
+                  suffix: CountryCodePicker(
+                    onChanged: (code) {
+                      setState(() {
+                        countryIdController.text = code.name.toString();
+                      });
+                    },
+                    initialSelection: 'EG',
+                    showFlag: true,
+                    showFlagDialog: true,
+                    showCountryOnly: true,
+                    showOnlyCountryWhenClosed: true,
+                  ),
                   controller: countryIdController,
                   inputType: TextInputType.emailAddress,
                 ),
@@ -343,7 +355,6 @@ class _CreateAccountState extends State<CreateAccount> {
                         : Icons.remove_red_eye_outlined),
                   ),
                 ),
-
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Padding(
                   padding: EdgeInsets.symmetric(
@@ -359,7 +370,7 @@ class _CreateAccountState extends State<CreateAccount> {
                         email: emailController.text,
                         password: passwordController.text,
                         mobile: mobileController.text,
-                        country_id: countryIdController.text,
+                        country_id: countryIdController.text.toLowerCase(),
                         education: educationController.text,
                       ));
                     },
