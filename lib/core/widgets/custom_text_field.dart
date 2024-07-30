@@ -7,19 +7,24 @@ class CustomTextField extends StatelessWidget {
   TextInputType inputType;
   bool? obscureText;
   String? hint;
+  String? Function(String?)? validator;
+  final FocusNode? focusNode;
 
-  CustomTextField({
-    super.key,
-    required this.controller,
-    this.suffix,
-    required this.inputType,
-    this.obscureText = false,
-    this.hint,
-  });
+  CustomTextField(
+      {super.key,
+      required this.controller,
+      this.suffix,
+      required this.inputType,
+      this.obscureText = false,
+      this.hint,
+      this.validator,
+      this.focusNode});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      focusNode: focusNode,
+      validator: validator,
       controller: controller,
       keyboardType: inputType,
       obscureText: obscureText ?? false,
