@@ -8,15 +8,19 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'features/home/presentation/component/Search_Page/Search_Page.dart';
 import 'features/home/presentation/home_screen.dart';
 import 'features/profile/presentation/profile_screen.dart';
+import 'features_browse/Categories/Categories_Page.dart';
+import 'features_browse/Search_Page/Search_Page.dart';
+import 'features_browse/home/presentation/home_screen.dart';
+import 'features_browse/profile/presentation/profile_screen_browse.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class MainScreenBrowse extends StatefulWidget {
+  const MainScreenBrowse({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<MainScreenBrowse> createState() => _MainScreenBrowseState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenBrowseState extends State<MainScreenBrowse> {
   late PersistentTabController _controller;
 
   @override
@@ -27,11 +31,10 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> _buildScreens() {
     return [
-      const HomeScreen(),
-      const SearchPage(),
-      const CategoriesPage(),
-      const MyCoursesPage(),
-      const ProfileScreen(),
+      const HomeScreenBrowse(),
+      const SearchPageBrowse(),
+      const CategoriesPageBrowse(),
+      const ProfileScreenBrowse(),
     ];
   }
 
@@ -58,19 +61,6 @@ class _MainScreenState extends State<MainScreen> {
         ),
         inactiveIcon: const Icon(
           Icons.search,
-          size: 20,
-        ),
-        activeColorPrimary: ColorManager.kPrimaryBlueDark,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: const Icon(
-          Icons.menu_book,
-          color: ColorManager.kPrimaryBlueDark,
-          size: 40,
-        ),
-        inactiveIcon: const Icon(
-          Icons.menu_book,
           size: 20,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,

@@ -7,14 +7,14 @@ import '../../../../../core/resource_manger/color_manager.dart';
 import '../../../../../core/resource_manger/locale_keys.g.dart';
 import '../../../../../core/utils/config_size.dart';
 
-class CategoriesPage extends StatefulWidget {
-  const CategoriesPage({super.key});
+class CategoriesPageBrowse extends StatefulWidget {
+  const CategoriesPageBrowse({super.key});
 
   @override
-  State<CategoriesPage> createState() => _CategoriesPageState();
+  State<CategoriesPageBrowse> createState() => _CategoriesPageBrowseState();
 }
 
-class _CategoriesPageState extends State<CategoriesPage> {
+class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
   TextStyle viewallstyle = TextStyle(
     fontSize: ConfigSize.defaultSize! * 1.5,
     fontWeight: FontWeight.bold,
