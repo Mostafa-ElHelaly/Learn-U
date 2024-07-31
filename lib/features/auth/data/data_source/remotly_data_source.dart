@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -7,19 +5,24 @@ import 'package:dio/dio.dart';
 import '../../../../core/error/failures_strings.dart';
 import '../../../../core/utils/api_helper.dart';
 import '../../../../core/utils/constant_api.dart';
+import '../../domain/use_cases/get_countries_uc.dart';
+import '../model/CountriesModel.dart';
 
 abstract class BaseRemotelyDataSource {
   Future<Unit> registerWithEmailAndPassword(LoginModel registerAuthModel);
 
   Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
-  Future<Unit> forgetpassword(LoginModel resetPasswordModel);
+
+  Future<Unit> forgetPassword(LoginModel resetPasswordModel);
+
+  Future<CountriesList> getCountries();
+
 
 // Future<AuthWithGoogleModel> sigInWithGoogle();
 
 // Future<LoginModel> signupWithEmailAndPassword(SignupAuthModel signupAuthModel);
 
 // Future<CitiesList> getCities(CitiesAuthModel citiesAuthModel);
-// Future<CountriesList> getCountries();
 }
 
 class AuthRemotelyDateSource extends BaseRemotelyDataSource {
@@ -100,7 +103,7 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
   }
 
   @override
-  Future<Unit> forgetpassword(LoginModel resetPasswordModel) async {
+  Future<Unit> forgetPassword(LoginModel resetPasswordModel) async {
     final body = {
       "email": resetPasswordModel.email,
     };
@@ -127,7 +130,29 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
           dioError: e, endpointName: "RegisterWithEmailAndPassword");
     }
   }
-}
+
+
+  @override
+  Future<CountriesList> getCountries() async {
+    try {
+      final response = await Dio().get(
+        ConstantApi.countries,
+      );
+      // if (response.statusCode != 200) {
+      //   print('Reset Password Succesfully');
+      //   return response.data;
+      // } else {
+      //   throw Exception('Reset Password Failed');
+      // }
+
+      CountriesList authModelResponse = CountriesList.fromJson(response.data);
+      return authModelResponse;
+    } on DioException catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "get Countries");
+    }
+  }
+
 
 // class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 //   @override
@@ -211,22 +236,8 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 //     }
 //   }
 //
-//   @override
-//   Future<CountriesList> getCountries() async {
-//
-//     try {
-//       final response = await Dio().get(
-//         ConstantApi.countries,
-//       );
-//
-//       CountriesList authModelResponse = CountriesList.fromJson(response.data);
-//       return authModelResponse;
-//     } on DioException catch (e) {
-//       throw DioHelper.handleDioError(dioError: e, endpointName: "get Countries");
-//     }
-//   }
-//
-//
+
+
 //
 //   @override
 //   Future<CitiesList> getCities(CitiesAuthModel citiesAuthModel) async {
@@ -243,3 +254,4 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 //     }
 //   }
 // }
+}

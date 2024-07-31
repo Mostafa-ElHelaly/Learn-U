@@ -25,7 +25,7 @@ abstract class StringManager {
 
   static const education = 'Education';
   static const birthdate = 'Birthdate';
-  static const countryId = 'Country ID';
+  static const country = 'Country';
 
   static const licensed = 'Licensed';
   static const type = 'Type';

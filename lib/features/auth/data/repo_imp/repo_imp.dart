@@ -4,7 +4,9 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/utils/api_helper.dart';
 import '../../domain/repo/base_repo.dart';
+import '../../domain/use_cases/get_countries_uc.dart';
 import '../data_source/remotly_data_source.dart';
+import '../model/CountriesModel.dart';
 
 class RepositoryImp extends BaseRepository {
   final BaseRemotelyDataSource baseRemotelyDataSource;
@@ -29,7 +31,7 @@ class RepositoryImp extends BaseRepository {
       LoginModel authModel) async {
     try {
       final result =
-          await baseRemotelyDataSource.loginWithEmailAndPassword(authModel);
+      await baseRemotelyDataSource.loginWithEmailAndPassword(authModel);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -41,7 +43,7 @@ class RepositoryImp extends BaseRepository {
       LoginModel resetPasswordModel) async {
     try {
       final result =
-          await baseRemotelyDataSource.forgetpassword(resetPasswordModel);
+      await baseRemotelyDataSource.forgetPassword(resetPasswordModel);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -58,15 +60,17 @@ class RepositoryImp extends BaseRepository {
 //   }
 // }
 
-// @override
-// Future<Either<CountriesList, Failure>> getCountries() async {
-//   try {
-//     final result = await baseRemotelyDataSource.getCountries();
-//     return Left(result);
-//   } on Exception catch (e) {
-//     return right(DioHelper.buildFailure(e));
-//   }
-// }
+
+  @override
+  Future<Either<CountriesList, Failure>> getCountries() async {
+    try {
+      final result = await baseRemotelyDataSource.getCountries();
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
 
 // @override
 // Future<Either<CitiesList, Failure>> getCities(CitiesAuthModel citiesAuthModel) async {
@@ -77,4 +81,5 @@ class RepositoryImp extends BaseRepository {
 //     return right(DioHelper.buildFailure(e));
 //   }
 // }
+
 }

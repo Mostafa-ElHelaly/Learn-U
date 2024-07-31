@@ -4,7 +4,7 @@ import 'package:Learn_U/features/auth/presentation/login_screen.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_event.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_state.dart';
-import 'package:country_code_picker/country_code_picker.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
@@ -16,6 +16,11 @@ import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../data/model/CountriesModel.dart';
+import '../../manager/get_countries_manager/get_countries_bloc.dart';
+import '../../manager/get_countries_manager/get_countries_event.dart';
+import '../../manager/get_countries_manager/get_countries_state.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -35,6 +40,7 @@ class _CreateAccountState extends State<CreateAccount> {
   TextEditingController birthdateController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  CountriesModel? selectedValue;
 
   @override
   void initState() {
@@ -48,6 +54,8 @@ class _CreateAccountState extends State<CreateAccount> {
     confirmPasswordController = TextEditingController();
     mobileController = TextEditingController();
     birthdateController = TextEditingController();
+    BlocProvider.of<GetCountries>(context).add(GetCountriesEvent());
+
     super.initState();
   }
 
@@ -70,7 +78,6 @@ class _CreateAccountState extends State<CreateAccount> {
   final ImagePicker picker = ImagePicker();
   XFile? image;
 
-  String? selectedValue;
   bool isVisible = true;
   bool isVisible1 = true;
   final List<String> items = [
@@ -212,7 +219,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   height: ConfigSize.defaultSize! * 2,
                 ),
                 Text(
-                  StringManager.countryId.tr(),
+                  StringManager.country.tr(),
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -221,21 +228,63 @@ class _CreateAccountState extends State<CreateAccount> {
                 SizedBox(
                   height: ConfigSize.defaultSize! - 5,
                 ),
-                CustomTextField(
-                  suffix: CountryCodePicker(
-                    onChanged: (code) {
-                      setState(() {
-                        countryIdController.text = code.name.toString();
-                      });
-                    },
-                    initialSelection: 'EG',
-                    showFlag: true,
-                    showFlagDialog: true,
-                    showCountryOnly: true,
-                    showOnlyCountryWhenClosed: true,
-                  ),
-                  controller: countryIdController,
-                  inputType: TextInputType.emailAddress,
+                BlocBuilder<GetCountries, GetCountriesState>(
+                  builder: (context, state) {
+                    if (state is GetCountriesSuccessMessageState) {
+                      return Center(
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2<CountriesModel>(
+                            isExpanded: true,
+                            hint: Text(
+                              'Select Country',
+                              style: TextStyle(
+                                fontSize: ConfigSize.defaultSize! * 1.4,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).hintColor,
+                              ),
+                            ),
+                            items: state.successMessage.countriesModel!
+                                .map(
+                                  (CountriesModel item) =>
+                                  DropdownMenuItem<CountriesModel>(
+                                    value: item,
+                                    child: Text(
+                                      item.name??"",
+                                      style: TextStyle(
+                                        fontSize: ConfigSize.defaultSize! * 1.6,
+                                      ),
+                                    ),
+                                  ),
+                            ).toList(),
+                            value: selectedValue,
+                            onChanged: (CountriesModel? value) {
+                              setState(() {
+                                selectedValue = value;
+                              });
+                            },
+                            buttonStyleData: ButtonStyleData(
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                                color: Colors.white,
+                                border: Border.all(
+                                    color: Colors.grey.shade300, width: 1),
+                              ),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: ConfigSize.defaultSize! * 1.6),
+                              height: ConfigSize.defaultSize! * 5.5,
+                              width: ConfigSize.screenWidth,
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(

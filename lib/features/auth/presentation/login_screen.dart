@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state is LoginSuccessState) {
           Navigator.pushNamedAndRemoveUntil(
-              context, Routes.homeScreen, (route) => false);
+              context, Routes.mainScreen, (route) => false);
         } else if (state is LoginErrorState) {
           errorSnackBar(context, state.errorMessage);
         } else if (state is LoginLoadingState) {}
