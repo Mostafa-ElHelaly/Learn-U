@@ -3,11 +3,12 @@ import 'package:Learn_U/features/auth/presentation/component/forget_password/for
 import 'package:dartz/dartz.dart';
 
 import '../../../../core/error/failure.dart';
+import '../../data/model/countries_model.dart';
 
 abstract class BaseRepository {
   Future<Either<Unit, Failure>> registerWithEmailAndPassword(
       LoginModel registerAuthModel);
-
   Future<Either<Unit, Failure>> loginWithEmailAndPassword(LoginModel authModel);
   Future<Either<Unit, Failure>> forgetpassword(LoginModel resetPasswordModel);
+  Future<Either<List<CountriesModel>, Failure>> getcountries();
 }

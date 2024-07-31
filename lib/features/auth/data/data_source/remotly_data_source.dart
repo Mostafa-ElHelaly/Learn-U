@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -19,7 +21,7 @@ abstract class BaseRemotelyDataSource {
 // Future<LoginModel> signupWithEmailAndPassword(SignupAuthModel signupAuthModel);
 
 // Future<CitiesList> getCities(CitiesAuthModel citiesAuthModel);
-// Future<CountriesList> getCountries();
+  Future<List<CountriesModel>> getCountries();
 }
 
 class AuthRemotelyDateSource extends BaseRemotelyDataSource {
@@ -127,8 +129,34 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
           dioError: e, endpointName: "RegisterWithEmailAndPassword");
     }
   }
-}
 
+  @override
+  Future<List<CountriesModel>> getCountries() async {
+    Dio dio = Dio();
+    dio.interceptors.add(LogInterceptor(responseBody: true));
+
+    try {
+      Response response = await dio.get(ConstantApi.countries);
+
+      if (response.statusCode == 200) {
+        // Parse the JSON response
+        final Map<String, dynamic> jsonResponse = response.data;
+        final List<dynamic> countriesJson = jsonResponse['data']['countries'];
+
+        // Convert JSON list to List<CountriesModel>
+        List<CountriesModel> countries = countriesJson.map((json) {
+          return CountriesModel.fromJson(json);
+        }).toList();
+
+        return countries;
+      } else {
+        throw Exception('Getting Countries Failed: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching countries: $e');
+    }
+  }
+}
 // class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 //   @override
 //   Future<LoginModel> loginWithEmailAndPassword(AuthModel authModel) async {

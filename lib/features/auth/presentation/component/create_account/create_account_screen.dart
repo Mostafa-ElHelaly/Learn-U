@@ -1,10 +1,12 @@
 import 'package:Learn_U/core/resource_manger/routs_manager.dart';
 import 'package:Learn_U/core/widgets/snack_bar.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';
+import 'package:Learn_U/features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_event.dart';
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_state.dart';
-import 'package:country_code_picker/country_code_picker.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
@@ -13,10 +15,12 @@ import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/widgets/custom_text_field.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
-import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../manager/countries_bloc/countries_event.dart';
+import '../../manager/countries_bloc/countries_state.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -51,6 +55,7 @@ class _CreateAccountState extends State<CreateAccount> {
     mobileController = TextEditingController();
     birthdateController = TextEditingController();
     _focusNode = FocusNode();
+    BlocProvider.of<CountriesBloc>(context).add(GetallcountriesEvent());
 
     // Disable focus
     _focusNode.addListener(() {
@@ -58,6 +63,7 @@ class _CreateAccountState extends State<CreateAccount> {
         _focusNode.unfocus();
       }
     });
+
     super.initState();
     super.initState();
   }
@@ -123,15 +129,17 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<RegisterBloc, RegisterState>(
-      listener: (context, state) {
-        if (state is RegisterSuccessState) {
-          Navigator.pushNamedAndRemoveUntil(
-              context, Routes.login, (route) => false);
-        } else if (state is RegisterErrorState) {
-          errorSnackBar(context, state.errorMessage);
-        } else if (state is RegisterLoadingState) {}
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<RegisterBloc, RegisterState>(listener: (context, state) {
+          if (state is RegisterSuccessState) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, Routes.login, (route) => false);
+          } else if (state is RegisterErrorState) {
+            errorSnackBar(context, state.errorMessage);
+          } else if (state is RegisterLoadingState) {}
+        }),
+      ],
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -233,22 +241,54 @@ class _CreateAccountState extends State<CreateAccount> {
                 SizedBox(
                   height: ConfigSize.defaultSize! - 5,
                 ),
-                CustomTextField(
-                  suffix: CountryCodePicker(
-                    onChanged: (code) {
-                      setState(() {
-                        countryIdController.text = code.name.toString();
-                      });
-                    },
-                    initialSelection: 'EG',
-                    showFlag: true,
-                    showFlagDialog: true,
-                    showCountryOnly: true,
-                    showOnlyCountryWhenClosed: true,
-                  ),
-                  controller: countryIdController,
-                  inputType: TextInputType.emailAddress,
-                ),
+                BlocBuilder<CountriesBloc, CountriesState>(
+                    builder: (context, state) {
+                  if (state is CountriesSuccessState) {
+                    return Center(
+                      child: DropdownButton2<String>(
+                        isDense: true,
+                        isExpanded: true,
+                        hint: Text(StringManager.countryId),
+                        items: state.countries.map((country) {
+                          return DropdownMenuItem<String>(
+                            value: country.id, // Ensure value is not null
+                            child: Text(
+                              country.name!.toUpperCase() ?? 'Unknown',
+                              style: TextStyle(
+                                  fontSize: ConfigSize.defaultSize! * 1.6,
+                                  fontWeight: FontWeight.bold,
+                                  color: ColorManager.mainColor),
+                            ),
+                          );
+                        }).toList(),
+                        value: selectedValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            selectedValue = value;
+                          });
+                        },
+                        buttonStyleData: ButtonStyleData(
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(12)),
+                            color: Colors.white,
+                            border: Border.all(
+                                color: Colors.grey.shade300, width: 1),
+                          ),
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                            height: 40,
+                            padding: EdgeInsets.symmetric(horizontal: 10)),
+                      ),
+                    );
+                  } else if (state is CountriesErrorState) {
+                    return Text('error');
+                  } else {
+                    return CircularProgressIndicator(
+                      color: ColorManager.mainColor,
+                    );
+                  }
+                }),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
                   StringManager.education.tr(),
@@ -385,7 +425,7 @@ class _CreateAccountState extends State<CreateAccount> {
                           email: emailController.text,
                           password: passwordController.text,
                           mobile: mobileController.text,
-                          country_id: countryIdController.text.toLowerCase(),
+                          country_id: selectedValue!,
                           education: educationController.text,
                         ));
                       } else {
