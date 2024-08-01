@@ -1,6 +1,5 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/features/home/presentation/home_screen.dart';
-import 'package:Learn_U/main_screen.dart';
+import 'package:Learn_U/features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import 'package:Learn_U/welcome_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +8,6 @@ import 'package:Learn_U/core/service/navigation_service.dart';
 import 'package:Learn_U/core/service/service_locator.dart';
 import 'package:Learn_U/core/translations/codegen_loader.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
-import 'package:Learn_U/features/auth/presentation/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -49,6 +47,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<RegisterBloc>()),
           BlocProvider(create: (context) => getIt<LoginBloc>()),
           BlocProvider(create: (context) => getIt<ForgetPasswordBloc>()),
+          BlocProvider(create: (context) => getIt<OtpEmailBloc>()),
           BlocProvider(create: (context) => getIt<CountriesBloc>()),
         ],
         child: MaterialApp(

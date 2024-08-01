@@ -15,6 +15,7 @@ abstract class BaseRemotelyDataSource {
 
   Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
   Future<Unit> forgetpassword(LoginModel resetPasswordModel);
+  Future<Unit> otpemail(LoginModel resetPasswordModel);
 
 // Future<AuthWithGoogleModel> sigInWithGoogle();
 
@@ -154,6 +155,35 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
       }
     } catch (e) {
       throw Exception('Error fetching countries: $e');
+    }
+  }
+
+  @override
+  Future<Unit> otpemail(LoginModel otpemailModel) async {
+    final body = {
+      "email": otpemailModel.email,
+    };
+
+    try {
+      print("---------------");
+      final response = await Dio().post(
+        ConstantApi.otpemail,
+        data: body,
+        options: Options(
+          headers: {
+            'Content-Type': Headers.formUrlEncodedContentType,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print('Otp Token Sent Succesfully');
+        return Future.value(unit);
+      } else {
+        throw Exception('Otp Token Sent Failed');
+      }
+    } on DioException catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "RegisterWithEmailAndPassword");
     }
   }
 }

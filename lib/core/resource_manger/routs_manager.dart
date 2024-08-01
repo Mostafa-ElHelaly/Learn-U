@@ -1,3 +1,4 @@
+import 'package:Learn_U/features/auth/presentation/component/forget_password/otp_screen.dart';
 import 'package:Learn_U/features/home/presentation/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';

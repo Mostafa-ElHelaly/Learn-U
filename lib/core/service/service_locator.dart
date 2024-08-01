@@ -7,10 +7,12 @@ import '../../features/auth/domain/repo/base_repo.dart';
 import '../../features/auth/domain/use_cases/countries_uc.dart';
 import '../../features/auth/domain/use_cases/forget_pass_uc.dart';
 import '../../features/auth/domain/use_cases/login_uc.dart';
+import '../../features/auth/domain/use_cases/otp_email_uc.dart';
 import '../../features/auth/domain/use_cases/register_uc.dart';
 import '../../features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
 import '../../features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
 import '../../features/auth/presentation/manager/login_bloc/login_bloc.dart';
+import '../../features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import '../../features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 
 final getIt = GetIt.instance;
@@ -31,6 +33,9 @@ class ServerLocator {
           CountriesUseCase: getIt(),
         ));
 
+    getIt.registerLazySingleton(() => OtpEmailBloc(
+          OtpEmailUseCase: getIt(),
+        ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));
@@ -38,6 +43,7 @@ class ServerLocator {
         () => ForgetPasswordUseCase(baseRepository: getIt()));
     getIt
         .registerLazySingleton(() => CountriesUsecase(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => OtpEmailUsecase(baseRepository: getIt()));
 
     //Remote Date
     getIt.registerLazySingleton<BaseRemotelyDataSource>(

@@ -1,13 +1,12 @@
-import 'package:Learn_U/core/resource_manger/routs_manager.dart';
 import 'package:Learn_U/core/widgets/snack_bar.dart';
+import 'package:Learn_U/features/auth/presentation/component/forget_password/otp_screen.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';
 import 'package:Learn_U/features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
-import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
-import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_event.dart';
-import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_state.dart';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
@@ -127,370 +126,379 @@ class _CreateAccountState extends State<CreateAccount> {
 
   late ValueNotifier<String?> ganderController = ValueNotifier<String?>(null);
 
+  static EmailOTP sendotp = EmailOTP();
+
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<RegisterBloc, RegisterState>(listener: (context, state) {
-          if (state is RegisterSuccessState) {
-            Navigator.pushNamedAndRemoveUntil(
-                context, Routes.login, (route) => false);
-          } else if (state is RegisterErrorState) {
-            errorSnackBar(context, state.errorMessage);
-          } else if (state is RegisterLoadingState) {}
-        }),
-      ],
-      child: Scaffold(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: ColorManager.mainColor,
-            ),
-          ),
-          centerTitle: true,
-          title: Text(
-            StringManager.signUpWithUs.tr(),
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: ConfigSize.defaultSize! * 2,
-            ),
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: ColorManager.mainColor,
           ),
         ),
-        body: Padding(
-          padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: ConfigSize.defaultSize! * 2,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      AssetsPath.logo,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! * 5,
-                ),
-                Text(
-                  StringManager.firstName.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
+        centerTitle: true,
+        title: Text(
+          StringManager.signUpWithUs.tr(),
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: ConfigSize.defaultSize! * 2,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(ConfigSize.defaultSize! * 1.5),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: ConfigSize.defaultSize! * 2,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    AssetsPath.logo,
                   ),
+                ],
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! * 5,
+              ),
+              Text(
+                StringManager.firstName.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: firstNameController,
+                inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.middleName.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                CustomTextField(
-                  controller: firstNameController,
-                  inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: middleNameController,
+                inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.lastName.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.middleName.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: lastNameController,
+                inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! * 2,
+              ),
+              Text(
+                StringManager.countryId.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
-                ),
-                CustomTextField(
-                  controller: middleNameController,
-                  inputType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.lastName.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
-                ),
-                CustomTextField(
-                  controller: lastNameController,
-                  inputType: TextInputType.emailAddress,
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! * 2,
-                ),
-                Text(
-                  StringManager.countryId.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
-                ),
-                BlocBuilder<CountriesBloc, CountriesState>(
-                    builder: (context, state) {
-                  if (state is CountriesSuccessState) {
-                    return Center(
-                      child: DropdownButton2<String>(
-                        isDense: true,
-                        isExpanded: true,
-                        hint: Text(StringManager.countryId),
-                        items: state.countries.map((country) {
-                          return DropdownMenuItem<String>(
-                            value: country.id, // Ensure value is not null
-                            child: Text(
-                              country.name!.toUpperCase() ?? 'Unknown',
-                              style: TextStyle(
-                                  fontSize: ConfigSize.defaultSize! * 1.6,
-                                  fontWeight: FontWeight.bold,
-                                  color: ColorManager.mainColor),
-                            ),
-                          );
-                        }).toList(),
-                        value: selectedValue,
-                        onChanged: (String? value) {
-                          setState(() {
-                            selectedValue = value;
-                          });
-                        },
-                        buttonStyleData: ButtonStyleData(
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(12)),
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Colors.grey.shade300, width: 1),
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              BlocBuilder<CountriesBloc, CountriesState>(
+                  builder: (context, state) {
+                if (state is CountriesSuccessState) {
+                  return Center(
+                    child: DropdownButton2<String>(
+                      isDense: true,
+                      isExpanded: true,
+                      hint: Text(StringManager.countryId),
+                      items: state.countries.map((country) {
+                        return DropdownMenuItem<String>(
+                          value: country.id, // Ensure value is not null
+                          child: Text(
+                            country.name!.toUpperCase() ?? 'Unknown',
+                            style: TextStyle(
+                                fontSize: ConfigSize.defaultSize! * 1.6,
+                                fontWeight: FontWeight.bold,
+                                color: ColorManager.mainColor),
                           ),
+                        );
+                      }).toList(),
+                      value: selectedValue,
+                      onChanged: (String? value) {
+                        setState(() {
+                          selectedValue = value;
+                        });
+                      },
+                      buttonStyleData: ButtonStyleData(
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(12)),
+                          color: Colors.white,
+                          border:
+                              Border.all(color: Colors.grey.shade300, width: 1),
                         ),
-                        menuItemStyleData: const MenuItemStyleData(
-                            height: 40,
-                            padding: EdgeInsets.symmetric(horizontal: 10)),
                       ),
-                    );
-                  } else if (state is CountriesErrorState) {
-                    return Text('error');
-                  } else {
-                    return CircularProgressIndicator(
-                      color: ColorManager.mainColor,
-                    );
-                  }
-                }),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.education.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
+                      menuItemStyleData: const MenuItemStyleData(
+                          height: 40,
+                          padding: EdgeInsets.symmetric(horizontal: 10)),
+                    ),
+                  );
+                } else if (state is CountriesErrorState) {
+                  return Text('error');
+                } else {
+                  return CircularProgressIndicator(
+                    color: ColorManager.mainColor,
+                  );
+                }
+              }),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.education.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: educationController,
+                inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.email.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                CustomTextField(
-                  controller: educationController,
-                  inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: emailController,
+                inputType: TextInputType.emailAddress,
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.phone.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.email.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: mobileController,
+                inputType: TextInputType.phone,
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.birthdate.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                focusNode: _focusNode,
+                controller: birthdateController,
+                inputType: TextInputType.none,
+                suffix: IconButton(
+                    onPressed: () {
+                      _selectDate(context);
+                    },
+                    icon: const Icon(Icons.calendar_today)),
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.password.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                CustomTextField(
-                  controller: emailController,
-                  inputType: TextInputType.emailAddress,
-                ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.phone.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
-                ),
-                CustomTextField(
-                  controller: mobileController,
-                  inputType: TextInputType.phone,
-                ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.birthdate.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
-                ),
-                CustomTextField(
-                  focusNode: _focusNode,
-                  controller: birthdateController,
-                  inputType: TextInputType.none,
-                  suffix: IconButton(
-                      onPressed: () {
-                        _selectDate(context);
-                      },
-                      icon: const Icon(Icons.calendar_today)),
-                ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.password.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
-                ),
-                CustomTextField(
-                  controller: passwordController,
-                  inputType: TextInputType.text,
-                  obscureText: isVisible1,
-                  suffix: InkWell(
-                      onTap: () {
-                        {
-                          isVisible1 = !isVisible1;
-                        }
-                        setState(() {});
-                      },
-                      child: Icon(isVisible1
-                          ? Icons.visibility_off_outlined
-                          : Icons.remove_red_eye_outlined)),
-                ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Text(
-                  StringManager.confirmPassword.tr(),
-                  style: TextStyle(
-                    fontSize: ConfigSize.defaultSize! * 1.6,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! - 5,
-                ),
-                CustomTextField(
-                  controller: confirmPasswordController,
-                  inputType: TextInputType.text,
-                  obscureText: isVisible,
-                  suffix: InkWell(
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: passwordController,
+                inputType: TextInputType.text,
+                obscureText: isVisible1,
+                suffix: InkWell(
                     onTap: () {
                       {
-                        isVisible = !isVisible;
+                        isVisible1 = !isVisible1;
                       }
                       setState(() {});
                     },
-                    child: Icon(isVisible
+                    child: Icon(isVisible1
                         ? Icons.visibility_off_outlined
-                        : Icons.remove_red_eye_outlined),
-                  ),
+                        : Icons.remove_red_eye_outlined)),
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Text(
+                StringManager.confirmPassword.tr(),
+                style: TextStyle(
+                  fontSize: ConfigSize.defaultSize! * 1.6,
+                  fontWeight: FontWeight.w600,
                 ),
-                SizedBox(height: ConfigSize.defaultSize! * 2),
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                      vertical: ConfigSize.defaultSize! * 3),
-                  child: MainButton(
-                    onTap: () {
-                      if (passwordController.text ==
-                          confirmPasswordController.text) {
-                        BlocProvider.of<RegisterBloc>(context)
-                            .add(RegisterBlocEvent(
-                          first_name: firstNameController.text,
-                          middle_name: middleNameController.text,
-                          last_name: lastNameController.text,
-                          birthdate: birthdateController.text,
-                          email: emailController.text,
-                          password: passwordController.text,
-                          mobile: mobileController.text,
-                          country_id: selectedValue!,
-                          education: educationController.text,
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! - 5,
+              ),
+              CustomTextField(
+                controller: confirmPasswordController,
+                inputType: TextInputType.text,
+                obscureText: isVisible,
+                suffix: InkWell(
+                  onTap: () {
+                    {
+                      isVisible = !isVisible;
+                    }
+                    setState(() {});
+                  },
+                  child: Icon(isVisible
+                      ? Icons.visibility_off_outlined
+                      : Icons.remove_red_eye_outlined),
+                ),
+              ),
+              SizedBox(height: ConfigSize.defaultSize! * 2),
+              Padding(
+                padding:
+                    EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 3),
+                child: MainButton(
+                  onTap: () async {
+                    if (passwordController.text ==
+                        confirmPasswordController.text) {
+                      await EmailOTP.config(
+                          appEmail: emailController.text,
+                          appName: 'Email Otp',
+                          otpLength: 6,
+                          otpType: OTPType.numeric);
+
+                      if (await EmailOTP.sendOTP(email: emailController.text) ==
+                          true) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("OTP has been sent"),
                         ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OtpScreen(
+                                    first_name: firstNameController.text,
+                                    middle_name: middleNameController.text,
+                                    last_name: lastNameController.text,
+                                    birthdate: birthdateController.text,
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    mobile: mobileController.text,
+                                    country_id: selectedValue!,
+                                    education: educationController.text)));
                       } else {
-                        errorSnackBar(context,
-                            'Confirm Password doesn\'t match the password');
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text("Oops, OTP send failed"),
+                        ));
                       }
-                    },
-                    title: StringManager.next.tr(),
+                    } else {
+                      errorSnackBar(context,
+                          'Confirm Password doesn\'t match the password');
+                    }
+                  },
+                  title: StringManager.next.tr(),
+                ),
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! * 3,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    StringManager.alreadyHaveAnAccount.tr(),
+                    style: TextStyle(
+                      color: ColorManager.kPrimaryBlueDark,
+                      fontWeight: FontWeight.bold,
+                      fontSize: ConfigSize.defaultSize! * 2,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: ConfigSize.defaultSize! * 3,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      StringManager.alreadyHaveAnAccount.tr(),
-                      style: TextStyle(
-                        color: ColorManager.kPrimaryBlueDark,
-                        fontWeight: FontWeight.bold,
-                        fontSize: ConfigSize.defaultSize! * 2,
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        PersistentNavBarNavigator.pushNewScreen(
-                          context,
-                          screen: const LoginScreen(),
-                          withNavBar: false,
-                          pageTransitionAnimation: PageTransitionAnimation.fade,
-                        );
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 2,
-                            ),
-                          ],
-                          color: ColorManager.lightGray2,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: ConfigSize.defaultSize! * 1.5,
-                            horizontal: ConfigSize.defaultSize! * 3,
+                  InkWell(
+                    onTap: () {
+                      PersistentNavBarNavigator.pushNewScreen(
+                        context,
+                        screen: const LoginScreen(),
+                        withNavBar: false,
+                        pageTransitionAnimation: PageTransitionAnimation.fade,
+                      );
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            spreadRadius: 1,
+                            blurRadius: 2,
                           ),
-                          child: Text(
-                            StringManager.login.tr(),
-                            style: TextStyle(
-                              color: ColorManager.kPrimaryBlueDark,
-                              fontWeight: FontWeight.bold,
-                              fontSize: ConfigSize.defaultSize! * 2,
-                            ),
+                        ],
+                        color: ColorManager.lightGray2,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: ConfigSize.defaultSize! * 1.5,
+                          horizontal: ConfigSize.defaultSize! * 3,
+                        ),
+                        child: Text(
+                          StringManager.login.tr(),
+                          style: TextStyle(
+                            color: ColorManager.kPrimaryBlueDark,
+                            fontWeight: FontWeight.bold,
+                            fontSize: ConfigSize.defaultSize! * 2,
                           ),
                         ),
                       ),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

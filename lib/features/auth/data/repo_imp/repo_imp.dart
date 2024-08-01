@@ -59,6 +59,16 @@ class RepositoryImp extends BaseRepository {
     }
   }
 
+  @override
+  Future<Either<Unit, Failure>> otpemail(LoginModel otpemailModel) async {
+    try {
+      final result = await baseRemotelyDataSource.otpemail(otpemailModel);
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
 // @override
 // Future<Either<LoginModel, Failure>> signupWithEmailAndPassword(SignupAuthModel signupAuthModel) async {
 //   try {

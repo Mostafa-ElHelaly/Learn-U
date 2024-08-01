@@ -6,4 +6,6 @@ class ConstantApi {
   static const String login = "$baseUrl/client/access/login";
   static const String forgetpassword = "$baseUrl/client/access/forget";
   static const String countries = "$baseUrl/public/deps/countries";
+  static const String users = "$baseUrl/admin/clients/get";
+  static const String otpemail = "$baseUrl/client/access/otpmail";
 }
