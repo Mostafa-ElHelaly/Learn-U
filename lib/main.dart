@@ -10,7 +10,9 @@ import 'package:Learn_U/core/translations/codegen_loader.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import 'core/service/translation_login_userdata_provider.dart';
 import 'features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
 import 'features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
 import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
@@ -42,13 +44,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
-    return MultiBlocProvider(
+    return MultiProvider(
         providers: [
           BlocProvider(create: (context) => getIt<RegisterBloc>()),
           BlocProvider(create: (context) => getIt<LoginBloc>()),
           BlocProvider(create: (context) => getIt<ForgetPasswordBloc>()),
           BlocProvider(create: (context) => getIt<OtpEmailBloc>()),
           BlocProvider(create: (context) => getIt<CountriesBloc>()),
+          ChangeNotifierProvider(
+              create: (context) => TranslationLoginUserDataProvider()),
         ],
         child: MaterialApp(
           title: 'Be sure!',
