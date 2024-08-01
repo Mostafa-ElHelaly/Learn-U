@@ -38,10 +38,16 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state is LoginSuccessState) {
           Navigator.pushNamedAndRemoveUntil(
-              context, Routes.homeScreen, (route) => false);
+              context, Routes.mainscreen, (route) => false);
         } else if (state is LoginErrorState) {
           errorSnackBar(context, state.errorMessage);
-        } else if (state is LoginLoadingState) {}
+        } else if (state is LoginLoadingState) {
+          Center(
+            child: CircularProgressIndicator(
+              color: ColorManager.mainColor,
+            ),
+          );
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -103,7 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? Icons.visibility_off_outlined
                             : Icons.remove_red_eye_outlined)),
                   ),
-
                   SizedBox(
                     height: ConfigSize.defaultSize! * 1,
                   ),

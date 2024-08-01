@@ -29,8 +29,8 @@ class _MainScreenState extends State<MainScreen> {
     return [
       const HomeScreen(),
       const SearchPage(),
-      const CategoriesPage(),
       const MyCoursesPage(),
+      const CategoriesPage(),
       const ProfileScreen(),
     ];
   }

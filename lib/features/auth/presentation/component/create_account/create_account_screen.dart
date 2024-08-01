@@ -88,11 +88,15 @@ class _CreateAccountState extends State<CreateAccount> {
   XFile? image;
 
   String? selectedValue;
+  String? selectedEducation;
   bool isVisible = true;
   bool isVisible1 = true;
-  final List<String> items = [
-    'Male',
-    'Female',
+  final List<String> education = [
+    'Student',
+    'Graduate',
+    'Post Graduate',
+    'Masters',
+    'Phd',
   ];
   DateTime selectedDate = DateTime.now();
 
@@ -265,10 +269,14 @@ class _CreateAccountState extends State<CreateAccount> {
                           border:
                               Border.all(color: Colors.grey.shade300, width: 1),
                         ),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: ConfigSize.defaultSize! * 1.6),
+                        height: ConfigSize.defaultSize! * 5.5,
+                        width: ConfigSize.screenWidth,
                       ),
                       menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                          padding: EdgeInsets.symmetric(horizontal: 10)),
+                        height: 40,
+                      ),
                     ),
                   );
                 } else if (state is CountriesErrorState) {
@@ -290,9 +298,46 @@ class _CreateAccountState extends State<CreateAccount> {
               SizedBox(
                 height: ConfigSize.defaultSize! - 5,
               ),
-              CustomTextField(
-                controller: educationController,
-                inputType: TextInputType.emailAddress,
+              DropdownButton2<String>(
+                isExpanded: true,
+                hint: Text(
+                  StringManager.education,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Theme.of(context).hintColor,
+                  ),
+                ),
+                items: education
+                    .map((String education) => DropdownMenuItem<String>(
+                          value: education,
+                          child: Text(
+                            education,
+                            style: const TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                        ))
+                    .toList(),
+                value: selectedEducation,
+                onChanged: (String? value) {
+                  setState(() {
+                    selectedEducation = value;
+                  });
+                },
+                buttonStyleData: ButtonStyleData(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    color: Colors.white,
+                    border: Border.all(color: Colors.grey.shade300, width: 1),
+                  ),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: ConfigSize.defaultSize! * 1.6),
+                  height: ConfigSize.defaultSize! * 5.5,
+                  width: ConfigSize.screenWidth,
+                ),
+                menuItemStyleData: const MenuItemStyleData(
+                  height: 40,
+                ),
               ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               Text(
@@ -430,7 +475,8 @@ class _CreateAccountState extends State<CreateAccount> {
                                     password: passwordController.text,
                                     mobile: mobileController.text,
                                     country_id: selectedValue!,
-                                    education: educationController.text)));
+                                    education:
+                                        selectedEducation!.toLowerCase())));
                       } else {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(

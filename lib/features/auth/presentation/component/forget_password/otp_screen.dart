@@ -61,7 +61,13 @@ class _OtpScreenState extends State<OtpScreen> {
               context, Routes.login, (route) => false);
         } else if (state is RegisterErrorState) {
           errorSnackBar(context, state.errorMessage);
-        } else if (state is RegisterLoadingState) {}
+        } else if (state is RegisterLoadingState) {
+          Center(
+            child: CircularProgressIndicator(
+              color: ColorManager.mainColor,
+            ),
+          );
+        }
       },
       child: Scaffold(
         backgroundColor: Colors.white,
