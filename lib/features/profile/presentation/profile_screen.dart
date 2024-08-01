@@ -1,10 +1,17 @@
+import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
+import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/profile/profile_bloc.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/profile/profile_event.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/profile/profile_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
 import 'component/edit_my_profile/edit_my_profile_screen.dart';
 
@@ -16,6 +23,12 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    BlocProvider.of<ProfileBloc>(context).add(GetallUsersEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,12 +71,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        "Yehia Mostafa",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: ConfigSize.defaultSize! * 1.7,
-                        ),
+                      Consumer<TranslationLoginUserDataProvider>(
+                        builder: (context, user, child) {
+                          return BlocBuilder<ProfileBloc, UsersState>(
+                            builder: (context, state) {
+                              if (state is UsersSuccessState) {
+                                return Provider.value(
+                                    value: user.current_user_email,
+                                    child: Text(
+                                      state.users
+                                          .where((element) =>
+                                              element.email! ==
+                                              user.current_user_email)
+                                          .toList()[0]
+                                          .email!,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: ConfigSize.defaultSize! * 1.2,
+                                      ),
+                                    ));
+                              } else if (state is UsersErrorState) {
+                                return Text('error');
+                              } else {
+                                return CircularProgressIndicator(
+                                  color: ColorManager.mainColor,
+                                );
+                              }
+                            },
+                          );
+                        },
                       ),
                       SizedBox(
                         height: ConfigSize.defaultSize! * .5,

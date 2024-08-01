@@ -12,6 +12,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ConfigSize().init(context);
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

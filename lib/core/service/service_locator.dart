@@ -1,3 +1,4 @@
+import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
 import 'package:get_it/get_it.dart';
 import 'package:Learn_U/core/service/navigation_service.dart';
 
@@ -14,6 +15,10 @@ import '../../features/auth/presentation/manager/forget_password_bloc/forget_pas
 import '../../features/auth/presentation/manager/login_bloc/login_bloc.dart';
 import '../../features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import '../../features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
+import '../../features/profile/data/repo_impl/repo_impl.dart';
+import '../../features/profile/domain/repo/base_repo.dart';
+import '../../features/profile/domain/use_cases/profile_uc.dart';
+import '../../features/profile/presentation/component/manager/profile/profile_bloc.dart';
 
 final getIt = GetIt.instance;
 
@@ -36,6 +41,9 @@ class ServerLocator {
     getIt.registerLazySingleton(() => OtpEmailBloc(
           OtpEmailUseCase: getIt(),
         ));
+    getIt.registerLazySingleton(() => ProfileBloc(
+          ProfileUseCase: getIt(),
+        ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));
@@ -44,14 +52,19 @@ class ServerLocator {
     getIt
         .registerLazySingleton(() => CountriesUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => OtpEmailUsecase(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => ProfileUsecase(baseRepository: getIt()));
 
     //Remote Date
     getIt.registerLazySingleton<BaseRemotelyDataSource>(
         () => AuthRemotelyDateSource());
+    getIt.registerLazySingleton<BaseProfileRemotelyDataSource>(
+        () => ProfileRemotelyDateSource());
 
     //Repository Implementation
     getIt.registerLazySingleton<BaseRepository>(
         () => RepositoryImp(baseRemotelyDataSource: getIt()));
+    getIt.registerLazySingleton<ProfileBaseRepository>(
+        () => ProfileRepositoryImp(baseRemotelyDataSource: getIt()));
 
     // navigation service
     getIt.registerLazySingleton(() => NavigationService());

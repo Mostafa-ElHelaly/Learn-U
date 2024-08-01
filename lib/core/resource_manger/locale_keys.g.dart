@@ -1,7 +1,7 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
 import 'package:Learn_U/features/courses/presentation/my_polcies_screen.dart';
-import 'package:Learn_U/features/home/presentation/component/Categories/Categories_Page.dart';
+import 'package:Learn_U/features/category/presentation/Categories_Page.dart';
 
 abstract class StringManager {
   static const annualLimit = 'Annual limit';

@@ -1,5 +1,6 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/profile/profile_bloc.dart';
 import 'package:Learn_U/welcome_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/service/translation_login_userdata_provider.dart';
 import 'features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
@@ -22,6 +24,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await ServerLocator().init();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final user_email = prefs.getString("user_email") ?? 'false';
 
   runApp(
     EasyLocalization(
@@ -32,14 +36,16 @@ void main() async {
       ],
       assetLoader: const CodegenLoader(),
       path: 'lib/core/translations/',
-      child: const MyApp(),
+      child: MyApp(
+        user_email: user_email,
+      ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  MyApp({super.key, required this.user_email});
+  final String user_email;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -51,8 +57,10 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ForgetPasswordBloc>()),
           BlocProvider(create: (context) => getIt<OtpEmailBloc>()),
           BlocProvider(create: (context) => getIt<CountriesBloc>()),
+          BlocProvider(create: (context) => getIt<ProfileBloc>()),
           ChangeNotifierProvider(
-              create: (context) => TranslationLoginUserDataProvider()),
+              create: (context) =>
+                  TranslationLoginUserDataProvider(user_email)),
         ],
         child: MaterialApp(
           title: 'Be sure!',
