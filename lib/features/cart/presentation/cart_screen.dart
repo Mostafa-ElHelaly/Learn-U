@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 
-import 'widgets/notification_item.dart';
+import 'widgets/cart_item.dart';
 
-class Category extends StatefulWidget {
-  const Category({super.key});
+class Cart extends StatefulWidget {
+  const Cart({super.key});
 
   @override
-  State<Category> createState() => _CategoryState();
+  State<Cart> createState() => _CartState();
 }
 
-class _CategoryState extends State<Category> {
+class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

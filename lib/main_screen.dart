@@ -78,12 +78,12 @@ class _MainScreenState extends State<MainScreen> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(
-          Icons.category,
+          Icons.shopping_cart,
           color: ColorManager.kPrimaryBlueDark,
           size: 40,
         ),
         inactiveIcon: const Icon(
-          Icons.category,
+          Icons.shopping_cart,
           size: 20,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
