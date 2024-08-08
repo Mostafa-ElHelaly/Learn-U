@@ -1,4 +1,4 @@
-import 'package:Learn_U/features/category/presentation/notification_screen.dart';
+import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -118,7 +118,7 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen: const Category(),
+                              screen: const Cart(),
                               withNavBar: true,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,

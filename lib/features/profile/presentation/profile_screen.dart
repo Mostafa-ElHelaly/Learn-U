@@ -34,98 +34,68 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: Padding(
         padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
-        child: Column(
+        child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            InkWell(
-              onTap: () {
-                PersistentNavBarNavigator.pushNewScreen(
-                  context,
-                  screen: const EditMyProfileScreen(),
-                  withNavBar: true, // OPTIONAL VALUE. True by default.
-                  pageTransitionAnimation: PageTransitionAnimation.fade,
-                );
-              },
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage:
-                        const AssetImage("assets/images/home_img.png"),
-                    radius: ConfigSize.defaultSize! * 2.8,
-                  ),
-                  SizedBox(
-                    width: ConfigSize.defaultSize! * 2,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+            Column(
+              children: [
+                InkWell(
+                  onTap: () {
+                    PersistentNavBarNavigator.pushNewScreen(
+                      context,
+                      screen: const EditMyProfileScreen(),
+                      withNavBar: true, // OPTIONAL VALUE. True by default.
+                      pageTransitionAnimation: PageTransitionAnimation.fade,
+                    );
+                  },
+                  child: Row(
                     children: [
-                      Text(
-                        "Yehia Mostafa",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: ConfigSize.defaultSize! * 1.7,
-                        ),
+
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Yehia Mostafa",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: ConfigSize.defaultSize! * 1.7,
+                            ),
+                          ),
+                          SizedBox(
+                            height: ConfigSize.defaultSize! * .5,
+                          ),
+                          Text(
+                            StringManager.editMyProfile.tr(),
+                          ),
+                        ],
                       ),
-                      SizedBox(
-                        height: ConfigSize.defaultSize! * .5,
-                      ),
-                      Text(
-                        StringManager.editMyProfile.tr(),
+                      const Spacer(),
+
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        color: Colors.grey,
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.arrow_forward_ios,
+                ),
+                SizedBox(
+                  height: ConfigSize.defaultSize! * 2,
+                ),
+                Padding(
+                  padding:
+                  EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 2),
+                  child: Container(
+                    width: ConfigSize.screenHeight!,
+                    height: 1,
                     color: Colors.grey,
                   ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: ConfigSize.defaultSize! * 4,
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 2),
-              child: Container(
-                width: ConfigSize.screenHeight!,
-                height: 1,
-                color: Colors.grey,
-              ),
-            ),
-            SizedBox(
-              height: ConfigSize.defaultSize! * 4,
-            ),
-            InkWell(
-              onTap: () {
-                PersistentNavBarNavigator.pushNewScreen(
-                  context,
-                  screen: const EditMyProfileScreen(),
-                  withNavBar: false,
-                  pageTransitionAnimation: PageTransitionAnimation.fade,
-                );
-              },
-              child: Container(
-                width: ConfigSize.screenWidth!,
-                height: ConfigSize.defaultSize! * 5,
-                decoration: BoxDecoration(
-                  color: ColorManager.mainColor,
-                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      StringManager.editMyProfile.tr(),
-                      style: TextStyle(
-                          color: ColorManager.whiteColor,
-                          fontSize: ConfigSize.defaultSize! * 1.7,
-                          fontWeight: FontWeight.w800),
-                    ),
-                  ],
-                ),
-              ),
+
+              ],
             ),
+
+
+
+
             SizedBox(
               height: ConfigSize.defaultSize! * 2,
             ),
@@ -142,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: ConfigSize.screenWidth!,
                 height: ConfigSize.defaultSize! * 5,
                 decoration: BoxDecoration(
-                  color: ColorManager.gray,
+                  color: ColorManager.kPrimaryBlueDark,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -151,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Text(
                       StringManager.logOut.tr(),
                       style: TextStyle(
-                          color: ColorManager.kPrimaryBlueDark,
+                          color: ColorManager.whiteColor,
                           fontSize: ConfigSize.defaultSize! * 1.8,
                           fontWeight: FontWeight.bold),
                     ),
