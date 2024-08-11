@@ -6,6 +6,10 @@ abstract class BaseUseCase<T, Parameter> {
   Future<Either<T, Failure>> call(Parameter parameter);
 }
 
+abstract class SecondBaseUseCase<T> {
+  Future<Either<T, Failure>> call();
+}
+
 class Noparamiter extends Equatable {
   const Noparamiter();
 

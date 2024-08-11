@@ -1,5 +1,5 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/features/home/presentation/component/Categories/Categories_Page.dart';
+import 'package:Learn_U/features/category/presentation/Categories_Page.dart';
 import 'package:Learn_U/features/home/presentation/component/Courses/Courses_Page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +29,8 @@ class _MainScreenState extends State<MainScreen> {
     return [
       const HomeScreen(),
       const SearchPage(),
-      const CategoriesPage(),
       const MyCoursesPage(),
+      const CategoriesPage(),
       const ProfileScreen(),
     ];
   }

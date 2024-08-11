@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
@@ -5,24 +9,20 @@ import 'package:dio/dio.dart';
 import '../../../../core/error/failures_strings.dart';
 import '../../../../core/utils/api_helper.dart';
 import '../../../../core/utils/constant_api.dart';
-import '../../domain/use_cases/get_countries_uc.dart';
-import '../model/CountriesModel.dart';
 
 abstract class BaseRemotelyDataSource {
   Future<Unit> registerWithEmailAndPassword(LoginModel registerAuthModel);
 
   Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
-
-  Future<Unit> forgetPassword(LoginModel resetPasswordModel);
-
-  Future<CountriesList> getCountries();
-
+  Future<Unit> forgetpassword(LoginModel resetPasswordModel);
+  Future<Unit> otpemail(LoginModel resetPasswordModel);
 
 // Future<AuthWithGoogleModel> sigInWithGoogle();
 
 // Future<LoginModel> signupWithEmailAndPassword(SignupAuthModel signupAuthModel);
 
 // Future<CitiesList> getCities(CitiesAuthModel citiesAuthModel);
+  Future<List<CountriesModel>> getCountries();
 }
 
 class AuthRemotelyDateSource extends BaseRemotelyDataSource {
@@ -103,7 +103,7 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
   }
 
   @override
-  Future<Unit> forgetPassword(LoginModel resetPasswordModel) async {
+  Future<Unit> forgetpassword(LoginModel resetPasswordModel) async {
     final body = {
       "email": resetPasswordModel.email,
     };
@@ -131,127 +131,59 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
     }
   }
 
-
   @override
-  Future<CountriesList> getCountries() async {
-    try {
-      final response = await Dio().get(
-        ConstantApi.countries,
-      );
-      // if (response.statusCode != 200) {
-      //   print('Reset Password Succesfully');
-      //   return response.data;
-      // } else {
-      //   throw Exception('Reset Password Failed');
-      // }
+  Future<List<CountriesModel>> getCountries() async {
+    Dio dio = Dio();
+    dio.interceptors.add(LogInterceptor(responseBody: true));
 
-      CountriesList authModelResponse = CountriesList.fromJson(response.data);
-      return authModelResponse;
-    } on DioException catch (e) {
-      throw DioHelper.handleDioError(
-          dioError: e, endpointName: "get Countries");
+    try {
+      Response response = await dio.get(ConstantApi.countries);
+
+      if (response.statusCode == 200) {
+        // Parse the JSON response
+        final Map<String, dynamic> jsonResponse = response.data;
+        final List<dynamic> countriesJson = jsonResponse['data']['countries'];
+
+        // Convert JSON list to List<CountriesModel>
+        List<CountriesModel> countries = countriesJson.map((json) {
+          return CountriesModel.fromJson(json);
+        }).toList();
+
+        return countries;
+      } else {
+        throw Exception('Getting Countries Failed: ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching countries: $e');
     }
   }
 
+  @override
+  Future<Unit> otpemail(LoginModel otpemailModel) async {
+    final body = {
+      "email": otpemailModel.email,
+    };
 
-// class AuthRemotelyDateSource extends BaseRemotelyDataSource {
-//   @override
-//   Future<LoginModel> loginWithEmailAndPassword(AuthModel authModel) async {
-//     final body = {"email": authModel.email, "password": authModel.password};
-//
-//     try {
-//       final response = await Dio().post(
-//         ConstantApi.login,
-//         data: body,
-//       );
-//       Map<String, dynamic> jsonData = response.data;
-//
-//       LoginModel authModelResponse = LoginModel.fromJson(jsonData);
-//
-//       Methods.instance.saveUserToken(authToken: authModelResponse.token);
-//       return authModelResponse;
-//     } on DioException catch (e) {
-//       throw DioHelper.handleDioError(
-//           dioError: e, endpointName: "loginWithEmailAndPassword");
-//     }
-//   }
-//
-//   @override
-//   Future<AuthWithGoogleModel> sigInWithGoogle() async {
-//     final GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['email']);
-//
-//     Future<GoogleSignInAccount?> login() => googleSignIn.signIn();
-//
-//     final userModel = await login();
-//
-//     if (userModel == null) {
-//       throw SignInGoogleException();
-//     } else {
-//       final body = {
-//         "email": userModel.email,
-//         "googleID": userModel.id,
-//       };
-//       try {
-//         final response = await Dio().post(
-//           ConstantApi.googleRegister,
-//           data: body,
-//         );
-//
-//         Map<String, dynamic> resultData = response.data;
-//
-//         MyDataModel userData = MyDataModel.fromMap(resultData);
-//
-//         Methods.instance.saveUserToken(authToken: resultData['token']);
-//
-//         return AuthWithGoogleModel(apiUserData: userData, userData: userModel);
-//       } on DioException catch (e) {
-//         throw DioHelper.handleDioError(
-//             dioError: e, endpointName: "sigInWithGoogle");
-//       }
-//     }
-//   }
-//
-//   @override
-//   Future<LoginModel> signupWithEmailAndPassword(
-//       SignupAuthModel signupAuthModel) async {
-//     final body = {
-//       "email": signupAuthModel.email,
-//       "password": signupAuthModel.password
-//     };
-//
-//     try {
-//       final response = await Dio().post(
-//         ConstantApi.signup,
-//         data: body,
-//       );
-//       Map<String, dynamic> jsonData = response.data;
-//
-//       LoginModel authModelResponse = LoginModel.fromJson(jsonData);
-//
-//       Methods.instance.saveUserToken(authToken: authModelResponse.token);
-//       return authModelResponse;
-//     } on DioException catch (e) {
-//       throw DioHelper.handleDioError(
-//           dioError: e, endpointName: "SignupWithEmailAndPassword");
-//     }
-//   }
-//
-
-
-//
-//   @override
-//   Future<CitiesList> getCities(CitiesAuthModel citiesAuthModel) async {
-//
-//     try {
-//       final response = await Dio().get(
-//         ConstantApi.cities(citiesAuthModel.id),
-//       );
-//
-//       CitiesList authModelResponse = CitiesList.fromJson(response.data);
-//       return authModelResponse;
-//     } on DioException catch (e) {
-//       throw DioHelper.handleDioError(dioError: e, endpointName: "get Cities");
-//     }
-//   }
-// }
+    try {
+      print("---------------");
+      final response = await Dio().post(
+        ConstantApi.otpemail,
+        data: body,
+        options: Options(
+          headers: {
+            'Content-Type': Headers.formUrlEncodedContentType,
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print('Otp Token Sent Succesfully');
+        return Future.value(unit);
+      } else {
+        throw Exception('Otp Token Sent Failed');
+      }
+    } on DioException catch (e) {
+      throw DioHelper.handleDioError(
+          dioError: e, endpointName: "RegisterWithEmailAndPassword");
+    }
+  }
 }

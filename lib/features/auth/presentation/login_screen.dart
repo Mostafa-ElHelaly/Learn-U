@@ -1,3 +1,4 @@
+import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
@@ -11,6 +12,7 @@ import 'package:Learn_U/features/auth/presentation/component/forget_password/for
 import 'package:Learn_U/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/resource_manger/routs_manager.dart';
 import '../../../core/widgets/snack_bar.dart';
@@ -38,10 +40,16 @@ class _LoginScreenState extends State<LoginScreen> {
       listener: (context, state) {
         if (state is LoginSuccessState) {
           Navigator.pushNamedAndRemoveUntil(
-              context, Routes.mainScreen, (route) => false);
+              context, Routes.mainscreen, (route) => false);
         } else if (state is LoginErrorState) {
           errorSnackBar(context, state.errorMessage);
-        } else if (state is LoginLoadingState) {}
+        } else if (state is LoginLoadingState) {
+          Center(
+            child: CircularProgressIndicator(
+              color: ColorManager.mainColor,
+            ),
+          );
+        }
       },
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -103,7 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? Icons.visibility_off_outlined
                             : Icons.remove_red_eye_outlined)),
                   ),
-
                   SizedBox(
                     height: ConfigSize.defaultSize! * 1,
                   ),
@@ -132,26 +139,31 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: ConfigSize.defaultSize! * 3),
-                    child: MainButton(
-                      color: ColorManager.kPrimaryBlueDark,
-                      textColor: ColorManager.whiteColor,
-                      onTap: () {
-                        if (validation()) {
-                          BlocProvider.of<LoginBloc>(context).add(
-                            LoginEvent(
-                              email: emailController.text,
-                              password: passwordController.text,
-                            ),
+                      padding: EdgeInsets.symmetric(
+                          vertical: ConfigSize.defaultSize! * 3),
+                      child: Consumer<TranslationLoginUserDataProvider>(
+                        builder: (context, user, child) {
+                          return MainButton(
+                            color: ColorManager.kPrimaryBlueDark,
+                            textColor: ColorManager.whiteColor,
+                            onTap: () {
+                              if (validation()) {
+                                user.save_email(emailController.text);
+                                BlocProvider.of<LoginBloc>(context).add(
+                                  LoginEvent(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  ),
+                                );
+                              } else {
+                                errorSnackBar(
+                                    context, StringManager.errorFillFields);
+                              }
+                            },
+                            title: StringManager.login.tr(),
                           );
-                        } else {
-                          errorSnackBar(context, StringManager.errorFillFields);
-                        }
-                      },
-                      title: StringManager.login.tr(),
-                    ),
-                  ),
+                        },
+                      )),
                 ],
               ),
             ),

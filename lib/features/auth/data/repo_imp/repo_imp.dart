@@ -1,4 +1,5 @@
 import 'package:Learn_U/core/error/failure.dart';
+import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -44,6 +45,26 @@ class RepositoryImp extends BaseRepository {
     try {
       final result =
       await baseRemotelyDataSource.forgetPassword(resetPasswordModel);
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<List<CountriesModel>, Failure>> getcountries() async {
+    try {
+      final result = await baseRemotelyDataSource.getCountries();
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<Unit, Failure>> otpemail(LoginModel otpemailModel) async {
+    try {
+      final result = await baseRemotelyDataSource.otpemail(otpemailModel);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
