@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
-
+// kfjkdfjdkfjdfkfjdfd
 import 'package:Learn_U/features/courses/presentation/my_polcies_screen.dart';
 import 'package:Learn_U/features/category/presentation/Categories_Page.dart';
 
