@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TranslationLoginUserDataProvider with ChangeNotifier {
   TranslationLoginUserDataProvider(String email) {
     current_user_email = email;
+    //ffddffddffd
   }
   String current_user_email = 'none';
   void save_email(String email) async {
