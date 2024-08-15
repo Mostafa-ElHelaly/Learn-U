@@ -22,7 +22,7 @@ abstract class StringManager {
   static const search = 'Search';
   static const courses = 'Courses';
   static const categories = 'Categories';
-  static const myCourses = 'My bla';
+  static const myCourses = 'My blabla';
 
   static const education = 'Education';
   static const birthdate = 'Birthdate';
