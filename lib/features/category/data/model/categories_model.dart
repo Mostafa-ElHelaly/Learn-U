@@ -1,4 +1,4 @@
-class Categories {
+class CategoriesModel {
   int? id;
   String? slug;
   String? slugAr;
@@ -13,7 +13,7 @@ class Categories {
   String? addstamp;
   String? updatestamp;
 
-  Categories({
+  CategoriesModel({
     this.id,
     this.slug,
     this.slugAr,
@@ -29,7 +29,7 @@ class Categories {
     this.updatestamp,
   });
 
-  Categories.fromJson(Map<String, dynamic> json) {
+  CategoriesModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     slug = json['slug'];
     slugAr = json['slug_ar'];

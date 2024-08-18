@@ -4,12 +4,12 @@ import 'package:dio/dio.dart';
 import '../../../../core/utils/constant_api.dart';
 
 abstract class BaseCategoriesRemotelyDataSource {
-  Future<List<Categories>> getCategories();
+  Future<List<CategoriesModel>> getCategories();
 }
 
-class CategoriesRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
+class CategoryRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
   @override
-  Future<List<Categories>> getCategories() async {
+  Future<List<CategoriesModel>> getCategories() async {
     Dio dio = Dio();
     dio.interceptors.add(LogInterceptor(responseBody: true));
 
@@ -18,12 +18,12 @@ class CategoriesRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonResponse = response.data;
-        final List<dynamic> usersJson = jsonResponse['data'];
-        List<Categories> users = usersJson.map((json) {
-          return Categories.fromJson(json);
+        final List<dynamic> categoriesJson = jsonResponse['data'];
+        List<CategoriesModel> categories = categoriesJson.map((json) {
+          return CategoriesModel.fromJson(json);
         }).toList();
 
-        return users;
+        return categories;
       } else {
         throw Exception('Getting Countries Failed: ${response.statusCode}');
       }
