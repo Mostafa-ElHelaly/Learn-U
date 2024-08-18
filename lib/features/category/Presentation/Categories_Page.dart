@@ -3,10 +3,9 @@ import 'package:Learn_U/features/home/presentation/component/view_all_page/view_
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../core/resource_manger/color_manager.dart';
-import '../../../core/resource_manger/locale_keys.g.dart';
-import '../../../core/utils/config_size.dart';
-import '../data/data_source/remotley_data_source.dart';
+import '../../../../../core/resource_manger/color_manager.dart';
+import '../../../../../core/resource_manger/locale_keys.g.dart';
+import '../../../../../core/utils/config_size.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({super.key});
@@ -40,20 +39,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FutureBuilder(
-                future: CategoriesRemotelyDateSource().getCategories(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(snapshot.data![1].name.toString());
-                  } else if (snapshot.hasError) {
-                    return Image.network(snapshot.data![0].thumbnail.toString(),
-                        height: 20);
-                  }
-                  return const CircularProgressIndicator(
-                    color: ColorManager.mainColor,
-                  );
-                },
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -82,7 +67,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: 2,
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -105,15 +90,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             child: Container(
                               height: ConfigSize.defaultSize! * 15,
                               width: ConfigSize.defaultSize! * 15,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          'assets/images/Group 8@1x.png'),
+                                          'assets/images/test111.jpg'),
                                       fit: BoxFit.fill)),
                             ),
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 1),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('2h'),
@@ -155,7 +140,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 itemCount: 2,
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -178,15 +163,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             child: Container(
                               height: ConfigSize.defaultSize! * 15,
                               width: ConfigSize.defaultSize! * 15,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          'assets/images/Group 8@1x.png'),
+                                          'assets/images/test111.jpg'),
                                       fit: BoxFit.fill)),
                             ),
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 1),
-                          const Row(
+                          Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('2h'),

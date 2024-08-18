@@ -62,14 +62,14 @@ class WelcomeScreen extends StatelessWidget {
             // Spacer(
             //   flex: 1,
             // ),
-            Container(
+            SizedBox(
               height: ConfigSize.defaultSize! * 10,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   TextButton(
                       style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
+                        foregroundColor: WidgetStateProperty.all<Color>(
                             ColorManager.whiteColor), // Text color
                       ),
                       onPressed: () {
@@ -80,14 +80,14 @@ class WelcomeScreen extends StatelessWidget {
                           pageTransitionAnimation: PageTransitionAnimation.fade,
                         );
                       },
-                      child: const Text('Sign Up')),
+                      child: const Text('LogIn')),
                   // VerticalDivider(
                   //   color: ColorManager.whiteColor,
                   //   thickness: 2,
                   // ),
                   TextButton(
                       style: ButtonStyle(
-                        foregroundColor: MaterialStateProperty.all<Color>(
+                        foregroundColor: WidgetStateProperty.all<Color>(
                             ColorManager.whiteColor), // Text color
                       ),
                       onPressed: () {

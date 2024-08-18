@@ -1,4 +1,5 @@
-import 'package:Learn_U/features/category/presentation/notification_screen.dart';
+import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
+import 'package:Learn_U/features_browse/home/presentation/component/Widgets/Categories_Widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -118,7 +119,7 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen: const Category(),
+                              screen: const Cart(),
                               withNavBar: true,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,
@@ -149,21 +150,21 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Programming',
                               image: "assets/images/Group 8@1x.png",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Engineering',
                               image: "assets/images/Group 8@1x.png",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Personal Development',
                               image: "assets/images/Group 8@1x.png",
                             ),
@@ -239,84 +240,6 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LatestCourses extends StatelessWidget {
-  const LatestCourses(
-      {super.key,
-      required this.courseName,
-      required this.image,
-      required this.courseHours,
-      required this.courseLevel});
-
-  final String courseName;
-  final String image;
-  final String courseHours;
-  final String courseLevel;
-
-  @override
-  Widget build(BuildContext context) {
-    TextStyle style = const TextStyle(color: ColorManager.whiteColor);
-    return Container(
-      height: ConfigSize.defaultSize! * 15,
-      width: ConfigSize.defaultSize! * 15,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.fill,
-              filterQuality: FilterQuality.high)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            courseName,
-            style: style,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                courseHours,
-                style: style,
-              ),
-              Text(
-                courseLevel,
-                style: style,
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key, required this.text1, required this.image});
-
-  final String text1;
-  final String image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: ConfigSize.defaultSize! * 15,
-      width: ConfigSize.defaultSize! * 15,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.fill,
-              filterQuality: FilterQuality.high)),
-      child: Column(
-        children: [
-          Center(
-            child: Text(text1),
-          ),
-        ],
       ),
     );
   }

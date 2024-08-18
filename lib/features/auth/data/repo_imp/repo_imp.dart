@@ -5,7 +5,9 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../core/utils/api_helper.dart';
 import '../../domain/repo/base_repo.dart';
+import '../../domain/use_cases/get_countries_uc.dart';
 import '../data_source/remotly_data_source.dart';
+import '../model/CountriesModel.dart';
 
 class RepositoryImp extends BaseRepository {
   final BaseRemotelyDataSource baseRemotelyDataSource;
@@ -60,7 +62,8 @@ class RepositoryImp extends BaseRepository {
   }
 
   @override
-  Future<Either<Unit, Failure>> otpemail(LoginModel otpemailModel) async {
+  Future<Either<Map<String, dynamic>, Failure>> otpemail(
+      LoginModel otpemailModel) async {
     try {
       final result = await baseRemotelyDataSource.otpemail(otpemailModel);
       return Left(result);
@@ -73,16 +76,6 @@ class RepositoryImp extends BaseRepository {
 // Future<Either<LoginModel, Failure>> signupWithEmailAndPassword(SignupAuthModel signupAuthModel) async {
 //   try {
 //     final result = await baseRemotelyDataSource.signupWithEmailAndPassword(signupAuthModel);
-//     return Left(result);
-//   } on Exception catch (e) {
-//     return right(DioHelper.buildFailure(e));
-//   }
-// }
-
-// @override
-// Future<Either<CountriesList, Failure>> getCountries() async {
-//   try {
-//     final result = await baseRemotelyDataSource.getCountries();
 //     return Left(result);
 //   } on Exception catch (e) {
 //     return right(DioHelper.buildFailure(e));

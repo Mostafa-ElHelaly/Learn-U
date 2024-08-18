@@ -1,11 +1,11 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/features/category/presentation/Categories_Page.dart';
-import 'package:Learn_U/features/home/presentation/component/Courses/Courses_Page.dart';
+import 'package:Learn_U/features/courses/presentation/Courses_Page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import 'features/home/presentation/component/Search_Page/Search_Page.dart';
+import 'features/Search_Page/Search_Page.dart';
+import 'features/category/presentation/Categories_Page.dart';
 import 'features/home/presentation/home_screen.dart';
 import 'features/profile/presentation/profile_screen.dart';
 
@@ -78,12 +78,12 @@ class _MainScreenState extends State<MainScreen> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(
-          Icons.category,
+          Icons.shopping_cart,
           color: ColorManager.kPrimaryBlueDark,
           size: 40,
         ),
         inactiveIcon: const Icon(
-          Icons.category,
+          Icons.shopping_cart,
           size: 20,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,

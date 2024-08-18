@@ -28,7 +28,8 @@ class OtpScreen extends StatefulWidget {
       required this.password,
       required this.mobile,
       required this.country_id,
-      required this.education});
+      required this.education,
+      required this.token});
   final String first_name;
   final String middle_name;
   final String last_name;
@@ -38,6 +39,7 @@ class OtpScreen extends StatefulWidget {
   final String mobile;
   final String country_id;
   final String education;
+  final int token;
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -160,11 +162,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 padding:
                     EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 3),
                 child: MainButton(
-                  onTap: () async {
-                    if (await EmailOTP.verifyOTP(
-                          otp: pinController.text,
-                        ) ==
-                        true) {
+                  onTap: () {
+                    print(widget.token.toString());
+                    print(pinController.text);
+                    if (pinController.text == widget.token.toString()) {
                       BlocProvider.of<RegisterBloc>(context)
                           .add(RegisterBlocEvent(
                         first_name: widget.first_name,
@@ -177,7 +178,6 @@ class _OtpScreenState extends State<OtpScreen> {
                         country_id: widget.country_id,
                         education: widget.education,
                       ));
-                      successSnackBar(context, "OTP is verified");
                     } else {
                       errorSnackBar(context, 'Invalid OTP');
                     }

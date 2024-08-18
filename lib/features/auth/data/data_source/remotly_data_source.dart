@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:Learn_U/features/auth/data/model/CountriesModel.dart';
 import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
@@ -15,7 +16,7 @@ abstract class BaseRemotelyDataSource {
 
   Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
   Future<Unit> forgetpassword(LoginModel resetPasswordModel);
-  Future<Unit> otpemail(LoginModel resetPasswordModel);
+  Future<Map<String, dynamic>> otpemail(LoginModel resetPasswordModel);
 
 // Future<AuthWithGoogleModel> sigInWithGoogle();
 
@@ -52,25 +53,21 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
     print(body['birthdate']);
 
     try {
-      print("---------------");
       final response = await Dio().post(
         ConstantApi.register,
-        data: body,
+        data: FormData.fromMap(body),
         options: Options(
           headers: {
             'Content-Type': Headers.formUrlEncodedContentType,
           },
         ),
       );
-      print("----${response.toString()}-----------");
-      // log(response.data ?? '');
-      if (response.statusCode == 200) {
-        print('Registered Succesfully');
-        return Future.value(unit);
+      Map<String, dynamic> jsonData = response.data;
+      if (jsonData['status'] == 200) {
+        return Future.value(unit); // Return response data
       } else {
-        throw Exception('Register Failed');
+        throw Exception('Login failed with status code ${jsonData['error']}');
       }
-
       // Methods.instance.saveUserToken(authToken: authModelResponse.passwordToken);
     } on DioException catch (e) {
       throw DioHelper.handleDioError(
@@ -90,11 +87,12 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
         ConstantApi.login,
         data: FormData.fromMap(body),
       );
-      if (response.statusCode == 200) {
-        print('reset password success');
-        return Future.value(unit);
+
+      Map<String, dynamic> jsonData = response.data;
+      if (jsonData['status'] == 200) {
+        return Future.value(unit); // Return response data
       } else {
-        throw Exception(Strings.resetPasswordFailed);
+        throw Exception('Login failed with status code ${jsonData['error']}');
       }
     } on DioException catch (e) {
       throw DioHelper.handleDioError(
@@ -135,7 +133,6 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
   Future<List<CountriesModel>> getCountries() async {
     Dio dio = Dio();
     dio.interceptors.add(LogInterceptor(responseBody: true));
-
     try {
       Response response = await dio.get(ConstantApi.countries);
 
@@ -159,7 +156,7 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
   }
 
   @override
-  Future<Unit> otpemail(LoginModel otpemailModel) async {
+  Future<Map<String, dynamic>> otpemail(LoginModel otpemailModel) async {
     final body = {
       "email": otpemailModel.email,
     };
@@ -175,11 +172,11 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
           },
         ),
       );
-      if (response.statusCode == 200) {
-        print('Otp Token Sent Succesfully');
-        return Future.value(unit);
+      Map<String, dynamic> jsonData = response.data;
+      if (jsonData['status'] == 200) {
+        return jsonData; // Return response data
       } else {
-        throw Exception('Otp Token Sent Failed');
+        throw Exception('Login failed with status code ${jsonData['error']}');
       }
     } on DioException catch (e) {
       throw DioHelper.handleDioError(

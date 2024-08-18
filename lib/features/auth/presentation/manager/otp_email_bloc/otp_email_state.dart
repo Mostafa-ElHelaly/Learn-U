@@ -22,7 +22,7 @@ final class OtpEmailErrorState extends OtpEmailState {
 }
 
 final class OtpEmailSuccessState extends OtpEmailState {
-  final Unit OtpEmailModelResponse;
+  final Map<String, dynamic> OtpEmailModelResponse;
 
   const OtpEmailSuccessState({required this.OtpEmailModelResponse});
 }
