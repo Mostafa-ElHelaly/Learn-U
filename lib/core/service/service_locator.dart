@@ -18,7 +18,7 @@ import '../../features/auth/presentation/manager/register_bloc/register_bloc_blo
 import '../../features/profile/data/repo_impl/repo_impl.dart';
 import '../../features/profile/domain/repo/base_repo.dart';
 import '../../features/profile/domain/use_cases/profile_uc.dart';
-import '../../features/profile/presentation/component/manager/profile/profile_bloc.dart';
+import '../../features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
 
 final getIt = GetIt.instance;
 
