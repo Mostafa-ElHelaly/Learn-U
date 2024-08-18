@@ -16,10 +16,8 @@ class GetCountries extends Bloc<GetCountriesEvent, GetCountriesState> {
       emit(const GetCountriesLoadingState());
       final result = await getCountries.call(const Noparamiter());
       result.fold(
-              (l) => emit(GetCountriesSuccessMessageState(
-            successMessage: l,
-          )),
-              (r) => emit(GetCountriesErrorMessageState(
+          (l) => emit(GetCountriesSuccessMessageState(successMessage: l)),
+          (r) => emit(GetCountriesErrorMessageState(
               errorMessage: DioHelper().getTypeOfFailure(r))));
     });
   }

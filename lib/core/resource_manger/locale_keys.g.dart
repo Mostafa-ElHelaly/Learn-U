@@ -1,7 +1,6 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 // kfjkdfjdkfjdfkfjdfd
 import 'package:Learn_U/features/courses/presentation/my_polcies_screen.dart';
-import 'package:Learn_U/features/category/presentation/Categories_Page.dart';
 
 abstract class StringManager {
   static const annualLimit = 'Annual limit';
@@ -27,6 +26,7 @@ abstract class StringManager {
   static const education = 'Education';
   static const birthdate = 'Birthdate';
   static const country = 'Country';
+  static const countryId = 'Country ID';
 
   static const licensed = 'Licensed';
   static const type = 'Type';

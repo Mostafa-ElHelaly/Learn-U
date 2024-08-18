@@ -1,10 +1,10 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/features/category/presentation/Categories_Page.dart';
 import 'package:Learn_U/features/home/presentation/component/Courses/Courses_Page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import 'features/cart/presentation/Categories_Page.dart';
 import 'features/home/presentation/component/Search_Page/Search_Page.dart';
 import 'features/home/presentation/home_screen.dart';
 import 'features/profile/presentation/profile_screen.dart';

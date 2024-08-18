@@ -32,7 +32,7 @@ class RepositoryImp extends BaseRepository {
       LoginModel authModel) async {
     try {
       final result =
-      await baseRemotelyDataSource.loginWithEmailAndPassword(authModel);
+          await baseRemotelyDataSource.loginWithEmailAndPassword(authModel);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -44,7 +44,7 @@ class RepositoryImp extends BaseRepository {
       LoginModel resetPasswordModel) async {
     try {
       final result =
-      await baseRemotelyDataSource.forgetPassword(resetPasswordModel);
+          await baseRemotelyDataSource.forgetpassword(resetPasswordModel);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));
@@ -81,18 +81,6 @@ class RepositoryImp extends BaseRepository {
 //   }
 // }
 
-
-  @override
-  Future<Either<CountriesList, Failure>> getCountries() async {
-    try {
-      final result = await baseRemotelyDataSource.getCountries();
-      return Left(result);
-    } on Exception catch (e) {
-      return right(DioHelper.buildFailure(e));
-    }
-  }
-
-
 // @override
 // Future<Either<CitiesList, Failure>> getCities(CitiesAuthModel citiesAuthModel) async {
 //   try {
@@ -102,5 +90,4 @@ class RepositoryImp extends BaseRepository {
 //     return right(DioHelper.buildFailure(e));
 //   }
 // }
-
 }

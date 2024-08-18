@@ -6,7 +6,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../core/resource_manger/color_manager.dart';
 import '../../../core/resource_manger/locale_keys.g.dart';
 import '../../../core/utils/config_size.dart';
-import '../data/data_source/remotley_data_source.dart';
+import '../../category/data/data_source/remotley_data_source.dart';
 
 class CategoriesPage extends StatefulWidget {
   const CategoriesPage({super.key});

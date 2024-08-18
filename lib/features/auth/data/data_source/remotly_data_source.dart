@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:Learn_U/features/auth/data/model/CountriesModel.dart';
 import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
@@ -90,11 +91,12 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
         ConstantApi.login,
         data: FormData.fromMap(body),
       );
-      if (response.statusCode == 200) {
-        print('reset password success');
-        return Future.value(unit);
+
+      Map<String, dynamic> jsonData = response.data;
+      if (jsonData['status'] == 200) {
+        return Future.value(unit); // Return response data
       } else {
-        throw Exception(Strings.resetPasswordFailed);
+        throw Exception('Login failed with status code ${jsonData['error']}');
       }
     } on DioException catch (e) {
       throw DioHelper.handleDioError(
@@ -140,9 +142,8 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
       Response response = await dio.get(ConstantApi.countries);
 
       if (response.statusCode == 200) {
-        // Parse the JSON response
         final Map<String, dynamic> jsonResponse = response.data;
-        final List<dynamic> countriesJson = jsonResponse['data']['countries'];
+        final List<dynamic> countriesJson = jsonResponse['data']["plans_data"];
 
         // Convert JSON list to List<CountriesModel>
         List<CountriesModel> countries = countriesJson.map((json) {
@@ -151,10 +152,10 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 
         return countries;
       } else {
-        throw Exception('Getting Countries Failed: ${response.statusCode}');
+        throw Exception('Getting Car Data Failed: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error fetching countries: $e');
+      throw Exception('Error fetching Car Data: ${e.toString()}');
     }
   }
 

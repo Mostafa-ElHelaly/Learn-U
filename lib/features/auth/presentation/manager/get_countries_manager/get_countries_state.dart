@@ -1,3 +1,4 @@
+import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../data/model/CountriesModel.dart';
@@ -22,7 +23,7 @@ class GetCountriesErrorMessageState extends GetCountriesState {
 }
 
 class GetCountriesSuccessMessageState extends GetCountriesState {
-  final CountriesList successMessage;
+  final List<CountriesModel> successMessage;
 
   const GetCountriesSuccessMessageState({required this.successMessage});
 }
