@@ -5,13 +5,14 @@ import '../../../../core/base_use_case/base_use_case.dart';
 import '../../../../core/error/failure.dart';
 import '../repo/base_repo.dart';
 
-class OtpEmailUsecase extends BaseUseCase<Unit, LoginModel> {
+class OtpEmailUsecase extends BaseUseCase<Map<String, dynamic>, LoginModel> {
   BaseRepository baseRepository;
 
   OtpEmailUsecase({required this.baseRepository});
 
   @override
-  Future<Either<Unit, Failure>> call(LoginModel parameter) async {
+  Future<Either<Map<String, dynamic>, Failure>> call(
+      LoginModel parameter) async {
     final result = await baseRepository.otpemail(parameter);
 
     return result;

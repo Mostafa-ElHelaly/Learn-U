@@ -1,41 +1,50 @@
 class CountriesModel {
-  String? id;
-  String? iso3;
-  String? name;
-  String? nameNative;
-  String? continents;
-  String? phonecodes;
-  String? currencies;
-  String? languages;
-  String? addstamp;
-  String? updatestamp;
+  String id;
+  String iso3;
+  String name;
+  String nameNative;
+  String continents;
+  String phonecodes;
+  String currencies;
+  String languages;
+  String addstamp;
+  String updatestamp;
 
   CountriesModel({
-    this.id,
-    this.iso3,
-    this.name,
-    this.nameNative,
-    this.continents,
-    this.phonecodes,
-    this.currencies,
-    this.languages,
-    this.addstamp,
-    this.updatestamp,
+    required this.id,
+    required this.iso3,
+    required this.name,
+    required this.nameNative,
+    required this.continents,
+    required this.phonecodes,
+    required this.currencies,
+    required this.languages,
+    required this.addstamp,
+    required this.updatestamp,
   });
 
-  // Parsing the JSON to create a CountriesModel instance
-  factory CountriesModel.fromJson(Map<String, dynamic> json) {
-    return CountriesModel(
-      id: json['id'] as String?,
-      iso3: json['iso3'] as String?,
-      name: json['name'] as String?,
-      nameNative: json['name_native'] as String?,
-      continents: json['continents'] as String?,
-      phonecodes: json['phonecodes'] as String?,
-      currencies: json['currencies'] as String?,
-      languages: json['languages'] as String?,
-      addstamp: json['addstamp'] as String?,
-      updatestamp: json['updatestamp'] as String?,
-    );
-  }
+  factory CountriesModel.fromJson(Map<String, dynamic> json) => CountriesModel(
+        id: json['id'],
+        iso3: json['iso3'] ?? "",
+        name: json['name'] ?? "",
+        nameNative: json['nameNative'] ?? "",
+        continents: json['continents'] ?? "",
+        phonecodes: json['phonecodes'] ?? "",
+        currencies: json['currencies'] ?? "",
+        languages: json['languages'] ?? "",
+        addstamp: json['addstamp'] ?? "",
+        updatestamp: json['updatestamp'] ?? "",
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "iso3": iso3,
+        "name": name,
+        "nameNative": nameNative,
+        "continents": continents,
+        "currencies": currencies,
+        "languages": languages,
+        "addstamp": addstamp,
+        "updatestamp": updatestamp,
+      };
 }

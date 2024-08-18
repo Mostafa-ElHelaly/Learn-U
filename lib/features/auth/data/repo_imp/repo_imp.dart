@@ -62,7 +62,8 @@ class RepositoryImp extends BaseRepository {
   }
 
   @override
-  Future<Either<Unit, Failure>> otpemail(LoginModel otpemailModel) async {
+  Future<Either<Map<String, dynamic>, Failure>> otpemail(
+      LoginModel otpemailModel) async {
     try {
       final result = await baseRemotelyDataSource.otpemail(otpemailModel);
       return Left(result);

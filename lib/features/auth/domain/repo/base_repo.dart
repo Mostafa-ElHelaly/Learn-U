@@ -11,6 +11,7 @@ abstract class BaseRepository {
       LoginModel registerAuthModel);
   Future<Either<Unit, Failure>> loginWithEmailAndPassword(LoginModel authModel);
   Future<Either<Unit, Failure>> forgetpassword(LoginModel resetPasswordModel);
-  Future<Either<Unit, Failure>> otpemail(LoginModel otpemailModel);
+  Future<Either<Map<String, dynamic>, Failure>> otpemail(
+      LoginModel otpemailModel);
   Future<Either<List<CountriesModel>, Failure>> getcountries();
 }

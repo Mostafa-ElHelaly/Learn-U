@@ -8,6 +8,8 @@ import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import 'component/Widgets/Categories_Widget.dart';
+
 class HomeScreenBrowse extends StatefulWidget {
   const HomeScreenBrowse({super.key});
 
@@ -149,21 +151,21 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Programming',
                               image: "assets/images/test111.jpg",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Engineering',
                               image: "assets/images/test111.jpg",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Personal Development',
                               image: "assets/images/test111.jpg",
                             ),
@@ -239,84 +241,6 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LatestCourses extends StatelessWidget {
-  const LatestCourses(
-      {super.key,
-      required this.courseName,
-      required this.image,
-      required this.courseHours,
-      required this.courseLevel});
-
-  final String courseName;
-  final String image;
-  final String courseHours;
-  final String courseLevel;
-
-  @override
-  Widget build(BuildContext context) {
-    TextStyle style = const TextStyle(color: ColorManager.whiteColor);
-    return Container(
-      height: ConfigSize.defaultSize! * 15,
-      width: ConfigSize.defaultSize! * 15,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.fill,
-              filterQuality: FilterQuality.high)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            courseName,
-            style: style,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                courseHours,
-                style: style,
-              ),
-              Text(
-                courseLevel,
-                style: style,
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key, required this.text1, required this.image});
-
-  final String text1;
-  final String image;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: ConfigSize.defaultSize! * 15,
-      width: ConfigSize.defaultSize! * 15,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.fill,
-              filterQuality: FilterQuality.high)),
-      child: Column(
-        children: [
-          Center(
-            child: Text(text1),
-          ),
-        ],
       ),
     );
   }

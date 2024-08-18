@@ -16,7 +16,7 @@ abstract class BaseRemotelyDataSource {
 
   Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
   Future<Unit> forgetpassword(LoginModel resetPasswordModel);
-  Future<Unit> otpemail(LoginModel resetPasswordModel);
+  Future<Map<String, dynamic>> otpemail(LoginModel resetPasswordModel);
 
 // Future<AuthWithGoogleModel> sigInWithGoogle();
 
@@ -63,15 +63,12 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
           },
         ),
       );
-      print("----${response.toString()}-----------");
-      // log(response.data ?? '');
-      if (response.statusCode == 200) {
-        print('Registered Succesfully');
-        return Future.value(unit);
+      Map<String, dynamic> jsonData = response.data;
+      if (jsonData['status'] == 200) {
+        return Future.value(unit); // Return response data
       } else {
-        throw Exception('Register Failed');
+        throw Exception('Login failed with status code ${jsonData['error']}');
       }
-
       // Methods.instance.saveUserToken(authToken: authModelResponse.passwordToken);
     } on DioException catch (e) {
       throw DioHelper.handleDioError(
@@ -137,13 +134,13 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
   Future<List<CountriesModel>> getCountries() async {
     Dio dio = Dio();
     dio.interceptors.add(LogInterceptor(responseBody: true));
-
     try {
       Response response = await dio.get(ConstantApi.countries);
 
       if (response.statusCode == 200) {
+        // Parse the JSON response
         final Map<String, dynamic> jsonResponse = response.data;
-        final List<dynamic> countriesJson = jsonResponse['data']["plans_data"];
+        final List<dynamic> countriesJson = jsonResponse['data']['countries'];
 
         // Convert JSON list to List<CountriesModel>
         List<CountriesModel> countries = countriesJson.map((json) {
@@ -152,15 +149,15 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 
         return countries;
       } else {
-        throw Exception('Getting Car Data Failed: ${response.statusCode}');
+        throw Exception('Getting Countries Failed: ${response.statusCode}');
       }
     } catch (e) {
-      throw Exception('Error fetching Car Data: ${e.toString()}');
+      throw Exception('Error fetching countries: $e');
     }
   }
 
   @override
-  Future<Unit> otpemail(LoginModel otpemailModel) async {
+  Future<Map<String, dynamic>> otpemail(LoginModel otpemailModel) async {
     final body = {
       "email": otpemailModel.email,
     };
@@ -176,11 +173,11 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
           },
         ),
       );
-      if (response.statusCode == 200) {
-        print('Otp Token Sent Succesfully');
-        return Future.value(unit);
+      Map<String, dynamic> jsonData = response.data;
+      if (jsonData['status'] == 200) {
+        return jsonData; // Return response data
       } else {
-        throw Exception('Otp Token Sent Failed');
+        throw Exception('Login failed with status code ${jsonData['error']}');
       }
     } on DioException catch (e) {
       throw DioHelper.handleDioError(
