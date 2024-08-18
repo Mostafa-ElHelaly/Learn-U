@@ -1,4 +1,5 @@
 import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
+import 'package:Learn_U/features/home/presentation/component/Widgets/Categories_Widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,6 +8,8 @@ import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import 'component/Widgets/Courses_Widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -130,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const LatestCourses(
+                          const LatestCoursesWidget(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -139,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          const LatestCourses(
+                          const LatestCoursesWidget(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -148,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          const LatestCourses(
+                          const LatestCoursesWidget(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -157,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          const LatestCourses(
+                          const LatestCoursesWidget(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -166,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          const LatestCourses(
+                          const LatestCoursesWidget(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -240,21 +243,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Programming',
                               image: "assets/images/test111.jpg",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Engineering',
                               image: "assets/images/test111.jpg",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            const CategoryScreen(
+                            const CategoryWidget(
                               text1: 'Personal Development',
                               image: "assets/images/test111.jpg",
                             ),
@@ -268,80 +271,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class LatestCourses extends StatelessWidget {
-  const LatestCourses(
-      {super.key,
-      required this.courseName,
-      required this.image,
-      required this.courseHours,
-      required this.courseLevel});
-  final String courseName;
-  final String image;
-  final String courseHours;
-  final String courseLevel;
-  @override
-  Widget build(BuildContext context) {
-    TextStyle style = const TextStyle(color: ColorManager.whiteColor);
-    return Container(
-      height: ConfigSize.defaultSize! * 15,
-      width: ConfigSize.defaultSize! * 15,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.fill,
-              filterQuality: FilterQuality.high)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            courseName,
-            style: style,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                courseHours,
-                style: style,
-              ),
-              Text(
-                courseLevel,
-                style: style,
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key, required this.text1, required this.image});
-  final String text1;
-  final String image;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: ConfigSize.defaultSize! * 15,
-      width: ConfigSize.defaultSize! * 15,
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.fill,
-              filterQuality: FilterQuality.high)),
-      child: Column(
-        children: [
-          Center(
-            child: Text(text1),
-          ),
-        ],
       ),
     );
   }
