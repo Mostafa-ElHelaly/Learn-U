@@ -49,7 +49,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                     return Image.network(snapshot.data![0].thumbnail.toString(),
                         height: 20);
                   }
-                  return CircularProgressIndicator(
+                  return const CircularProgressIndicator(
                     color: ColorManager.mainColor,
                   );
                 },
@@ -82,7 +82,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 2,
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -105,15 +105,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             child: Container(
                               height: ConfigSize.defaultSize! * 15,
                               width: ConfigSize.defaultSize! * 15,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          'assets/images/test111.jpg'),
+                                          'assets/images/Group 8@1x.png'),
                                       fit: BoxFit.fill)),
                             ),
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 1),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('2h'),
@@ -155,7 +155,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
               ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 2,
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -178,15 +178,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                             child: Container(
                               height: ConfigSize.defaultSize! * 15,
                               width: ConfigSize.defaultSize! * 15,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          'assets/images/test111.jpg'),
+                                          'assets/images/Group 8@1x.png'),
                                       fit: BoxFit.fill)),
                             ),
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 1),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('2h'),

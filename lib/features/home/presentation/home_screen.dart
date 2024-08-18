@@ -132,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
+                            image: "assets/images/Group 8@1x.png",
                             courseHours: '(2H)',
                             courseLevel: 'Mid',
                           ),
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
+                            image: "assets/images/Group 8@1x.png",
                             courseHours: '(2H)',
                             courseLevel: 'Mid',
                           ),
@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
+                            image: "assets/images/Group 8@1x.png",
                             courseHours: '(2H)',
                             courseLevel: 'Mid',
                           ),
@@ -159,7 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
+                            image: "assets/images/Group 8@1x.png",
                             courseHours: '(2H)',
                             courseLevel: 'Mid',
                           ),
@@ -168,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
+                            image: "assets/images/Group 8@1x.png",
                             courseHours: '(2H)',
                             courseLevel: 'Mid',
                           ),
@@ -240,23 +240,23 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            CategoryScreen(
+                            const CategoryScreen(
                               text1: 'Programming',
-                              image: "assets/images/test111.jpg",
+                              image: "assets/images/Group 8@1x.png",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            CategoryScreen(
+                            const CategoryScreen(
                               text1: 'Engineering',
-                              image: "assets/images/test111.jpg",
+                              image: "assets/images/Group 8@1x.png",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            CategoryScreen(
+                            const CategoryScreen(
                               text1: 'Personal Development',
-                              image: "assets/images/test111.jpg",
+                              image: "assets/images/Group 8@1x.png",
                             ),
                           ],
                         ),
@@ -274,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class LatestCourses extends StatelessWidget {
-  LatestCourses(
+  const LatestCourses(
       {super.key,
       required this.courseName,
       required this.image,
@@ -286,7 +286,7 @@ class LatestCourses extends StatelessWidget {
   final String courseLevel;
   @override
   Widget build(BuildContext context) {
-    TextStyle style = TextStyle(color: ColorManager.whiteColor);
+    TextStyle style = const TextStyle(color: ColorManager.whiteColor);
     return Container(
       height: ConfigSize.defaultSize! * 15,
       width: ConfigSize.defaultSize! * 15,
@@ -323,7 +323,7 @@ class LatestCourses extends StatelessWidget {
 }
 
 class CategoryScreen extends StatelessWidget {
-  CategoryScreen({super.key, required this.text1, required this.image});
+  const CategoryScreen({super.key, required this.text1, required this.image});
   final String text1;
   final String image;
   @override

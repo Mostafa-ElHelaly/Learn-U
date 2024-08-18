@@ -151,21 +151,21 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                           children: [
                             const CategoryScreen(
                               text1: 'Programming',
-                              image: "assets/images/test111.jpg",
+                              image: "assets/images/Group 8@1x.png",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
                             const CategoryScreen(
                               text1: 'Engineering',
-                              image: "assets/images/test111.jpg",
+                              image: "assets/images/Group 8@1x.png",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
                             const CategoryScreen(
                               text1: 'Personal Development',
-                              image: "assets/images/test111.jpg",
+                              image: "assets/images/Group 8@1x.png",
                             ),
                           ],
                         ),

@@ -1,7 +1,6 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
-import 'package:Learn_U/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatefulWidget {
@@ -38,10 +37,8 @@ class _SearchPageState extends State<SearchPage> {
   ];
 
   List<String> _filteredItems = [];
-  String _searchQuery = '';
   void _updateSearchQuery(String query) {
     setState(() {
-      _searchQuery = query;
       _filteredItems = _items
           .where((item) => item.toLowerCase().contains(query.toLowerCase()))
           .toList();
@@ -116,7 +113,7 @@ class _SearchPageState extends State<SearchPage> {
                           title: _filteredItems.isEmpty
                               ? _items.contains(searchcontroller.text)
                                   ? Text(_items[index])
-                                  : Center(
+                                  : const Center(
                                       child: Text(
                                       'No Results Found',
                                       style: TextStyle(color: ColorManager.red),
