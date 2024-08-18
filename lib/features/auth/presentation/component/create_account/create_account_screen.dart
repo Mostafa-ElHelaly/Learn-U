@@ -138,8 +138,7 @@ class _CreateAccountState extends State<CreateAccount> {
     return BlocListener<OtpEmailBloc, OtpEmailState>(
       listener: (context, state) {
         if (state is OtpEmailSuccessState) {
-          String token = state.OtpEmailModelResponse['data']['token'];
-
+          int token = state.OtpEmailModelResponse['data']['token'];
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

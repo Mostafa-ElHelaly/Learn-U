@@ -39,7 +39,7 @@ class OtpScreen extends StatefulWidget {
   final String mobile;
   final String country_id;
   final String education;
-  final String token;
+  final int token;
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -163,7 +163,9 @@ class _OtpScreenState extends State<OtpScreen> {
                     EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 3),
                 child: MainButton(
                   onTap: () {
-                    if (pinController.text == widget.token) {
+                    print(widget.token.toString());
+                    print(pinController.text);
+                    if (pinController.text == widget.token.toString()) {
                       BlocProvider.of<RegisterBloc>(context)
                           .add(RegisterBlocEvent(
                         first_name: widget.first_name,

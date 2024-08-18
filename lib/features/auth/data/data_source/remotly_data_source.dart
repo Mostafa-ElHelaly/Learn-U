@@ -53,10 +53,9 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
     print(body['birthdate']);
 
     try {
-      print("---------------");
       final response = await Dio().post(
         ConstantApi.register,
-        data: body,
+        data: FormData.fromMap(body),
         options: Options(
           headers: {
             'Content-Type': Headers.formUrlEncodedContentType,
