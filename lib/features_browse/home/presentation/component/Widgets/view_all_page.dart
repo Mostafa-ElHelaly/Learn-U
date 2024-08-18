@@ -62,7 +62,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          'assets/images/test111.jpg'),
+                                          'assets/images/bg2.png'),
                                       fit: BoxFit.fill)),
                             ),
                           ),
