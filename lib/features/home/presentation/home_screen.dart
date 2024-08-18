@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          LatestCourses(
+                          const LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          LatestCourses(
+                          const LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          LatestCourses(
+                          const LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          LatestCourses(
+                          const LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -166,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             width: ConfigSize.defaultSize! * 1,
                           ),
-                          LatestCourses(
+                          const LatestCourses(
                             courseName: 'Cooling Load Estimation Using HAP 5.1',
                             image: "assets/images/test111.jpg",
                             courseHours: '(2H)',
@@ -240,21 +240,21 @@ class _HomeScreenState extends State<HomeScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            CategoryScreen(
+                            const CategoryScreen(
                               text1: 'Programming',
                               image: "assets/images/test111.jpg",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            CategoryScreen(
+                            const CategoryScreen(
                               text1: 'Engineering',
                               image: "assets/images/test111.jpg",
                             ),
                             SizedBox(
                               width: ConfigSize.defaultSize! * 3,
                             ),
-                            CategoryScreen(
+                            const CategoryScreen(
                               text1: 'Personal Development',
                               image: "assets/images/test111.jpg",
                             ),
