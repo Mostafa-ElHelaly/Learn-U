@@ -13,19 +13,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'core/service/translation_login_userdata_provider.dart';
-import 'features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
-import 'features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
-import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
-import 'features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
+import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
+import 'package:Learn_U/features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/login_bloc/login_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await ServerLocator().init();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final user_email = prefs.getString("user_email") ?? 'false';
+  final userEmail = prefs.getString("user_email") ?? 'false';
 
   runApp(
     EasyLocalization(
@@ -37,15 +36,15 @@ void main() async {
       assetLoader: const CodegenLoader(),
       path: 'lib/core/translations/',
       child: MyApp(
-        user_email: user_email,
+        userEmail: userEmail,
       ),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key, required this.user_email});
-  final String user_email;
+  MyApp({super.key, required this.userEmail});
+  final String userEmail;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
           ChangeNotifierProvider(
               create: (context) =>
-                  TranslationLoginUserDataProvider(user_email)),
+                  TranslationLoginUserDataProvider(userEmail)),
         ],
         child: MaterialApp(
           title: 'Be sure!',
@@ -71,10 +70,10 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
-              textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
+              textStyle: WidgetStateProperty.all<TextStyle>(TextStyle(
                   fontSize: ConfigSize.defaultSize! * 2.5,
                   fontWeight: FontWeight.bold)),
-              foregroundColor: MaterialStateProperty.all<Color>(
+              foregroundColor: WidgetStateProperty.all<Color>(
                   ColorManager.black), // Text color
             )),
             scaffoldBackgroundColor: ColorManager.whiteColor,

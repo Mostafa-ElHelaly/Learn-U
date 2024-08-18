@@ -1,21 +1,18 @@
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
-import 'package:Learn_U/features/auth/presentation/component/forget_password/change_password_screen.dart';
 import 'package:Learn_U/features/auth/presentation/component/forget_password/counter_by_minute.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:pinput/pinput.dart';
 
-import '../../../../../core/resource_manger/routs_manager.dart';
-import '../../../../../core/widgets/snack_bar.dart';
-import '../../manager/register_bloc/register_bloc_event.dart';
-import '../../manager/register_bloc/register_bloc_state.dart';
+import 'package:Learn_U/core/resource_manger/routs_manager.dart';
+import 'package:Learn_U/core/widgets/snack_bar.dart';
+import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_event.dart';
+import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_state.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen(
@@ -64,7 +61,7 @@ class _OtpScreenState extends State<OtpScreen> {
         } else if (state is RegisterErrorState) {
           errorSnackBar(context, state.errorMessage);
         } else if (state is RegisterLoadingState) {
-          Center(
+          const Center(
             child: CircularProgressIndicator(
               color: ColorManager.mainColor,
             ),

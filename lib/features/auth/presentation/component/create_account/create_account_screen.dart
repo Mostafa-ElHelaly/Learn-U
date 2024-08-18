@@ -267,12 +267,12 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: DropdownButton2<String>(
                         isDense: true,
                         isExpanded: true,
-                        hint: Text(StringManager.countryId),
+                        hint: const Text(StringManager.countryId),
                         items: state.countries.map((country) {
                           return DropdownMenuItem<String>(
                             value: country.id, // Ensure value is not null
                             child: Text(
-                              country.name!.toUpperCase() ?? 'Unknown',
+                              country.name.toUpperCase(),
                               style: TextStyle(
                                   fontSize: ConfigSize.defaultSize! * 1.6,
                                   fontWeight: FontWeight.bold,
@@ -307,7 +307,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   } else if (state is CountriesErrorState) {
                     return Text(state.errorMessage);
                   } else {
-                    return CircularProgressIndicator(
+                    return const CircularProgressIndicator(
                       color: ColorManager.mainColor,
                     );
                   }

@@ -5,15 +5,13 @@ import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/widgets/custom_text_field.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
-import 'package:Learn_U/features/auth/presentation/component/forget_password/otp_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../../../core/resource_manger/routs_manager.dart';
-import '../../../../../core/widgets/snack_bar.dart';
-import '../../manager/forget_password_bloc/forget_password_bloc.dart';
-import '../../manager/forget_password_bloc/forget_password_event.dart';
-import '../../manager/forget_password_bloc/forget_password_state.dart';
+import 'package:Learn_U/core/resource_manger/routs_manager.dart';
+import 'package:Learn_U/core/widgets/snack_bar.dart';
+import 'package:Learn_U/features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/forget_password_bloc/forget_password_event.dart';
+import 'package:Learn_U/features/auth/presentation/manager/forget_password_bloc/forget_password_state.dart';
 
 class ForgetPasswordScreen extends StatefulWidget {
   const ForgetPasswordScreen({super.key});
