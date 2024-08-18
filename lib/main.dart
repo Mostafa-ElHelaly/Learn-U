@@ -58,10 +58,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ForgetPasswordBloc>()),
           BlocProvider(create: (context) => getIt<OtpEmailBloc>()),
           BlocProvider(create: (context) => getIt<CountriesBloc>()),
+          BlocProvider(create: (context) => getIt<CategoriesDataBloc>()),
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
-          BlocProvider(
-            create: (context) => getIt<CategoriesDataBloc>(),
-          ),
           ChangeNotifierProvider(
               create: (context) =>
                   TranslationLoginUserDataProvider(user_email)),
