@@ -7,7 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import '../../../features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import '../../../features/category/Presentation/Manager/categories_bloc/categories_event.dart';
 
 class HomeScreenBrowse extends StatefulWidget {
   const HomeScreenBrowse({super.key});
