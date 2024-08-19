@@ -35,7 +35,7 @@ class ServerLocator {
           forgetPasswordUseCase: getIt(),
         ));
     getIt.registerLazySingleton(() => CountriesBloc(
-          CountriesUseCase: getIt(),
+      countriesUseCase: getIt(),
         ));
 
     getIt.registerLazySingleton(() => OtpEmailBloc(
@@ -50,7 +50,7 @@ class ServerLocator {
     getIt.registerLazySingleton(
         () => ForgetPasswordUseCase(baseRepository: getIt()));
     getIt
-        .registerLazySingleton(() => CountriesUsecase(baseRepository: getIt()));
+        .registerLazySingleton(() => CountriesUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => OtpEmailUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => ProfileUsecase(baseRepository: getIt()));
 
