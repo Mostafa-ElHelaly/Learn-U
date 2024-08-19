@@ -1,8 +1,8 @@
 import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
 import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
-import 'package:Learn_U/features/profile/presentation/component/manager/profile/profile_bloc.dart';
-import 'package:Learn_U/features/profile/presentation/component/manager/profile/profile_event.dart';
-import 'package:Learn_U/features/profile/presentation/component/manager/profile/profile_state.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_event.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
