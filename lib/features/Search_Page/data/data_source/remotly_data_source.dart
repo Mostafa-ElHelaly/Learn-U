@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 import 'package:Learn_U/core/utils/constant_api.dart';
 
-abstract class BaseRemotelyDataSource {
+abstract class BaseSearchRemotelyDataSource {
   // Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
   // Future<Unit> forgetpassword(LoginModel resetPasswordModel);
   // Future<Map<String, dynamic>> otpemail(LoginModel resetPasswordModel);
@@ -14,7 +14,7 @@ abstract class BaseRemotelyDataSource {
   Future<List<SearchModel>> getSearch();
 }
 
-class AuthRemotelyDateSource extends BaseRemotelyDataSource {
+class SearchRemotelyDateSource extends BaseSearchRemotelyDataSource {
   @override
   Future<List<SearchModel>> getSearch() async {
     Dio dio = Dio();
@@ -25,13 +25,13 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
       if (response.statusCode == 200) {
         // Parse the JSON response
         final Map<String, dynamic> jsonResponse = response.data;
-        final List<dynamic> searchJson = jsonResponse['data']['countries'];
+        final List<dynamic> searchJson = jsonResponse['data'];
 
         // Convert JSON list to List<CountriesModel>
         List<SearchModel> search = searchJson.map((json) {
           return SearchModel.fromJson(json);
         }).toList();
-
+        print(response.data['data']);
         return search;
       } else {
         throw Exception('Getting search Failed: ${response.statusCode}');

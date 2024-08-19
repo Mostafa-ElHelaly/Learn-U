@@ -1,7 +1,6 @@
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:equatable/equatable.dart';
 
-
 abstract class SearchState extends Equatable {
   const SearchState();
 
@@ -22,6 +21,6 @@ final class SearchErrorState extends SearchState {
 }
 
 final class SearchSuccessState extends SearchState {
-   final List<SearchModel> id ;
-  const SearchSuccessState(this.id);
+  final List<SearchModel> SearchList;
+  const SearchSuccessState(this.SearchList);
 }

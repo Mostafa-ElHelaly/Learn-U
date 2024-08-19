@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/service/translation_login_userdata_provider.dart';
+import 'features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
 import 'features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
 import 'features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
 import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<CountriesBloc>()),
           BlocProvider(create: (context) => getIt<CategoriesDataBloc>()),
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
+          BlocProvider(create: (context) => getIt<SearchBloc>()),
           ChangeNotifierProvider(
               create: (context) =>
                   TranslationLoginUserDataProvider(user_email)),

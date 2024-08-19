@@ -6,13 +6,10 @@ import 'package:dartz/dartz.dart';
 
 import 'package:Learn_U/core/utils/api_helper.dart';
 
-
 class RepositoryImpSearch extends BaseRepositorySearch {
-  final BaseRemotelyDataSource baseRemotelyDataSource;
+  final BaseSearchRemotelyDataSource baseRemotelyDataSource;
 
   RepositoryImpSearch({required this.baseRemotelyDataSource});
-
-
 
   @override
   Future<Either<List<SearchModel>, Failure>> getSearch() async {
@@ -23,8 +20,4 @@ class RepositoryImpSearch extends BaseRepositorySearch {
       return right(DioHelper.buildFailure(e));
     }
   }
-
-
-
-
 }
