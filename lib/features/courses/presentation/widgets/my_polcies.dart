@@ -10,7 +10,7 @@ class ChatItem extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: ConfigSize.defaultSize! * 2.8,
-          backgroundImage: const AssetImage("assets/images/image@2x.png"),
+          backgroundImage: const AssetImage("assets/images/@1xImage 1 Copy 7.png"),
         ),
         SizedBox(width: ConfigSize.defaultSize! * 2,),
         Expanded(

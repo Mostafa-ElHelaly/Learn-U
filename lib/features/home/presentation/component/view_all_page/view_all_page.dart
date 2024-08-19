@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../../../core/resource_manger/color_manager.dart';
 import '../../../../../core/utils/config_size.dart';
@@ -36,7 +35,7 @@ class _ViewAllPageState extends State<ViewAllPage> {
               ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 8,
                 shrinkWrap: true,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -59,15 +58,15 @@ class _ViewAllPageState extends State<ViewAllPage> {
                             child: Container(
                               height: ConfigSize.defaultSize! * 15,
                               width: ConfigSize.defaultSize! * 15,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                   image: DecorationImage(
                                       image: AssetImage(
-                                          'assets/images/test111.jpg'),
+                                          'assets/images/Group 8@1x.png'),
                                       fit: BoxFit.fill)),
                             ),
                           ),
                           SizedBox(height: ConfigSize.defaultSize! * 1),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text('2h'),

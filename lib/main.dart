@@ -19,6 +19,7 @@ import 'features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
 import 'features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
 import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
 import 'features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
+import 'features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,13 +51,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
-    return MultiProvider(
+    return MultiBlocProvider(
         providers: [
           BlocProvider(create: (context) => getIt<RegisterBloc>()),
           BlocProvider(create: (context) => getIt<LoginBloc>()),
           BlocProvider(create: (context) => getIt<ForgetPasswordBloc>()),
           BlocProvider(create: (context) => getIt<OtpEmailBloc>()),
           BlocProvider(create: (context) => getIt<CountriesBloc>()),
+          BlocProvider(create: (context) => getIt<CategoriesDataBloc>()),
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
           ChangeNotifierProvider(
               create: (context) =>
