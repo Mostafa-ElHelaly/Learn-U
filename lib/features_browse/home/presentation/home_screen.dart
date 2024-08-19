@@ -1,4 +1,6 @@
+import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
 import 'package:Learn_U/features_browse/home/presentation/component/Widgets/Categories_Widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -7,7 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+
+import '../../../features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import '../../../features/category/Presentation/Manager/categories_bloc/categories_event.dart';
+import '../../../main_screen_browse.dart';
+import '../../Categories/Categories_Page.dart';
 
 class HomeScreenBrowse extends StatefulWidget {
   const HomeScreenBrowse({super.key});
@@ -23,6 +31,16 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
   ];
 
   int currentIndexPage = 0;
+  @override
+  void initState() {
+    BlocProvider.of<CategoriesDataBloc>(context).add(GetallCategoriesEvent());
+
+    super.initState();
+  }
+
+  GlobalKey<NavigatorState> navBarKey = GlobalKey<NavigatorState>();
+  late PersistentTabController controller =
+      PersistentTabController(initialIndex: 2);
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +111,7 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
               ),
               Container(
                 width: ConfigSize.screenWidth,
-                height: ConfigSize.defaultSize! * 25,
+                height: ConfigSize.defaultSize! * 30,
                 decoration:
                     const BoxDecoration(color: ColorManager.kPrimaryBlueDark),
                 child: Column(
@@ -119,8 +137,11 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen: const Cart(),
-                              withNavBar: true,
+                              screen: MainScreenBrowse(
+                                isCategory: true,
+                                second_controller: controller,
+                              ),
+                              withNavBar: false,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,
                             );
@@ -140,37 +161,76 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                         ),
                       ],
                     ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 2,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize! * 2),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            const CategoryWidget(
-                              text1: 'Programming',
-                              image: "assets/images/test111.jpg",
+                    SizedBox(height: ConfigSize.defaultSize! * 1),
+                    BlocBuilder<CategoriesDataBloc, CategoriesState>(
+                      builder: (context, state) {
+                        if (state is CategoriesErrorState) {
+                          return Text(state.errorMessage);
+                        }
+                        if (state is CategoriesSuccessState) {
+                          double carouselHeight = ConfigSize.defaultSize! * 25;
+                          return // Example dynamic height
+                              Expanded(
+                            child: CarouselSlider.builder(
+                              itemCount: 4,
+                              itemBuilder: (context, index, realIndex) {
+                                return Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Container(
+                                          height: carouselHeight *
+                                              0.6, // Adjust height relative to the parent
+                                          width: carouselHeight * 0.6,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                ConstantImageUrl
+                                                        .constantimageurl +
+                                                    state.Categories[index]
+                                                        .thumbnail
+                                                        .toString(),
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height:
+                                              ConfigSize.defaultSize! * 0.5),
+                                      Text(
+                                        state.Categories[index].name.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize:
+                                                ConfigSize.defaultSize! * 2),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                viewportFraction: 0.5,
+                                enlargeCenterPage: true,
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                autoPlayAnimationDuration: Duration(seconds: 1),
+                                height: carouselHeight,
+                              ),
                             ),
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 3,
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: ColorManager.mainColor,
                             ),
-                            const CategoryWidget(
-                              text1: 'Engineering',
-                              image: "assets/images/test111.jpg",
-                            ),
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 3,
-                            ),
-                            const CategoryWidget(
-                              text1: 'Personal Development',
-                              image: "assets/images/test111.jpg",
-                            ),
-                          ],
-                        ),
-                      ),
+                          );
+                        }
+                      },
                     ),
                   ],
                 ),

@@ -17,7 +17,7 @@ class NotificationItem extends StatelessWidget {
             ),
             CircleAvatar(
               radius: ConfigSize.defaultSize! * 3.2,
-              backgroundImage: const AssetImage("assets/images/image@2x.png"),
+              backgroundImage: const AssetImage("assets/images/@1xImage 1 Copy 7.png"),
             ),
             Positioned(
               bottom: 0,
@@ -27,7 +27,7 @@ class NotificationItem extends StatelessWidget {
                 radius: ConfigSize.defaultSize! * 1.9,
                 child: CircleAvatar(
                   radius: ConfigSize.defaultSize! * 1.6,
-                  backgroundImage: const AssetImage("assets/images/image@2x.png"),
+                  backgroundImage: const AssetImage("assets/images/@1xImage 1 Copy 7.png"),
                 ),
               ),
             ),
