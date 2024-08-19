@@ -49,7 +49,7 @@ class ServerLocator {
           ProfileUseCase: getIt(),
         ));
     getIt.registerLazySingleton(
-        () => CategoriesDataBloc(CategoriesUseCase: getIt()));
+        () => CategoriesDataBloc(categoriesUseCase: getIt()));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));

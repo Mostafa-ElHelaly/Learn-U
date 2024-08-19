@@ -15,8 +15,8 @@ class CategoryWidget extends StatelessWidget {
       width: ConfigSize.defaultSize! * 15,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(image),
-              fit: BoxFit.fill,
+              image: NetworkImage(image),
+              fit: BoxFit.cover,
               filterQuality: FilterQuality.high)),
       child: Column(
         children: [

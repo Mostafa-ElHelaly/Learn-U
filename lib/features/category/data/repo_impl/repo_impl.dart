@@ -7,7 +7,7 @@ import '../../domain/repo/Categories_Base_Repository.dart';
 import '../data_source/remotley_data_source.dart';
 
 class CategoriesRepositoryImp extends CategoriesBaseRepository {
-  final CategoryRemotelyDateSource baseRemotelyDataSource;
+  final BaseCategoriesRemotelyDataSource baseRemotelyDataSource;
 
   CategoriesRepositoryImp({required this.baseRemotelyDataSource});
 

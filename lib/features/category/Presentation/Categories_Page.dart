@@ -24,7 +24,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   );
   @override
   void initState() {
-    BlocProvider.of<CategoriesDataBloc>(context).add(GetallCategoriesEvent());
+    // BlocProvider.of<CategoriesDataBloc>(context).add(GetallCategoriesEvent());
     super.initState();
   }
 
@@ -48,32 +48,6 @@ class _CategoriesPageState extends State<CategoriesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Categories',
-                    style: TextStyle(
-                        fontSize: ConfigSize.defaultSize! * 3,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        PersistentNavBarNavigator.pushNewScreen(
-                          context,
-                          screen: const ViewAllPage(
-                            category: 'Engeneering',
-                          ),
-                          withNavBar: false,
-                          pageTransitionAnimation: PageTransitionAnimation.fade,
-                        );
-                      },
-                      child: Text(
-                        'view all',
-                        style: viewallstyle,
-                      ))
-                ],
-              ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               BlocBuilder<CategoriesDataBloc, CategoriesState>(
                 builder: (context, state) {

@@ -22,7 +22,7 @@ class CategoryRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
         List<CategoriesModel> categories = categoriesJson.map((json) {
           return CategoriesModel.fromJson(json);
         }).toList();
-
+        print(jsonResponse['data']);
         return categories;
       } else {
         throw Exception('Getting Countries Failed: ${response.statusCode}');

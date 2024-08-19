@@ -13,7 +13,9 @@ import 'features_browse/home/presentation/home_screen.dart';
 import 'features_browse/profile/presentation/profile_screen_browse.dart';
 
 class MainScreenBrowse extends StatefulWidget {
-  const MainScreenBrowse({super.key});
+  const MainScreenBrowse({super.key, this.second_controller, this.isCategory});
+  final PersistentTabController? second_controller;
+  final bool? isCategory;
 
   @override
   State<MainScreenBrowse> createState() => _MainScreenBrowseState();
@@ -98,7 +100,8 @@ class _MainScreenBrowseState extends State<MainScreenBrowse> {
   Widget build(BuildContext context) {
     return PersistentTabView(
       context,
-      controller: _controller,
+      controller:
+          widget.isCategory == true ? widget.second_controller : _controller,
       screens: _buildScreens(),
       items: _navBarsItems(),
       confineInSafeArea: true,
