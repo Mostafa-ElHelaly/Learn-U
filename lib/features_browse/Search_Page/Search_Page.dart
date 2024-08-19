@@ -118,21 +118,23 @@ class _SearchPageBrowseState extends State<SearchPageBrowse> {
                         _items.contains(searchController.text),
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 1,
+                      itemCount: _filteredItems.isEmpty
+                          ? state.SearchList.length
+                          : _filteredItems.contains(searchController.text)
+                              ? _filteredItems.length
+                              : 1,
                       itemBuilder: (context, index) {
                         return ListTile(
                           title: _filteredItems.isEmpty
-                              ? Text(state.SearchList[index].name.toString())
-                              : Text(_filteredItems[index].name!),
-                          // _filteredItems.isEmpty
-                          //     ? _items.contains(searchController.text)
-                          //         ? Text(_items[index])
-                          //         : const Center(
-                          //             child: Text(
-                          //             'No Results Found',
-                          //             style: TextStyle(color: ColorManager.red),
-                          //           ))
-                          //     : Text(state.SearchList[index].name.toString()),
+                              ? state.SearchList.contains(searchController.text)
+                                  ? Text(
+                                      state.SearchList[index].name.toString())
+                                  : const Center(
+                                      child: Text(
+                                      'No Results Found',
+                                      style: TextStyle(color: ColorManager.red),
+                                    ))
+                              : Text(state.SearchList[index].name.toString()),
                         );
                       },
                     ),
