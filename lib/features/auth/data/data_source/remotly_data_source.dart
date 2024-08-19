@@ -109,7 +109,7 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
     try {
       print("---------------");
       final response = await Dio().post(
-        ConstantApi.forgetPassword,
+        ConstantApi.forgetpassword,
         data: body,
         options: Options(
           headers: {
@@ -164,7 +164,7 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
     try {
       print("---------------");
       final response = await Dio().post(
-        ConstantApi.otPeMail,
+        ConstantApi.otpemail,
         data: body,
         options: Options(
           headers: {
