@@ -15,6 +15,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/resource_manger/routs_manager.dart';
+import '../../../core/utils/methods.dart';
 import '../../../core/widgets/snack_bar.dart';
 import 'manager/login_bloc/login_bloc.dart';
 import 'manager/login_bloc/login_event.dart';
@@ -31,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isVisible = true;
-
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
@@ -39,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
+          Methods.instance.Sign_in();
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.mainscreen, (route) => false);
         } else if (state is LoginErrorState) {

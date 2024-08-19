@@ -6,6 +6,7 @@ import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/resource_manger/asset_path.dart';
 import '../../features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
 import '../../features/Search_Page/presentation/manager/search_bloc/search_event.dart';
 import '../../features/Search_Page/presentation/manager/search_bloc/search_state.dart';
@@ -113,32 +114,40 @@ class _SearchPageBrowseState extends State<SearchPageBrowse> {
                     ),
                   ),
                   SizedBox(height: ConfigSize.defaultSize! * 2),
-                  Visibility(
-                    visible: searchController.text.isNotEmpty ||
-                        _items.contains(searchController.text),
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: _filteredItems.isEmpty
-                          ? state.SearchList.length
-                          : _filteredItems.contains(searchController.text)
-                              ? _filteredItems.length
-                              : 1,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: _filteredItems.isEmpty
-                              ? state.SearchList.contains(searchController.text)
-                                  ? Text(
-                                      state.SearchList[index].name.toString())
-                                  : const Center(
-                                      child: Text(
-                                      'No Results Found',
-                                      style: TextStyle(color: ColorManager.red),
-                                    ))
-                              : Text(state.SearchList[index].name.toString()),
-                        );
-                      },
-                    ),
-                  ),
+                  searchController.text.isNotEmpty ||
+                          _items.contains(searchController.text)
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: _filteredItems.isEmpty
+                              ? _items.contains(searchController.text)
+                                  ? _items.length
+                                  : 1
+                              : _filteredItems.length,
+                          itemBuilder: (context, index) {
+                            return _filteredItems.isNotEmpty
+                                ? ListTile(
+                                    title: _filteredItems.isEmpty
+                                        ? state.SearchList.contains(
+                                                searchController.text)
+                                            ? Text(state.SearchList[index].name
+                                                .toString())
+                                            : const Center(
+                                                child: Text(
+                                                'No Results Found',
+                                                style: TextStyle(
+                                                    color: ColorManager.red),
+                                              ))
+                                        : Text(state.SearchList[index].name
+                                            .toString()),
+                                  )
+                                : Center(child: Text(' Start Searching Now '));
+                          },
+                        )
+                      : Image.asset(
+                          AssetsPath.search,
+                          height: ConfigSize.defaultSize! * 30,
+                          filterQuality: FilterQuality.high,
+                        ),
                 ],
               ),
             ),
