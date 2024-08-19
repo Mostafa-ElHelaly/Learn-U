@@ -21,6 +21,6 @@ class _MyCoursesPageState extends State<MyCoursesPage> {
   );
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }
