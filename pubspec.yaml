@@ -57,7 +57,7 @@ dependencies:
   table_calendar: ^3.1.1
   givestarreviews: ^1.0.2
   modal_bottom_sheet: ^3.0.0
-  carousel_slider: ^4.2.1
+  carousel_slider: ^5.0.0
   country_code_picker: ^3.0.0
   email_otp: ^3.0.2
   provider: ^6.1.2
