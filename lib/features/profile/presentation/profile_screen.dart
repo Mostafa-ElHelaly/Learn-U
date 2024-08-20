@@ -1,4 +1,5 @@
 import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_event.dart';
@@ -13,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
 
+import '../../../core/resource_manger/routs_manager.dart';
 import 'component/edit_my_profile/edit_my_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -61,8 +63,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    backgroundImage:
-                        const AssetImage("assets/images/drawer_about.png"),
+                    backgroundColor: ColorManager.gray2,
+                    child: Icon(
+                      Icons.person,
+                      color: ColorManager.whiteColor,
+                    ),
                     radius: ConfigSize.defaultSize! * 2.8,
                   ),
                   SizedBox(
@@ -167,12 +172,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             InkWell(
               onTap: () {
-                PersistentNavBarNavigator.pushNewScreen(
-                  context,
-                  screen: const LoginScreen(),
-                  withNavBar: false,
-                  pageTransitionAnimation: PageTransitionAnimation.fade,
-                );
+                Methods.instance.Sign_out();
+                Navigator.pushNamedAndRemoveUntil(
+                    context, Routes.login, (route) => false);
               },
               child: Container(
                 width: ConfigSize.screenWidth!,

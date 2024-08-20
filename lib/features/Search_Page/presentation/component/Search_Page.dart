@@ -1,24 +1,22 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
-import 'package:Learn_U/core/widgets/custom_text_field.dart';
-import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
+import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
+import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../core/resource_manger/asset_path.dart';
-import '../../features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
-import '../../features/Search_Page/presentation/manager/search_bloc/search_event.dart';
-import '../../features/Search_Page/presentation/manager/search_bloc/search_state.dart';
+import '../../../../core/resource_manger/asset_path.dart';
+import '../manager/search_bloc/search_event.dart';
 
-class SearchPageBrowse extends StatefulWidget {
-  const SearchPageBrowse({super.key});
+class SearchPage extends StatefulWidget {
+  const SearchPage({super.key});
 
   @override
-  State<SearchPageBrowse> createState() => _SearchPageBrowseState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _SearchPageBrowseState extends State<SearchPageBrowse> {
+class _SearchPageState extends State<SearchPage> {
   late TextEditingController searchController;
 
   @override
@@ -46,13 +44,12 @@ class _SearchPageBrowseState extends State<SearchPageBrowse> {
     'Course 9'
   ];
 
-  List<SearchModel> _filteredItems = [];
+  List<String> _filteredItems = [];
 
-  void _updateSearchQuery(String query, List<SearchModel> list) {
+  void _updateSearchQuery(String query, List list) {
     setState(() {
-      _filteredItems = list
-          .where(
-              (item) => item.name!.toLowerCase().contains(query.toLowerCase()))
+      list = _items
+          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }

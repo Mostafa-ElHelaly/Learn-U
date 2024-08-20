@@ -1,6 +1,13 @@
+import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
 import 'package:get_it/get_it.dart';
 import 'package:Learn_U/core/service/navigation_service.dart';
+
+import '../../features/Search_Page/data/data_source/remotly_data_source.dart';
+import '../../features/Search_Page/data/repo_imp/repo_imp.dart';
+import '../../features/Search_Page/domain/repo/base_repo.dart';
+import '../../features/Search_Page/domain/use_cases/search_uc.dart';
+import '../../features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
 import '../../features/auth/data/data_source/remotly_data_source.dart';
 import '../../features/auth/data/repo_imp/repo_imp.dart';
 import '../../features/auth/domain/repo/base_repo.dart';
@@ -14,7 +21,6 @@ import '../../features/auth/presentation/manager/forget_password_bloc/forget_pas
 import '../../features/auth/presentation/manager/login_bloc/login_bloc.dart';
 import '../../features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import '../../features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
-import '../../features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import '../../features/category/data/data_source/remotley_data_source.dart';
 import '../../features/category/data/repo_impl/repo_impl.dart';
 import '../../features/category/domain/repo/Categories_Base_Repository.dart';
@@ -24,7 +30,7 @@ import '../../features/profile/domain/repo/base_repo.dart';
 import '../../features/profile/domain/use_cases/profile_uc.dart';
 import '../../features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
 
-GetIt getIt = GetIt.instance;
+final getIt = GetIt.instance;
 
 class ServerLocator {
   Future<void> init() async {
@@ -39,7 +45,7 @@ class ServerLocator {
           forgetPasswordUseCase: getIt(),
         ));
     getIt.registerLazySingleton(() => CountriesBloc(
-          CountriesUseCase: getIt(),
+          countriesUseCase: getIt(),
         ));
 
     getIt.registerLazySingleton(() => OtpEmailBloc(
@@ -48,20 +54,24 @@ class ServerLocator {
     getIt.registerLazySingleton(() => ProfileBloc(
           ProfileUseCase: getIt(),
         ));
-    getIt.registerLazySingleton(
-        () => CategoriesDataBloc(CategoriesUseCase: getIt()));
+    getIt.registerLazySingleton(() => CategoriesDataBloc(
+          categoriesUseCase: getIt(),
+        ));
+    getIt.registerLazySingleton(() => SearchBloc(
+          searchUseCase: getIt(),
+        ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(
         () => ForgetPasswordUseCase(baseRepository: getIt()));
     getIt
-        .registerLazySingleton(() => CountriesUsecase(baseRepository: getIt()));
+        .registerLazySingleton(() => CountriesUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => OtpEmailUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => ProfileUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(
         () => CategoriesUsecase(baseRepository: getIt()));
-
+    getIt.registerLazySingleton(() => SearchUseCase(baseRepository: getIt()));
     //Remote Date
     getIt.registerLazySingleton<BaseRemotelyDataSource>(
         () => AuthRemotelyDateSource());
@@ -69,6 +79,8 @@ class ServerLocator {
         () => ProfileRemotelyDateSource());
     getIt.registerLazySingleton<BaseCategoriesRemotelyDataSource>(
         () => CategoryRemotelyDateSource());
+    getIt.registerLazySingleton<BaseSearchRemotelyDataSource>(
+        () => SearchRemotelyDateSource());
 
     //Repository Implementation
     getIt.registerLazySingleton<BaseRepository>(
@@ -77,6 +89,8 @@ class ServerLocator {
         () => ProfileRepositoryImp(baseRemotelyDataSource: getIt()));
     getIt.registerLazySingleton<CategoriesBaseRepository>(
         () => CategoriesRepositoryImp(baseRemotelyDataSource: getIt()));
+    getIt.registerLazySingleton<BaseRepositorySearch>(
+        () => RepositoryImpSearch(baseRemotelyDataSource: getIt()));
 
     // navigation service
     getIt.registerLazySingleton(() => NavigationService());

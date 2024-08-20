@@ -1,3 +1,4 @@
+import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
@@ -21,6 +22,16 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
   TextStyle viewallstyle = TextStyle(
     fontSize: ConfigSize.defaultSize! * 1.5,
     fontWeight: FontWeight.bold,
+  );
+  TextStyle labelstyle = TextStyle(
+    fontSize: ConfigSize.defaultSize! * 1.5,
+    fontWeight: FontWeight.bold,
+    color: ColorManager.whiteColor,
+  );
+  TextStyle descstyle = TextStyle(
+    fontSize: ConfigSize.defaultSize! * 1.5,
+    fontWeight: FontWeight.w200,
+    color: ColorManager.whiteColor,
   );
   @override
   void initState() {
@@ -48,78 +59,72 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Categories',
-                    style: TextStyle(
-                        fontSize: ConfigSize.defaultSize! * 3,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        PersistentNavBarNavigator.pushNewScreen(
-                          context,
-                          screen: const ViewAllPage(
-                            category: 'Engeneering',
-                          ),
-                          withNavBar: false,
-                          pageTransitionAnimation: PageTransitionAnimation.fade,
-                        );
-                      },
-                      child: Text(
-                        'view all',
-                        style: viewallstyle,
-                      ))
-                ],
-              ),
               SizedBox(height: ConfigSize.defaultSize! * 2),
               BlocBuilder<CategoriesDataBloc, CategoriesState>(
                 builder: (context, state) {
                   if (state is CategoriesSuccessState) {
                     return GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 2,
+                      itemCount: state.Categories.length,
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: 2 / 3,
+                          childAspectRatio:
+                              1 / 2, // Adjusted ratio for taller cards
                           crossAxisCount: 2,
                           crossAxisSpacing: ConfigSize.defaultSize! * 2,
-                          mainAxisSpacing: ConfigSize.defaultSize! * 2),
+                          mainAxisSpacing: ConfigSize.defaultSize! *
+                              2), // Adjust spacing if needed
                       itemBuilder: (context, index) {
-                        return Card(
-                          color: ColorManager.mainColor,
-                          child: Padding(
-                            padding:
-                                EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                            child: Column(
-                              children: [
-                                Text("state.Categories[index].name.toString()"),
-                                SizedBox(height: ConfigSize.defaultSize! * 2),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(
-                                      ConfigSize.defaultSize! * 1),
-                                  child: Container(
-                                    height: ConfigSize.defaultSize! * 15,
-                                    width: ConfigSize.defaultSize! * 15,
-                                    decoration: const BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'assets/images/Group 8@1x.png'),
-                                            fit: BoxFit.fill)),
+                        return Container(
+                          child: Card(
+                            color: ColorManager.black.withOpacity(0.5),
+                            child: Padding(
+                              padding:
+                                  EdgeInsets.all(ConfigSize.defaultSize! * 1),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    state.Categories[index].name.toString(),
+                                    style: labelstyle,
                                   ),
-                                ),
-                                SizedBox(height: ConfigSize.defaultSize! * 1),
-                                const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('2h'),
-                                    Text('Level'),
-                                  ],
-                                ),
-                              ],
+                                  SizedBox(height: ConfigSize.defaultSize! * 1),
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        ConfigSize.defaultSize! * 1),
+                                    child: Container(
+                                      height: ConfigSize.defaultSize! *
+                                          20, // Increased height
+                                      width: double
+                                          .infinity, // Make width fill the container
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: NetworkImage(
+                                                  ConstantImageUrl
+                                                          .constantimageurl +
+                                                      state.Categories[index]
+                                                          .thumbnail
+                                                          .toString()),
+                                              fit: BoxFit.cover)),
+                                    ),
+                                  ),
+
+                                  SizedBox(
+                                      height: ConfigSize.defaultSize! *
+                                          1), // Space between name and description
+                                  Text(
+                                    state.Categories[index].desc.toString(),
+                                    style: descstyle,
+                                    maxLines: state.Categories[index].name
+                                                .toString()
+                                                .length >
+                                            17
+                                        ? 3
+                                        : 4,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
@@ -127,7 +132,7 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                     );
                   }
                   if (state is CategoriesErrorState) {
-                    return Text('error');
+                    return Text(state.errorMessage);
                   } else {
                     return Center(
                       child: CircularProgressIndicator(

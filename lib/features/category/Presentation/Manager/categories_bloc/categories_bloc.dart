@@ -7,13 +7,13 @@ import 'package:bloc/bloc.dart';
 import '../../../../../../core/utils/api_helper.dart';
 
 class CategoriesDataBloc extends Bloc<CategoriesEvent, CategoriesState> {
-  CategoriesUsecase CategoriesUseCase;
+  CategoriesUsecase categoriesUseCase;
 
-  CategoriesDataBloc({required this.CategoriesUseCase})
+  CategoriesDataBloc({required this.categoriesUseCase})
       : super(CategoriesInitial()) {
     on<CategoriesEvent>((event, emit) async {
       emit(const CategoriesLoadingState());
-      final result = await CategoriesUseCase.call(const Noparamiter());
+      final result = await categoriesUseCase.call(const Noparamiter());
       result.fold(
           (l) => emit(CategoriesSuccessState(l)),
           (r) => emit(CategoriesErrorState(

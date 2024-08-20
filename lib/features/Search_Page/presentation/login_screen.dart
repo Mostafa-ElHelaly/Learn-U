@@ -1,4 +1,7 @@
 import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
+import 'package:Learn_U/features/auth/presentation/manager/login_bloc/login_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/login_bloc/login_event.dart';
+import 'package:Learn_U/features/auth/presentation/manager/login_bloc/login_state.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
@@ -15,11 +18,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/resource_manger/routs_manager.dart';
-import '../../../core/utils/methods.dart';
 import '../../../core/widgets/snack_bar.dart';
-import 'manager/login_bloc/login_bloc.dart';
-import 'manager/login_bloc/login_event.dart';
-import 'manager/login_bloc/login_state.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -32,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool isVisible = true;
+
   @override
   Widget build(BuildContext context) {
     ConfigSize().init(context);
@@ -39,13 +39,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Methods.instance.Sign_in();
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.mainscreen, (route) => false);
         } else if (state is LoginErrorState) {
           errorSnackBar(context, state.errorMessage);
         } else if (state is LoginLoadingState) {
-          Center(
+          const Center(
             child: CircularProgressIndicator(
               color: ColorManager.mainColor,
             ),
