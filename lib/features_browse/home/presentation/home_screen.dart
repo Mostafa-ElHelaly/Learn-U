@@ -111,7 +111,7 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
               ),
               Container(
                 width: ConfigSize.screenWidth,
-                height: ConfigSize.defaultSize! * 30,
+                height: ConfigSize.defaultSize! * 25,
                 decoration:
                     const BoxDecoration(color: ColorManager.kPrimaryBlueDark),
                 child: Column(

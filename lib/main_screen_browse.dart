@@ -49,7 +49,7 @@ class _MainScreenBrowseState extends State<MainScreenBrowse> {
         ),
         inactiveIcon: const Icon(
           Icons.home_outlined,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -62,7 +62,7 @@ class _MainScreenBrowseState extends State<MainScreenBrowse> {
         ),
         inactiveIcon: const Icon(
           Icons.search,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -75,7 +75,7 @@ class _MainScreenBrowseState extends State<MainScreenBrowse> {
         ),
         inactiveIcon: const Icon(
           Icons.category,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -88,7 +88,7 @@ class _MainScreenBrowseState extends State<MainScreenBrowse> {
         ),
         inactiveIcon: const Icon(
           Icons.account_circle_outlined,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -107,7 +107,7 @@ class _MainScreenBrowseState extends State<MainScreenBrowse> {
       confineInSafeArea: true,
       backgroundColor: Colors.white,
       handleAndroidBackButtonPress: true,
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       stateManagement: true,
       hideNavigationBarWhenKeyboardShows: true,
       decoration: NavBarDecoration(
@@ -125,7 +125,7 @@ class _MainScreenBrowseState extends State<MainScreenBrowse> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style12,
+      navBarStyle: NavBarStyle.style3,
     );
   }
 }
