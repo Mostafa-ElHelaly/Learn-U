@@ -1,27 +1,26 @@
-import 'package:Learn_U/core/utils/constant_image_url.dart';
-import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
-import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_event.dart';
-import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
-import 'package:Learn_U/features/home/presentation/component/view_all_page/view_all_page.dart';
-import 'package:Learn_U/features_browse/Categories/Child_Category_Page.dart';
+import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/features_browse/Categories/Courses_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../../../core/resource_manger/color_manager.dart';
-import '../../../../../core/resource_manger/locale_keys.g.dart';
-import '../../../../../core/utils/config_size.dart';
+import '../../core/resource_manger/color_manager.dart';
+import '../../core/utils/config_size.dart';
+import '../../core/utils/constant_image_url.dart';
+import '../../features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import '../../features/category/Presentation/Manager/categories_bloc/categories_event.dart';
+import '../../features/category/Presentation/Manager/categories_bloc/categories_state.dart';
 import '../../features/category/data/model/categories_model.dart';
 
-class CategoriesPageBrowse extends StatefulWidget {
-  const CategoriesPageBrowse({super.key});
+class CategoryChildPage extends StatefulWidget {
+  const CategoryChildPage({super.key, required this.id});
+  final int id;
 
   @override
-  State<CategoriesPageBrowse> createState() => _CategoriesPageBrowseState();
+  State<CategoryChildPage> createState() => _CategoryChildPageState();
 }
 
-class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
+class _CategoryChildPageState extends State<CategoryChildPage> {
   TextStyle viewallstyle = TextStyle(
     fontSize: ConfigSize.defaultSize! * 1.5,
     fontWeight: FontWeight.bold,
@@ -67,7 +66,7 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                 builder: (context, state) {
                   if (state is CategoriesSuccessState) {
                     List<CategoriesModel> categories = state.Categories.where(
-                        (element) => element.parent_id == null).toList();
+                        (element) => element.parent_id == widget.id).toList();
                     return GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: categories.length,
@@ -84,8 +83,7 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen:
-                                  CategoryChildPage(id: categories[index].id!),
+                              screen: CoursesPage(id: categories[index].id!),
                               withNavBar: false,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,

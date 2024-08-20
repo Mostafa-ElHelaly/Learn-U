@@ -1,6 +1,6 @@
 class SearchModel {
   // int? id;
-  // int? categoryId;
+  int? categoryId;
   // int? trainerId;
   // int? certificateId;
   // int? testId;
@@ -19,9 +19,9 @@ class SearchModel {
   // int? paidDiscount;
   // int? paidDiscountStartDate;
   // int? paidDiscountEndDate;
-  // int? courseLength;
-  // String? courseLengthTime;
-  // String? courseLevel;
+  int? courseLength;
+  String? courseLengthTime;
+  String? courseLevel;
   // String? courseNeededSkills;
   // String? courseNeededSkillsAr;
   // String? courseTargetAudience;
@@ -55,7 +55,7 @@ class SearchModel {
 
   SearchModel({
     // this.id,
-    // this.categoryId,
+    this.categoryId,
     // this.trainerId,
     // this.certificateId,
     // this.testId,
@@ -74,9 +74,9 @@ class SearchModel {
     // this.paidDiscount,
     // this.paidDiscountStartDate,
     // this.paidDiscountEndDate,
-    // this.courseLength,
-    // this.courseLengthTime,
-    // this.courseLevel,
+    this.courseLength,
+    this.courseLengthTime,
+    this.courseLevel,
     // this.courseNeededSkills,
     // this.courseNeededSkillsAr,
     // this.courseTargetAudience,
@@ -111,7 +111,7 @@ class SearchModel {
 
   SearchModel.fromJson(Map<String, dynamic> json) {
     // id = json['id'];
-    // categoryId = json['category_id'];
+    categoryId = json['category_id'];
     // trainerId = json['trainer_id'];
     // certificateId = json['certificate_id'];
     // testId = json['test_id'];
@@ -130,9 +130,9 @@ class SearchModel {
     // paidDiscount = json['paid_discount'];
     // paidDiscountStartDate = json['paid_discount_start_date'];
     // paidDiscountEndDate = json['paid_discount_end_date'];
-    // courseLength = json['course_length'];
-    // courseLengthTime = json['course_length_time'];
-    // courseLevel = json['course_level'];
+    courseLength = json['course_length'];
+    courseLengthTime = json['course_length_time'];
+    courseLevel = json['course_level'];
     // courseNeededSkills = json['course_needed_skills'];
     // courseNeededSkillsAr = json['course_needed_skills_ar'];
     // courseTargetAudience = json['course_target_audience'];
@@ -168,7 +168,7 @@ class SearchModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     // data['id'] = this.id;
-    // data['category_id'] = this.categoryId;
+    data['category_id'] = this.categoryId;
     // data['trainer_id'] = this.trainerId;
     // data['certificate_id'] = this.certificateId;
     // data['test_id'] = this.testId;
@@ -187,9 +187,9 @@ class SearchModel {
     // data['paid_discount'] = this.paidDiscount;
     // data['paid_discount_start_date'] = this.paidDiscountStartDate;
     // data['paid_discount_end_date'] = this.paidDiscountEndDate;
-    // data['course_length'] = this.courseLength;
-    // data['course_length_time'] = this.courseLengthTime;
-    // data['course_level'] = this.courseLevel;
+    data['course_length'] = this.courseLength;
+    data['course_length_time'] = this.courseLengthTime;
+    data['course_level'] = this.courseLevel;
     // data['course_needed_skills'] = this.courseNeededSkills;
     // data['course_needed_skills_ar'] = this.courseNeededSkillsAr;
     // data['course_target_audience'] = this.courseTargetAudience;

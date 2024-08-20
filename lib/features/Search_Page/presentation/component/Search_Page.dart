@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/resource_manger/asset_path.dart';
 import '../../../../core/utils/constant_image_url.dart';
+import '../../data/model/searchModel.dart';
 import '../manager/search_bloc/search_event.dart';
 
 class SearchPage extends StatefulWidget {
@@ -33,24 +34,13 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
-  final List<String> _items = [
-    'Course 1',
-    'Course 2',
-    'Course 3',
-    'Course 4',
-    'Course 5',
-    'Course 6',
-    'Course 7',
-    'Course 8',
-    'Course 9'
-  ];
+  List<SearchModel> _filteredItems = [];
 
-  List<String> _filteredItems = [];
-
-  void _updateSearchQuery(String query, List list) {
+  void _updateSearchQuery(String query, List<SearchModel> list) {
     setState(() {
-      list = _items
-          .where((item) => item.toLowerCase().contains(query.toLowerCase()))
+      _filteredItems = list
+          .where((item) =>
+              item.name!.toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
@@ -81,8 +71,8 @@ class _SearchPageState extends State<SearchPage> {
                           SizedBox(height: ConfigSize.defaultSize! * 2),
                           TextFormField(
                             onChanged: (value) {
-                              _updateSearchQuery(value, state.SearchList);
-                              print(state.SearchList[0].name);
+                              _updateSearchQuery(
+                                  searchController.text, state.SearchList);
                             },
                             cursorColor: ColorManager.kPrimaryBlueDark,
                             keyboardType: TextInputType.text,
@@ -117,8 +107,8 @@ class _SearchPageState extends State<SearchPage> {
                       ? ListView.builder(
                           shrinkWrap: true,
                           itemCount: _filteredItems.isEmpty
-                              ? _items.contains(searchController.text)
-                                  ? _items.length
+                              ? state.SearchList.contains(searchController.text)
+                                  ? state.SearchList.length
                                   : 1
                               : _filteredItems.length,
                           itemBuilder: (context, index) {
@@ -134,18 +124,17 @@ class _SearchPageState extends State<SearchPage> {
                                     )
                                   : null,
                               title: _filteredItems.isEmpty
-                                  ? state.SearchList.contains(
-                                          searchController.text)
-                                      ? Text(state.SearchList[index].name
-                                          .toString())
+                                  ? _filteredItems
+                                          .contains(searchController.text)
+                                      ? Text(
+                                          _filteredItems[index].name.toString())
                                       : const Center(
                                           child: Text(
                                           'No Results Found',
                                           style: TextStyle(
                                               color: ColorManager.red),
                                         ))
-                                  : Text(
-                                      state.SearchList[index].name.toString()),
+                                  : Text(_filteredItems[index].name.toString()),
                             );
                           },
                         )
