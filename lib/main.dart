@@ -1,8 +1,6 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
-import 'package:Learn_U/main_screen.dart';
 import 'package:Learn_U/welcome_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +14,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/service/translation_login_userdata_provider.dart';
-import 'features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
-import 'features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
-import 'features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
-import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
-import 'features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
-import 'features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
+import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/countries_bloc/countries_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/forget_password_bloc/forget_password_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/login_bloc/login_bloc.dart';
+import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -77,10 +75,10 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             textButtonTheme: TextButtonThemeData(
                 style: ButtonStyle(
-              textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
+              textStyle: WidgetStateProperty.all<TextStyle>(TextStyle(
                   fontSize: ConfigSize.defaultSize! * 2.5,
                   fontWeight: FontWeight.bold)),
-              foregroundColor: MaterialStateProperty.all<Color>(
+              foregroundColor: WidgetStateProperty.all<Color>(
                   ColorManager.black), // Text color
             )),
             scaffoldBackgroundColor: ColorManager.whiteColor,
@@ -89,7 +87,7 @@ class MyApp extends StatelessWidget {
           ),
           navigatorKey: getIt<NavigationService>().navigatorKey,
           onGenerateRoute: RouteGenerator.getRoute,
-          home: WelcomeScreen(),
+          home: const WelcomeScreen(),
         ));
   }
   // main
