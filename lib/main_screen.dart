@@ -4,10 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import 'features/Search_Page/presentation/component/Search_Page.dart';
-import 'features/category/presentation/Categories_Page.dart';
-import 'features/home/presentation/home_screen.dart';
-import 'features/profile/presentation/profile_screen.dart';
+import 'package:Learn_U/features/Search_Page/presentation/component/Search_Page.dart';
+import 'package:Learn_U/features/category/presentation/Categories_Page.dart';
+import 'package:Learn_U/features/home/presentation/home_screen.dart';
+import 'package:Learn_U/features/profile/presentation/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
