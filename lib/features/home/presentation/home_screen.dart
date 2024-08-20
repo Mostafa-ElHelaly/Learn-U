@@ -7,8 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../../core/utils/constant_image_url.dart';
+import '../../../main_screen_browse.dart';
+import '../../category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import '../../category/Presentation/Manager/categories_bloc/categories_event.dart';
+import '../../category/Presentation/Manager/categories_bloc/categories_state.dart';
 import 'component/Widgets/Courses_Widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,6 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int currentIndexPage = 0;
+  late PersistentTabController controller =
+      PersistentTabController(initialIndex: 2);
+  @override
+  void initState() {
+    BlocProvider.of<CategoriesDataBloc>(context).add(GetallCategoriesEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,103 +103,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 3,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          StringManager.latestCourses.tr(),
-                          style: const TextStyle(
-                              color: ColorManager.kPrimaryBlueDark,
-                              fontSize: 25,
-                              fontWeight: FontWeight.w800),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            PersistentNavBarNavigator.pushNewScreen(
-                              context,
-                              screen: const HomeScreen(),
-                              withNavBar: true,
-                              pageTransitionAnimation:
-                                  PageTransitionAnimation.fade,
-                            );
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ConfigSize.defaultSize! * 1),
-                            child: Text(
-                              StringManager.viewAll.tr(),
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 1,
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const LatestCoursesWidget(
-                            courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
-                            courseHours: '(2H)',
-                            courseLevel: 'Mid',
-                          ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * 1,
-                          ),
-                          const LatestCoursesWidget(
-                            courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
-                            courseHours: '(2H)',
-                            courseLevel: 'Mid',
-                          ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * 1,
-                          ),
-                          const LatestCoursesWidget(
-                            courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
-                            courseHours: '(2H)',
-                            courseLevel: 'Mid',
-                          ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * 1,
-                          ),
-                          const LatestCoursesWidget(
-                            courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
-                            courseHours: '(2H)',
-                            courseLevel: 'Mid',
-                          ),
-                          SizedBox(
-                            width: ConfigSize.defaultSize! * 1,
-                          ),
-                          const LatestCoursesWidget(
-                            courseName: 'Cooling Load Estimation Using HAP 5.1',
-                            image: "assets/images/test111.jpg",
-                            courseHours: '(2H)',
-                            courseLevel: 'Mid',
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: ConfigSize.defaultSize! * 3,
-                    ),
                   ],
                 ),
               ),
               Container(
                 width: ConfigSize.screenWidth,
-                height: ConfigSize.defaultSize! * 22,
+                height: ConfigSize.defaultSize! * 30,
                 decoration:
                     const BoxDecoration(color: ColorManager.kPrimaryBlueDark),
                 child: Column(
@@ -212,8 +134,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen: const Cart(),
-                              withNavBar: true,
+                              screen: MainScreenBrowse(
+                                isCategory: true,
+                                second_controller: controller,
+                              ),
+                              withNavBar: false,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,
                             );
@@ -233,37 +158,138 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
+                    SizedBox(height: ConfigSize.defaultSize! * 1),
+                    BlocBuilder<CategoriesDataBloc, CategoriesState>(
+                      builder: (context, state) {
+                        if (state is CategoriesErrorState) {
+                          return Text(state.errorMessage);
+                        }
+                        if (state is CategoriesSuccessState) {
+                          double carouselHeight = ConfigSize.defaultSize! * 25;
+                          return // Example dynamic height
+                              Expanded(
+                            child: CarouselSlider.builder(
+                              itemCount: 4,
+                              itemBuilder: (context, index, realIndex) {
+                                return Container(
+                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  child: Column(
+                                    children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Container(
+                                          height: carouselHeight *
+                                              0.6, // Adjust height relative to the parent
+                                          width: carouselHeight * 0.6,
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              image: NetworkImage(
+                                                ConstantImageUrl
+                                                        .constantimageurl +
+                                                    state.Categories[index]
+                                                        .thumbnail
+                                                        .toString(),
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                          height:
+                                              ConfigSize.defaultSize! * 0.5),
+                                      Text(
+                                        state.Categories[index].name.toString(),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize:
+                                                ConfigSize.defaultSize! * 2),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              options: CarouselOptions(
+                                autoPlay: true,
+                                viewportFraction: 0.5,
+                                enlargeCenterPage: true,
+                                autoPlayCurve: Curves.fastOutSlowIn,
+                                autoPlayAnimationDuration: Duration(seconds: 1),
+                                height: carouselHeight,
+                              ),
+                            ),
+                          );
+                        } else {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              color: ColorManager.mainColor,
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: ConfigSize.defaultSize! * 2,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: ConfigSize.defaultSize! * 2,
+                ),
+                child: Column(
+                  children: [
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: ConfigSize.defaultSize! * 2),
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            const CategoryWidget(
-                              text1: 'Programming',
-                              image: "assets/images/test111.jpg",
-                            ),
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 3,
-                            ),
-                            const CategoryWidget(
-                              text1: 'Engineering',
-                              image: "assets/images/test111.jpg",
-                            ),
-                            SizedBox(
-                              width: ConfigSize.defaultSize! * 3,
-                            ),
-                            const CategoryWidget(
-                              text1: 'Personal Development',
-                              image: "assets/images/test111.jpg",
-                            ),
-                          ],
-                        ),
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        onPageChanged: (index, reason) {
+                          setState(() {
+                            currentIndexPage = index;
+                          });
+                        },
+                        height: ConfigSize.defaultSize! * 20,
+                        viewportFraction: 1,
+                        initialPage: 0,
+                        enableInfiniteScroll: true,
+                        reverse: false,
+                        autoPlay: true,
+                        autoPlayInterval: const Duration(seconds: 5),
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        enlargeFactor: 0.3,
                       ),
+                      items: items.map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: ConfigSize.screenWidth!,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(i), fit: BoxFit.cover),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 1,
+                    ),
+                    DotsIndicator(
+                      dotsCount: items.length,
+                      position: currentIndexPage,
+                      decorator: const DotsDecorator(
+                          activeColor: ColorManager.kPrimaryBlueDark),
+                      onTap: (index) {},
+                    ),
+                    SizedBox(
+                      height: ConfigSize.defaultSize! * 3,
                     ),
                   ],
                 ),
