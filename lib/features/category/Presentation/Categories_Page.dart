@@ -55,7 +55,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
+          padding: EdgeInsets.all(ConfigSize.defaultSize! * 0.5),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -68,63 +68,90 @@ class _CategoriesPageState extends State<CategoriesPage> {
                       itemCount: state.Categories.length,
                       shrinkWrap: true,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio:
-                              1 / 2, // Adjusted ratio for taller cards
-                          crossAxisCount: 2,
-                          crossAxisSpacing: ConfigSize.defaultSize! * 2,
-                          mainAxisSpacing: ConfigSize.defaultSize! *
-                              2), // Adjust spacing if needed
+                        childAspectRatio:
+                            1 / 1.75, // Adjusted ratio for taller cards
+                        crossAxisCount: 2,
+                        crossAxisSpacing: ConfigSize.defaultSize! * 0.5,
+                        mainAxisSpacing: ConfigSize.defaultSize! * 0.5,
+                      ), // Adjust spacing if needed
                       itemBuilder: (context, index) {
                         return Container(
                           child: Card(
-                            color: ColorManager.black.withOpacity(0.5),
-                            child: Padding(
-                              padding:
-                                  EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    state.Categories[index].name.toString(),
-                                    style: labelstyle,
+                            color: ColorManager.black.withOpacity(0.95),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Stack(
+                                    children: [
+                                      Positioned.fill(
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              ConfigSize.defaultSize! * 1),
+                                          child: Container(
+                                            height: ConfigSize.defaultSize! *
+                                                20, // Increased height
+                                            width: double
+                                                .infinity, // Make width fill the container
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                    ConstantImageUrl
+                                                            .constantimageurl +
+                                                        state.Categories[index]
+                                                            .thumbnail
+                                                            .toString()),
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Positioned(
+                                        bottom: 0,
+                                        left: 0,
+                                        right: 0,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            gradient: LinearGradient(
+                                              begin: Alignment.bottomCenter,
+                                              end: Alignment.topCenter,
+                                              colors: [
+                                                ColorManager.black,
+                                                ColorManager.black
+                                                    .withOpacity(0.25)
+                                              ],
+                                            ),
+                                          ),
+                                          padding: EdgeInsets.all(
+                                              ConfigSize.defaultSize! * 1),
+                                          child: Text(
+                                            state.Categories[index].name
+                                                .toString(),
+                                            style: labelstyle,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                  SizedBox(height: ConfigSize.defaultSize! * 1),
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(
                                         ConfigSize.defaultSize! * 1),
-                                    child: Container(
-                                      height: ConfigSize.defaultSize! *
-                                          20, // Increased height
-                                      width: double
-                                          .infinity, // Make width fill the container
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  ConstantImageUrl
-                                                          .constantimageurl +
-                                                      state.Categories[index]
-                                                          .thumbnail
-                                                          .toString()),
-                                              fit: BoxFit.cover)),
+                                    child: Text(
+                                      state.Categories[index].desc.toString(),
+                                      style: descstyle,
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-
-                                  SizedBox(
-                                      height: ConfigSize.defaultSize! *
-                                          1), // Space between name and description
-                                  Text(
-                                    state.Categories[index].desc.toString(),
-                                    style: descstyle,
-                                    maxLines: state.Categories[index].name
-                                                .toString()
-                                                .length >
-                                            17
-                                        ? 3
-                                        : 4,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         );
