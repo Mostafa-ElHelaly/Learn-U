@@ -11,7 +11,7 @@ class SearchModel {
   // String? nameAr;
   // String? desc;
   // String? descAr;
-  // String? image;
+  String? image;
   // String? publishDate;
   // String? pricing;
   // int? paidCurrency;
@@ -66,7 +66,7 @@ class SearchModel {
     // this.nameAr,
     // this.desc,
     // this.descAr,
-    // this.image,
+    this.image,
     // this.publishDate,
     // this.pricing,
     // this.paidCurrency,
@@ -122,7 +122,7 @@ class SearchModel {
     // nameAr = json['name_ar'];
     // desc = json['desc'];
     // descAr = json['desc_ar'];
-    // image = json['image'];
+    image = json['image'];
     // publishDate = json['publish_date'];
     // pricing = json['pricing'];
     // paidCurrency = json['paid_currency'];
@@ -179,7 +179,7 @@ class SearchModel {
     // data['name_ar'] = this.nameAr;
     // data['desc'] = this.desc;
     // data['desc_ar'] = this.descAr;
-    // data['image'] = this.image;
+    data['image'] = this.image;
     // data['publish_date'] = this.publishDate;
     // data['pricing'] = this.pricing;
     // data['paid_currency'] = this.paidCurrency;

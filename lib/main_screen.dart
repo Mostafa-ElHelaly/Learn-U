@@ -45,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         inactiveIcon: const Icon(
           Icons.home_outlined,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -58,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         inactiveIcon: const Icon(
           Icons.search,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -71,7 +71,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         inactiveIcon: const Icon(
           Icons.menu_book,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -84,7 +84,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         inactiveIcon: const Icon(
           Icons.shopping_cart,
-          size: 20,
+          size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,
@@ -133,7 +133,7 @@ class _MainScreenState extends State<MainScreen> {
         curve: Curves.ease,
         duration: Duration(milliseconds: 200),
       ),
-      navBarStyle: NavBarStyle.style12,
+      navBarStyle: NavBarStyle.style3,
     );
   }
 }
