@@ -33,16 +33,6 @@ class Methods {
     return tokenPref;
   }
 
-  Future<void> Sign_in() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('is_logged', true) ?? false;
-  }
-
-  Future<void> Sign_out() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove('is_logged');
-  }
-
   Future<bool> isSignedIn() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (prefs.getBool('is_logged')!) {

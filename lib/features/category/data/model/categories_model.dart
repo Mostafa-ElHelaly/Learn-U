@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 class CategoriesModel {
   int? id;
+  int? parent_id;
   String? slug;
   String? slugAr;
   String? name;
@@ -15,6 +18,7 @@ class CategoriesModel {
 
   CategoriesModel({
     this.id,
+    this.parent_id,
     this.slug,
     this.slugAr,
     this.name,
@@ -31,6 +35,7 @@ class CategoriesModel {
 
   CategoriesModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
+    parent_id = json['parent_id'];
     slug = json['slug'];
     slugAr = json['slug_ar'];
     name = json['name'];
@@ -48,6 +53,7 @@ class CategoriesModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
+    data['parent_id'] = this.parent_id;
     data['slug'] = this.slug;
     data['slug_ar'] = this.slugAr;
     data['name'] = this.name;

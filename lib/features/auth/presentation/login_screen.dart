@@ -13,6 +13,7 @@ import 'package:Learn_U/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/resource_manger/routs_manager.dart';
 import '../../../core/utils/methods.dart';
@@ -31,6 +32,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  Future<void> Sign_in() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('is_logged', true) ?? false;
+  }
+
   bool isVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -39,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          Methods.instance.Sign_in();
+          Sign_in();
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.mainscreen, (route) => false);
         } else if (state is LoginErrorState) {

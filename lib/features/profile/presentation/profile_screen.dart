@@ -13,6 +13,7 @@ import 'package:Learn_U/features/auth/presentation/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/resource_manger/routs_manager.dart';
 import 'component/edit_my_profile/edit_my_profile_screen.dart';
@@ -172,7 +173,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             InkWell(
               onTap: () {
-                Methods.instance.Sign_out();
+                Future<void> Sign_out() async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs.remove('is_logged');
+                }
+
                 Navigator.pushNamedAndRemoveUntil(
                     context, Routes.login, (route) => false);
               },
