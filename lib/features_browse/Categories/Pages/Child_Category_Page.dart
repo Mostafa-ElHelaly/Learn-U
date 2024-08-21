@@ -80,8 +80,10 @@ class _CategoryChildPageBrowseState extends State<CategoryChildPageBrowse> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen:
-                                  CoursesPageBrowse(id: categories[index].id!),
+                              screen: CoursesPageBrowse(
+                                id: categories[index].id!,
+                                categories: categories[index],
+                              ),
                               withNavBar: false,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,

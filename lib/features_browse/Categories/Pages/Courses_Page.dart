@@ -2,19 +2,24 @@ import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
+import 'package:Learn_U/features/category/data/model/categories_model.dart';
+import 'package:Learn_U/features_browse/Categories/Pages/Course_Details_Browse.dart';
 import 'package:Learn_U/features_browse/Categories/Widgets/Course_Card_Widget_Browse.dart';
 import 'package:Learn_U/features_browse/Categories/Widgets/Rating_Bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../../core/utils/constant_image_url.dart';
 import '../../../features/Search_Page/presentation/manager/search_bloc/search_event.dart';
 import '../../../features/Search_Page/presentation/manager/search_bloc/search_state.dart';
 
 class CoursesPageBrowse extends StatefulWidget {
-  const CoursesPageBrowse({super.key, required this.id});
+  const CoursesPageBrowse(
+      {super.key, required this.id, required this.categories});
   final int id;
+  final CategoriesModel categories;
 
   @override
   State<CoursesPageBrowse> createState() => _CoursesPageBrowseState();
@@ -45,9 +50,23 @@ class _CoursesPageBrowseState extends State<CoursesPageBrowse> {
                         return Padding(
                             padding:
                                 EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                            child: CourseCardWidgetBrowse(
-                              courses: courses,
-                              index: index,
+                            child: GestureDetector(
+                              onTap: () {
+                                PersistentNavBarNavigator.pushNewScreen(
+                                  context,
+                                  screen: CourseDetailsBrowse(
+                                    categories: widget.categories,
+                                    courses: courses[0],
+                                  ),
+                                  withNavBar: false,
+                                  pageTransitionAnimation:
+                                      PageTransitionAnimation.fade,
+                                );
+                              },
+                              child: CourseCardWidgetBrowse(
+                                courses: courses,
+                                index: index,
+                              ),
                             ));
                       },
                       shrinkWrap: true,
