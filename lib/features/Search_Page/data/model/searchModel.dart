@@ -1,7 +1,7 @@
 class SearchModel {
   // int? id;
   int? categoryId;
-  // int? trainerId;
+  int? trainerId;
   // int? certificateId;
   // int? testId;
   // int? questionId;
@@ -56,7 +56,7 @@ class SearchModel {
   SearchModel({
     // this.id,
     this.categoryId,
-    // this.trainerId,
+    this.trainerId,
     // this.certificateId,
     // this.testId,
     // this.questionId,
@@ -112,7 +112,7 @@ class SearchModel {
   SearchModel.fromJson(Map<String, dynamic> json) {
     // id = json['id'];
     categoryId = json['category_id'];
-    // trainerId = json['trainer_id'];
+    trainerId = json['trainer_id'];
     // certificateId = json['certificate_id'];
     // testId = json['test_id'];
     // questionId = json['question_id'];
@@ -169,7 +169,7 @@ class SearchModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     // data['id'] = this.id;
     data['category_id'] = this.categoryId;
-    // data['trainer_id'] = this.trainerId;
+    data['trainer_id'] = this.trainerId;
     // data['certificate_id'] = this.certificateId;
     // data['test_id'] = this.testId;
     // data['question_id'] = this.questionId;

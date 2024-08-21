@@ -70,6 +70,7 @@ class CourseCardWidgetBrowse extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(courses[index].name.toString(), style: labelstyle),
+                      SizedBox(height: ConfigSize.defaultSize! * 1),
                       RatingBarWidgetBrowse(),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       Text(

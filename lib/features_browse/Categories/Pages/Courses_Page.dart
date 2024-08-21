@@ -56,7 +56,7 @@ class _CoursesPageBrowseState extends State<CoursesPageBrowse> {
                                   context,
                                   screen: CourseDetailsBrowse(
                                     categories: widget.categories,
-                                    courses: courses[0],
+                                    courses: courses[index],
                                   ),
                                   withNavBar: false,
                                   pageTransitionAnimation:

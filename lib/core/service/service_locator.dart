@@ -21,10 +21,12 @@ import '../../features/auth/presentation/manager/forget_password_bloc/forget_pas
 import '../../features/auth/presentation/manager/login_bloc/login_bloc.dart';
 import '../../features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import '../../features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
+import '../../features/category/Presentation/Manager/trainers_bloc/trainers_bloc.dart';
 import '../../features/category/data/data_source/remotley_data_source.dart';
 import '../../features/category/data/repo_impl/repo_impl.dart';
 import '../../features/category/domain/repo/Categories_Base_Repository.dart';
 import '../../features/category/domain/use_cases/categories_uc.dart';
+import '../../features/category/domain/use_cases/trainers_uc.dart';
 import '../../features/profile/data/repo_impl/repo_impl.dart';
 import '../../features/profile/domain/repo/base_repo.dart';
 import '../../features/profile/domain/use_cases/profile_uc.dart';
@@ -60,6 +62,9 @@ class ServerLocator {
     getIt.registerLazySingleton(() => SearchBloc(
           searchUseCase: getIt(),
         ));
+    getIt.registerLazySingleton(() => TrainersDataBloc(
+          trainersUsecase: getIt(),
+        ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));
@@ -72,6 +77,7 @@ class ServerLocator {
     getIt.registerLazySingleton(
         () => CategoriesUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SearchUseCase(baseRepository: getIt()));
+    getIt.registerLazySingleton(() => TrainersUsecase(baseRepository: getIt()));
     //Remote Date
     getIt.registerLazySingleton<BaseRemotelyDataSource>(
         () => AuthRemotelyDateSource());

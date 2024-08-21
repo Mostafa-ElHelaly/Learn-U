@@ -23,6 +23,7 @@ import 'features/auth/presentation/manager/forget_password_bloc/forget_password_
 import 'features/auth/presentation/manager/login_bloc/login_bloc.dart';
 import 'features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 import 'features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import 'features/category/Presentation/Manager/trainers_bloc/trainers_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<CategoriesDataBloc>()),
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
           BlocProvider(create: (context) => getIt<SearchBloc>()),
+          BlocProvider(create: (context) => getIt<TrainersDataBloc>()),
           ChangeNotifierProvider(
               create: (context) =>
                   TranslationLoginUserDataProvider(user_email)),
