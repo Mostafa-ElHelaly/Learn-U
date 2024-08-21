@@ -1,5 +1,8 @@
+import 'package:Learn_U/core/utils/constant_image_url.dart';
+import 'package:Learn_U/core/widgets/Custom_Carsoul.dart';
 import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
-import 'package:Learn_U/features/home/presentation/component/Widgets/Categories_Widget.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
+import 'package:Learn_U/features_browse/home/presentation/component/Widgets/View_all_Categories_Widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,35 +12,35 @@ import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import '../../../../../features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import '../../../../../features/category/Presentation/Manager/categories_bloc/categories_event.dart';
+import '../../../../../main_screen_browse.dart';
+import '../../../../Categories/Pages/Categories_Page.dart';
 
-import '../../../core/utils/constant_image_url.dart';
-import '../../../main_screen_browse.dart';
-import '../../category/Presentation/Manager/categories_bloc/categories_bloc.dart';
-import '../../category/Presentation/Manager/categories_bloc/categories_event.dart';
-import '../../category/Presentation/Manager/categories_bloc/categories_state.dart';
-import 'component/Widgets/Courses_Widget.dart';
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreenBrowse extends StatefulWidget {
+  const HomeScreenBrowse({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenBrowse> createState() => _HomeScreenBrowseState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
   final items = [
     "assets/images/bg@2x.png",
     "assets/images/bg2.png",
   ];
 
   int currentIndexPage = 0;
-  late PersistentTabController controller =
-      PersistentTabController(initialIndex: 2);
   @override
   void initState() {
     BlocProvider.of<CategoriesDataBloc>(context).add(GetallCategoriesEvent());
+
     super.initState();
   }
+
+  GlobalKey<NavigatorState> navBarKey = GlobalKey<NavigatorState>();
+  late PersistentTabController controller =
+      PersistentTabController(initialIndex: 2);
 
   @override
   Widget build(BuildContext context) {
@@ -56,39 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2,
                     ),
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndexPage = index;
-                          });
-                        },
-                        height: ConfigSize.defaultSize! * 20,
-                        viewportFraction: 1,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 5),
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeFactor: 0.3,
-                      ),
-                      items: items.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              width: ConfigSize.screenWidth!,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(i), fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
+                    CustomCarsoul(
+                      items: items,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndexPage = index;
+                        });
+                      },
                     ),
                     SizedBox(
                       height: ConfigSize.defaultSize! * 1,
@@ -108,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 width: ConfigSize.screenWidth,
-                height: ConfigSize.defaultSize! * 30,
+                height: ConfigSize.defaultSize! * 25,
                 decoration:
                     const BoxDecoration(color: ColorManager.kPrimaryBlueDark),
                 child: Column(
@@ -130,32 +107,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.w800),
                           ),
                         ),
-                        InkWell(
-                          onTap: () {
-                            PersistentNavBarNavigator.pushNewScreen(
-                              context,
-                              screen: MainScreenBrowse(
-                                isCategory: true,
-                                second_controller: controller,
-                              ),
-                              withNavBar: false,
-                              pageTransitionAnimation:
-                                  PageTransitionAnimation.fade,
-                            );
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: ConfigSize.defaultSize! * 1),
-                            child: Text(
-                              StringManager.viewAll.tr(),
-                              style: const TextStyle(
-                                  color: Colors.black,
-                                  decoration: TextDecoration.underline,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w800),
-                            ),
-                          ),
-                        ),
+                        ViewAllCategoriesWidgetBrowse(
+                          controller: controller,
+                        )
                       ],
                     ),
                     SizedBox(height: ConfigSize.defaultSize! * 1),
@@ -244,39 +198,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: ConfigSize.defaultSize! * 2,
                     ),
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        onPageChanged: (index, reason) {
-                          setState(() {
-                            currentIndexPage = index;
-                          });
-                        },
-                        height: ConfigSize.defaultSize! * 20,
-                        viewportFraction: 1,
-                        initialPage: 0,
-                        enableInfiniteScroll: true,
-                        reverse: false,
-                        autoPlay: true,
-                        autoPlayInterval: const Duration(seconds: 5),
-                        autoPlayAnimationDuration:
-                            const Duration(milliseconds: 800),
-                        autoPlayCurve: Curves.fastOutSlowIn,
-                        enlargeFactor: 0.3,
-                      ),
-                      items: items.map((i) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return Container(
-                              width: ConfigSize.screenWidth!,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: AssetImage(i), fit: BoxFit.cover),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            );
-                          },
-                        );
-                      }).toList(),
+                    CustomCarsoul(
+                      items: items,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndexPage = index;
+                        });
+                      },
                     ),
                     SizedBox(
                       height: ConfigSize.defaultSize! * 1,

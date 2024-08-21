@@ -2,17 +2,16 @@ import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
-import 'package:Learn_U/features/home/presentation/component/view_all_page/view_all_page.dart';
-import 'package:Learn_U/features_browse/Categories/Child_Category_Page.dart';
-import 'package:Learn_U/features_browse/Categories/Courses_Page.dart';
+import 'package:Learn_U/features_browse/Categories/Pages/Child_Category_Page.dart';
+import 'package:Learn_U/features_browse/Categories/Pages/Courses_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../../../core/resource_manger/color_manager.dart';
-import '../../../../../core/resource_manger/locale_keys.g.dart';
-import '../../../../../core/utils/config_size.dart';
-import '../../features/category/data/model/categories_model.dart';
+import '../../../../../../core/resource_manger/color_manager.dart';
+import '../../../../../../core/resource_manger/locale_keys.g.dart';
+import '../../../../../../core/utils/config_size.dart';
+import '../../../features/category/data/model/categories_model.dart';
 
 class CategoriesPageBrowse extends StatefulWidget {
   const CategoriesPageBrowse({super.key});
@@ -84,8 +83,8 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen:
-                                  CategoryChildPage(id: categories[index].id!),
+                              screen: CategoryChildPageBrowse(
+                                  id: categories[index].id!),
                               withNavBar: false,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,

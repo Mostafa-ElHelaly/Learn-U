@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'features/Search_Page/presentation/component/Search_Page.dart';
-import 'features/home/presentation/home_screen.dart';
+import 'features/home/presentation/component/Pages/home_screen.dart';
 import 'features/profile/presentation/profile_screen.dart';
-import 'features_browse/Categories/Categories_Page.dart';
+import 'features_browse/Categories/Pages/Categories_Page.dart';
 import 'features_browse/Search_Page/Search_Page.dart';
-import 'features_browse/home/presentation/home_screen.dart';
+import 'features_browse/home/presentation/component/pages/home_screen.dart';
 import 'features_browse/profile/presentation/profile_screen_browse.dart';
 
 class MainScreenBrowse extends StatefulWidget {
