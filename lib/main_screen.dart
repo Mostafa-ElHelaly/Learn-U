@@ -1,12 +1,12 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Categories_Page.dart';
 import 'package:Learn_U/features/courses/presentation/Courses_Page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'features/Search_Page/presentation/component/Search_Page.dart';
-import 'features/category/presentation/Categories_Page.dart';
-import 'features/home/presentation/home_screen.dart';
+import 'features/home/presentation/component/Pages/home_screen.dart';
 import 'features/profile/presentation/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {

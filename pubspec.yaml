@@ -61,6 +61,7 @@ dependencies:
   country_code_picker: ^3.0.0
   email_otp: ^3.0.2
   provider: ^6.1.2
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
