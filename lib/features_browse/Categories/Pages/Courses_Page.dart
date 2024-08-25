@@ -14,6 +14,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../core/utils/constant_image_url.dart';
 import '../../../features/Search_Page/presentation/manager/search_bloc/search_event.dart';
 import '../../../features/Search_Page/presentation/manager/search_bloc/search_state.dart';
+import 'Tab_bar_pages/course_tab_bar_view.dart';
 
 class CoursesPageBrowse extends StatefulWidget {
   const CoursesPageBrowse(
@@ -54,7 +55,7 @@ class _CoursesPageBrowseState extends State<CoursesPageBrowse> {
                               onTap: () {
                                 PersistentNavBarNavigator.pushNewScreen(
                                   context,
-                                  screen: CourseDetailsBrowse(
+                                  screen: CourseTabBarView(
                                     categories: widget.categories,
                                     courses: courses[index],
                                   ),

@@ -63,6 +63,7 @@ dependencies:
   provider: ^6.1.2
   flutter_rating_bar: ^4.0.1
   html: ^0.15.4
+  accordion: ^2.6.0
 
 dev_dependencies:
   flutter_test:
