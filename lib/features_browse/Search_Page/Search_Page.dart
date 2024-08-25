@@ -2,10 +2,12 @@ import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
-import 'package:Learn_U/core/widgets/custom_text_field.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
+import 'package:Learn_U/features/category/data/model/categories_model.dart';
+import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/course_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import '../../core/resource_manger/asset_path.dart';
 import '../../features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
@@ -114,10 +116,22 @@ class _SearchPageBrowseState extends State<SearchPageBrowse> {
                               : _filteredItems.length,
                           itemBuilder: (context, index) {
                             return ListTile(
+                              onTap: () {
+                                PersistentNavBarNavigator.pushNewScreen(
+                                  context,
+                                  screen: CourseTabBarViewBrowse(
+                                    courses: _filteredItems[index],
+                                  ),
+                                  withNavBar: false,
+                                  pageTransitionAnimation:
+                                      PageTransitionAnimation.fade,
+                                );
+                              },
                               leading: _filteredItems.isNotEmpty
                                   ? Image.network(
                                       ConstantImageUrl.constantimageurl +
-                                          state.SearchList[index].image
+                                          _filteredItems[index]
+                                              .image
                                               .toString(),
                                       filterQuality: FilterQuality.high,
                                       height: ConfigSize.defaultSize! * 5,
@@ -161,3 +175,22 @@ class _SearchPageBrowseState extends State<SearchPageBrowse> {
     });
   }
 }
+
+
+
+// List<CategoriesModel> categories =
+//                                           state2.Categories.where((element) =>
+//                                               element.id ==
+//                                               state.SearchList[index]
+//                                                   .categoryId).toList();
+//                                       print(categories.first.name);
+//                                       PersistentNavBarNavigator.pushNewScreen(
+//                                         context,
+//                                         screen: CourseTabBarView(
+//                                           categories: categories[index],
+//                                           courses: state.SearchList[index],
+//                                         ),
+//                                         withNavBar: false,
+//                                         pageTransitionAnimation:
+//                                             PageTransitionAnimation.fade,
+//                                       );

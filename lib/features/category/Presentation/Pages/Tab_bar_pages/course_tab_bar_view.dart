@@ -1,6 +1,11 @@
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
+import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/about_course_tab.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/about_trainer_tab.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/course_content_tab.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/reviews_tab.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features/courses/presentation/my_polcies_screen.dart';
 import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/about_course_tab.dart';
@@ -9,10 +14,8 @@ import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/course_co
 import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/reviews_tab.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../features/Search_Page/data/model/searchModel.dart';
-
-class CourseTabBarViewBrowse extends StatelessWidget {
-  CourseTabBarViewBrowse({super.key, required this.courses});
+class CourseTabBarView extends StatelessWidget {
+  CourseTabBarView({super.key, required this.courses});
   final SearchModel courses;
   double icon_size = ConfigSize.defaultSize! * 3;
 
@@ -81,10 +84,10 @@ class CourseTabBarViewBrowse extends StatelessWidget {
         body: TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: [
-            AboutCourseTabBrowse(courses: courses),
-            CourseContentTabBrowse(courses: courses),
-            ReviewsTabBrowse(),
-            AboutTrainerTabBrowse(courses: courses)
+            AboutCourseTab(courses: courses),
+            CourseContentTab(courses: courses),
+            ReviewsTab(),
+            AboutTrainerTab(courses: courses)
           ],
         ),
       ),

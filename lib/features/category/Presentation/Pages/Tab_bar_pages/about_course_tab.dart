@@ -1,26 +1,27 @@
+import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
+import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/core/widgets/Loading.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Swarmfy_video.dart';
+import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features_browse/Categories/Widgets/Subscribe_Dialoge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../../core/resource_manger/color_manager.dart';
-import '../../../../core/utils/constant_image_url.dart';
-import '../../../../features/category/Presentation/Manager/categories_bloc/categories_state.dart';
-import '../../../../features/category/data/model/categories_model.dart';
-
-class AboutCourseTabBrowse extends StatefulWidget {
-  AboutCourseTabBrowse({super.key, required this.courses});
+class AboutCourseTab extends StatefulWidget {
+  AboutCourseTab({super.key, required this.courses});
   final SearchModel courses;
 
   @override
-  State<AboutCourseTabBrowse> createState() => _AboutCourseTabBrowseState();
+  State<AboutCourseTab> createState() => _AboutCourseTabState();
 }
 
-class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
+class _AboutCourseTabState extends State<AboutCourseTab> {
   TextStyle labelstyle = TextStyle(
       fontSize: ConfigSize.defaultSize! * 2, fontWeight: FontWeight.bold);
   String modifyLevel(String level) {
@@ -102,7 +103,12 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
             ),
             MainButton(
                 onTap: () {
-                  SubscribeDialog(context);
+                  PersistentNavBarNavigator.pushNewScreen(
+                    context,
+                    screen: SwarmfyVideoPage(),
+                    withNavBar: false,
+                    pageTransitionAnimation: PageTransitionAnimation.fade,
+                  );
                 },
                 title: 'Subscribe Now'),
             SizedBox(height: ConfigSize.defaultSize! * 2),

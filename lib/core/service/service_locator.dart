@@ -1,4 +1,6 @@
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
+import 'package:Learn_U/features/category/domain/use_cases/course_details_uc.dart';
 import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
 import 'package:get_it/get_it.dart';
 import 'package:Learn_U/core/service/navigation_service.dart';
@@ -65,6 +67,9 @@ class ServerLocator {
     getIt.registerLazySingleton(() => TrainersDataBloc(
           trainersUsecase: getIt(),
         ));
+    getIt.registerLazySingleton(() => CourseDetailsDataBloc(
+          categoriesUseCase: getIt(),
+        ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));
@@ -78,6 +83,8 @@ class ServerLocator {
         () => CategoriesUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => SearchUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => TrainersUsecase(baseRepository: getIt()));
+    getIt.registerLazySingleton(
+        () => CourseDetailsUsecase(baseRepository: getIt()));
     //Remote Date
     getIt.registerLazySingleton<BaseRemotelyDataSource>(
         () => AuthRemotelyDateSource());

@@ -2,8 +2,8 @@ import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:flutter/material.dart';
 
-class ReviewsTabBrowse extends StatelessWidget {
-  ReviewsTabBrowse({super.key});
+class ReviewsTab extends StatelessWidget {
+  ReviewsTab({super.key});
   TextStyle labelstyle = TextStyle(
       fontSize: ConfigSize.defaultSize! * 2, fontWeight: FontWeight.bold);
   @override

@@ -4,8 +4,8 @@ import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 
-class CourseContentTab extends StatelessWidget {
-  CourseContentTab({Key? key, required this.courses}) : super(key: key);
+class CourseContentTabBrowse extends StatelessWidget {
+  CourseContentTabBrowse({Key? key, required this.courses}) : super(key: key);
 
   final SearchModel courses;
   final TextStyle labelstyle = TextStyle(
@@ -27,16 +27,10 @@ class CourseContentTab extends StatelessWidget {
                     ConfigSize.defaultSize!), // Adding space between elements
             Row(
               children: [
-                Text('3 Sections'),
-                VerticalDivider(
-                  indent: 3,
-                  thickness: 30,
-                  width: 30,
-                  color: Colors.black,
-                ),
-                Text('${courses.lessonsCount} Lectures'),
+                Text('3 Sections | '),
+                Text('${courses.lessonsCount} Lectures | '),
                 Text(
-                    '${courses.courseLength} ${courses.courseLengthTime} Total Length'),
+                    '${courses.courseLength}${courses.courseLengthTime} Total Length'),
               ],
             ),
             SizedBox(
@@ -48,7 +42,7 @@ class CourseContentTab extends StatelessWidget {
                 contentBorderColor: ColorManager.gray,
                 children: [
                   AccordionSection(
-                    content: Text('Content for Section 1'),
+                    content: Text('Intro'),
                     header: Container(
                       height: ConfigSize.defaultSize! * 8,
                       child: Padding(
@@ -90,7 +84,7 @@ class CourseContentTab extends StatelessWidget {
                     ),
                   ),
                   AccordionSection(
-                    content: Text('Content for Section 3'),
+                    content: Text('Outro'),
                     header: Container(
                       height: ConfigSize.defaultSize! * 8,
                       child: Padding(

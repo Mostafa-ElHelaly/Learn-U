@@ -1,5 +1,6 @@
 import 'package:Learn_U/core/error/failure.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
+import 'package:Learn_U/features/category/data/model/course_details_model.dart';
 import 'package:Learn_U/features/category/data/model/trainers_model.dart';
 import 'package:dartz/dartz.dart';
 
@@ -26,6 +27,17 @@ class CategoriesRepositoryImp extends CategoriesBaseRepository {
   Future<Either<List<TrainersModel>, Failure>> gettrainers() async {
     try {
       final result = await baseRemotelyDataSource.gettrainers();
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<CourseDetailsModel, Failure>> getcoursedetails(
+      int course_id) async {
+    try {
+      final result = await baseRemotelyDataSource.getcoursedetails(course_id);
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));

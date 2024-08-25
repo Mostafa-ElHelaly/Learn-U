@@ -1,6 +1,7 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
 import 'package:Learn_U/main_screen.dart';
 import 'package:Learn_U/welcome_screen.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<ProfileBloc>()),
           BlocProvider(create: (context) => getIt<SearchBloc>()),
           BlocProvider(create: (context) => getIt<TrainersDataBloc>()),
+          BlocProvider(create: (context) => getIt<CourseDetailsDataBloc>()),
           ChangeNotifierProvider(
               create: (context) =>
                   TranslationLoginUserDataProvider(user_email)),

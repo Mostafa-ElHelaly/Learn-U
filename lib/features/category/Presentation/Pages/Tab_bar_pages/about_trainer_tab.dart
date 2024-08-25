@@ -3,22 +3,21 @@ import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/trainers_bloc/trainers_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/trainers_bloc/trainers_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/trainers_bloc/trainers_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:html/parser.dart' as html_parser;
 
-import '../../../../features/category/Presentation/Manager/trainers_bloc/trainers_event.dart';
-
-class AboutTrainerTabBrowse extends StatefulWidget {
-  const AboutTrainerTabBrowse({super.key, required this.courses});
+class AboutTrainerTab extends StatefulWidget {
+  const AboutTrainerTab({super.key, required this.courses});
   final SearchModel courses;
 
   @override
-  State<AboutTrainerTabBrowse> createState() => _AboutTrainerTabBrowseState();
+  State<AboutTrainerTab> createState() => _AboutTrainerTabState();
 }
 
-class _AboutTrainerTabBrowseState extends State<AboutTrainerTabBrowse> {
+class _AboutTrainerTabState extends State<AboutTrainerTab> {
   @override
   void initState() {
     BlocProvider.of<TrainersDataBloc>(context).add(GetallTrainersEvent());
