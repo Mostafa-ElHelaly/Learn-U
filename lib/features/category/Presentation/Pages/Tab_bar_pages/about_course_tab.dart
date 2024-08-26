@@ -51,7 +51,7 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
       pressed = true;
     });
 
-    Timer(Duration(seconds: 1), () {
+    Timer(Duration(seconds: 2), () {
       Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => PaymentPage()),
       );
