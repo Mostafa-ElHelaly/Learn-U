@@ -122,11 +122,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             TextButton(
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) {
-                                      return PrivacyandPolicy();
-                                    },
-                                  ));
+                                  // Navigator.of(context).push(MaterialPageRoute(
+                                  //   builder: (context) {
+                                  //     return PrivacyandPolicy();
+                                  //   },
+                                  // ));
                                 },
                                 child: Text('Privacy and Policy'))
                           ],

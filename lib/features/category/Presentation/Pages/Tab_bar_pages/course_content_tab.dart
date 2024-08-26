@@ -1,3 +1,4 @@
+import 'package:Learn_U/core/widgets/main_button_3.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_state.dart';
@@ -22,8 +23,9 @@ class CourseContentTab extends StatefulWidget {
 
 class _CourseContentTabState extends State<CourseContentTab> {
   final TextStyle labelstyle = TextStyle(
-    fontSize: ConfigSize.defaultSize! * 1.5,
-    fontWeight: FontWeight.bold,
+    color: ColorManager.black,
+    fontWeight: FontWeight.w600,
+    fontSize: ConfigSize.defaultSize! * 1.7,
   );
   @override
   void initState() {
@@ -60,7 +62,6 @@ class _CourseContentTabState extends State<CourseContentTab> {
                           .defaultSize!), // Adding space between elements
                   Expanded(
                     child: ListView.builder(
-                      physics: ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
                         List<Groups> groups = state.CourseDetails.groups!;
                         int lessoncount = groups[index].lessons!.length;
@@ -69,49 +70,65 @@ class _CourseContentTabState extends State<CourseContentTab> {
                             contentBorderColor: ColorManager.gray,
                             children: [
                               AccordionSection(
-                                content: ListView.builder(
-                                  itemBuilder: (context, index2) {
-                                    String video_link = groups[index]
-                                        .lessons![index2]
-                                        .lessonVideo
-                                        .toString();
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            PersistentNavBarNavigator
-                                                .pushNewScreen(
-                                              context,
-                                              screen: SwarmfyVideoPage(
-                                                  video_link: video_link),
-                                              withNavBar: false,
-                                              pageTransitionAnimation:
-                                                  PageTransitionAnimation.fade,
-                                            );
-                                          },
-                                          child: Text(groups[index]
-                                              .lessons![index2]
-                                              .name!),
+                                content: Container(
+                                  height: lessoncount > 1
+                                      ? ConfigSize.defaultSize! * 12
+                                      : ConfigSize.defaultSize! * 2,
+                                  child: ListView.builder(
+                                    physics: ClampingScrollPhysics(),
+                                    itemBuilder: (context, index2) {
+                                      String video_link = groups[index]
+                                          .lessons![index2]
+                                          .lessonVideo
+                                          .toString();
+                                      return Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
+                                              height:
+                                                  ConfigSize.defaultSize! * 2,
+                                              child: MainButton3(
+                                                  color: Colors.transparent,
+                                                  onTap: () {
+                                                    PersistentNavBarNavigator
+                                                        .pushNewScreen(
+                                                      context,
+                                                      screen: SwarmfyVideoPage(
+                                                          video_link:
+                                                              video_link),
+                                                      withNavBar: false,
+                                                      pageTransitionAnimation:
+                                                          PageTransitionAnimation
+                                                              .fade,
+                                                    );
+                                                  },
+                                                  title: groups[index]
+                                                      .lessons![index2]
+                                                      .name!),
+                                            ),
+                                            Visibility(
+                                              visible: lessoncount > 1 &&
+                                                      index2 != lessoncount - 1
+                                                  ? true
+                                                  : false,
+                                              child: Divider(
+                                                indent: 0,
+                                                endIndent: 0,
+                                                height:
+                                                    ConfigSize.defaultSize! * 2,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Visibility(
-                                          visible: lessoncount > 1 ||
-                                                  index2 != lessoncount - 1
-                                              ? true
-                                              : false,
-                                          child: Divider(
-                                            height: ConfigSize.defaultSize! * 2,
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                  itemCount: lessoncount,
-                                  physics: ClampingScrollPhysics(),
-                                  shrinkWrap: true,
+                                      );
+                                    },
+                                    itemCount: lessoncount,
+                                    shrinkWrap: true,
+                                  ),
                                 ),
                                 header: Container(
                                   height: ConfigSize.defaultSize! * 8,
@@ -119,8 +136,11 @@ class _CourseContentTabState extends State<CourseContentTab> {
                                     padding: EdgeInsets.all(
                                         ConfigSize.defaultSize! * 1),
                                     child: ListTile(
-                                      title: Text(state
-                                          .CourseDetails.groups![index].name!),
+                                      title: Text(
+                                        state
+                                            .CourseDetails.groups![index].name!,
+                                        style: labelstyle,
+                                      ),
                                       subtitle: Text(
                                           '${lessoncount}${lessoncount == 1 ? ' Lecture' : ' Lectures'}'),
                                     ),
