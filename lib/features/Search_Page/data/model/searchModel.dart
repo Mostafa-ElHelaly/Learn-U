@@ -1,7 +1,7 @@
 class SearchModel {
-  // int? id;
+  int? id;
   int? categoryId;
-  // int? trainerId;
+  int? trainerId;
   // int? certificateId;
   // int? testId;
   // int? questionId;
@@ -9,7 +9,7 @@ class SearchModel {
   // String? slugAr;
   String? name;
   // String? nameAr;
-  // String? desc;
+  String? desc;
   // String? descAr;
   String? image;
   // String? publishDate;
@@ -41,22 +41,22 @@ class SearchModel {
   // int? delstamp;
   // String? addstamp;
   // String? updatestamp;
-  // String? brief;
+  String? brief;
   // String? briefAr;
   // String? courseCurriculum;
   // String? courseCurriculumAr;
   // int? tags;
   // int? preCourseId;
-  // int? lessonsCount;
+  int? lessonsCount;
   // int? reviews;
   // int? review;
   // int? reviewsSum;
   // int? takers;
 
   SearchModel({
-    // this.id,
+    this.id,
     this.categoryId,
-    // this.trainerId,
+    this.trainerId,
     // this.certificateId,
     // this.testId,
     // this.questionId,
@@ -102,7 +102,7 @@ class SearchModel {
     // this.courseCurriculumAr,
     // this.tags,
     // this.preCourseId,
-    // this.lessonsCount,
+    this.lessonsCount,
     // this.reviews,
     // this.review,
     // this.reviewsSum,
@@ -110,9 +110,9 @@ class SearchModel {
   });
 
   SearchModel.fromJson(Map<String, dynamic> json) {
-    // id = json['id'];
+    id = json['id'];
     categoryId = json['category_id'];
-    // trainerId = json['trainer_id'];
+    trainerId = json['trainer_id'];
     // certificateId = json['certificate_id'];
     // testId = json['test_id'];
     // questionId = json['question_id'];
@@ -120,7 +120,7 @@ class SearchModel {
     // slugAr = json['slug_ar'];
     name = json['name'];
     // nameAr = json['name_ar'];
-    // desc = json['desc'];
+    desc = json['desc'];
     // descAr = json['desc_ar'];
     image = json['image'];
     // publishDate = json['publish_date'];
@@ -152,13 +152,13 @@ class SearchModel {
     // delstamp = json['delstamp'];
     // addstamp = json['addstamp'];
     // updatestamp = json['updatestamp'];
-    // brief = json['brief'];
+    brief = json['brief'];
     // briefAr = json['brief_ar'];
     // courseCurriculum = json['course_curriculum'];
     // courseCurriculumAr = json['course_curriculum_ar'];
     // tags = json['tags'];
     // preCourseId = json['pre_course_id'];
-    // lessonsCount = json['lessons_count'];
+    lessonsCount = json['lessons_count'];
     // reviews = json['reviews'];
     // review = json['review'];
     // reviewsSum = json['reviews_sum'];
@@ -167,9 +167,9 @@ class SearchModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    // data['id'] = this.id;
+    data['id'] = this.id;
     data['category_id'] = this.categoryId;
-    // data['trainer_id'] = this.trainerId;
+    data['trainer_id'] = this.trainerId;
     // data['certificate_id'] = this.certificateId;
     // data['test_id'] = this.testId;
     // data['question_id'] = this.questionId;
@@ -177,7 +177,7 @@ class SearchModel {
     // data['slug_ar'] = this.slugAr;
     data['name'] = this.name;
     // data['name_ar'] = this.nameAr;
-    // data['desc'] = this.desc;
+    data['desc'] = this.desc;
     // data['desc_ar'] = this.descAr;
     data['image'] = this.image;
     // data['publish_date'] = this.publishDate;
@@ -209,13 +209,13 @@ class SearchModel {
     // data['delstamp'] = this.delstamp;
     // data['addstamp'] = this.addstamp;
     // data['updatestamp'] = this.updatestamp;
-    // data['brief'] = this.brief;
+    data['brief'] = this.brief;
     // data['brief_ar'] = this.briefAr;
     // data['course_curriculum'] = this.courseCurriculum;
     // data['course_curriculum_ar'] = this.courseCurriculumAr;
     // data['tags'] = this.tags;
     // data['pre_course_id'] = this.preCourseId;
-    // data['lessons_count'] = this.lessonsCount;
+    data['lessons_count'] = this.lessonsCount;
     // data['reviews'] = this.reviews;
     // data['review'] = this.review;
     // data['reviews_sum'] = this.reviewsSum;

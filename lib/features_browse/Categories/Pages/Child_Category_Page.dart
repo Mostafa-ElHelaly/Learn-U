@@ -1,27 +1,27 @@
-import 'package:Learn_U/core/utils/constant_image_url.dart';
-import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
-import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_event.dart';
-import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
-import 'package:Learn_U/features/home/presentation/component/view_all_page/view_all_page.dart';
-import 'package:Learn_U/features_browse/Categories/Child_Category_Page.dart';
-import 'package:Learn_U/features_browse/Categories/Courses_Page.dart';
+import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
+import 'package:Learn_U/features_browse/Categories/Pages/Courses_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
-import '../../../../../core/resource_manger/color_manager.dart';
-import '../../../../../core/resource_manger/locale_keys.g.dart';
-import '../../../../../core/utils/config_size.dart';
-import '../../features/category/data/model/categories_model.dart';
+import '../../../core/resource_manger/color_manager.dart';
+import '../../../core/utils/config_size.dart';
+import '../../../core/utils/constant_image_url.dart';
+import '../../../features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
+import '../../../features/category/Presentation/Manager/categories_bloc/categories_event.dart';
+import '../../../features/category/Presentation/Manager/categories_bloc/categories_state.dart';
+import '../../../features/category/data/model/categories_model.dart';
 
-class CategoriesPageBrowse extends StatefulWidget {
-  const CategoriesPageBrowse({super.key});
+class CategoryChildPageBrowse extends StatefulWidget {
+  const CategoryChildPageBrowse({super.key, required this.id});
+  final int id;
 
   @override
-  State<CategoriesPageBrowse> createState() => _CategoriesPageBrowseState();
+  State<CategoryChildPageBrowse> createState() =>
+      _CategoryChildPageBrowseState();
 }
 
-class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
+class _CategoryChildPageBrowseState extends State<CategoryChildPageBrowse> {
   TextStyle viewallstyle = TextStyle(
     fontSize: ConfigSize.defaultSize! * 1.5,
     fontWeight: FontWeight.bold,
@@ -31,11 +31,7 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
     fontWeight: FontWeight.bold,
     color: ColorManager.whiteColor,
   );
-  TextStyle descstyle = TextStyle(
-    fontSize: ConfigSize.defaultSize! * 1.5,
-    fontWeight: FontWeight.w200,
-    color: ColorManager.whiteColor,
-  );
+
   @override
   void initState() {
     BlocProvider.of<CategoriesDataBloc>(context).add(GetallCategoriesEvent());
@@ -67,7 +63,7 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                 builder: (context, state) {
                   if (state is CategoriesSuccessState) {
                     List<CategoriesModel> categories = state.Categories.where(
-                        (element) => element.parent_id == null).toList();
+                        (element) => element.parent_id == widget.id).toList();
                     return GridView.builder(
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: categories.length,
@@ -84,8 +80,10 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                           onTap: () {
                             PersistentNavBarNavigator.pushNewScreen(
                               context,
-                              screen:
-                                  CategoryChildPage(id: categories[index].id!),
+                              screen: CoursesPageBrowse(
+                                id: categories[index].id!,
+                                categories: categories[index],
+                              ),
                               withNavBar: false,
                               pageTransitionAnimation:
                                   PageTransitionAnimation.fade,
@@ -160,7 +158,8 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                                           ConfigSize.defaultSize! * 1),
                                       child: Text(
                                         categories[index].desc.toString(),
-                                        style: descstyle,
+                                        style: labelstyle.copyWith(
+                                            fontWeight: FontWeight.w200),
                                         maxLines: 5,
                                         overflow: TextOverflow.ellipsis,
                                       ),
