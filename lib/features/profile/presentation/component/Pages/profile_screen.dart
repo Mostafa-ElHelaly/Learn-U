@@ -1,9 +1,9 @@
 import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
-import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
-import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
 import 'package:Learn_U/features/profile/data/model/user_model.dart';
 import 'package:Learn_U/features/profile/presentation/component/Pages/privacy_and_policy_screen.dart';
+import 'package:Learn_U/features/profile/presentation/component/Pages/refund_policy.dart';
+import 'package:Learn_U/features/profile/presentation/component/Pages/terms_and_conditions.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_event.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_state.dart';
@@ -12,14 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
-import 'package:Learn_U/features/auth/presentation/login_screen.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../../core/resource_manger/routs_manager.dart';
-import '../edit_my_profile/edit_my_profile_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -35,6 +32,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
   }
 
+  TextStyle textbuttonstyle = TextStyle(
+    fontWeight: FontWeight.w300,
+    fontSize: ConfigSize.defaultSize! * 1.5,
+  );
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,15 +121,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            TextButton(
-                                onPressed: () {
-                                  // Navigator.of(context).push(MaterialPageRoute(
-                                  //   builder: (context) {
-                                  //     return PrivacyandPolicy();
-                                  //   },
-                                  // ));
-                                },
-                                child: Text('Privacy and Policy'))
+                            Container(
+                              width: ConfigSize.defaultSize! * 10,
+                              child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) {
+                                        return PrivacyandPolicy();
+                                      },
+                                    ));
+                                  },
+                                  child: Text(
+                                    'Privacy and Policy',
+                                    style: textbuttonstyle,
+                                  )),
+                            ),
+                            Container(
+                              width: ConfigSize.defaultSize! * 10,
+                              child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) {
+                                        return TermsandConditions();
+                                      },
+                                    ));
+                                  },
+                                  child: Text(
+                                    'Terms and Conditions',
+                                    style: textbuttonstyle,
+                                  )),
+                            ),
+                            Container(
+                              width: ConfigSize.defaultSize! * 10,
+                              child: TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) {
+                                        return RefundPolicy();
+                                      },
+                                    ));
+                                  },
+                                  child: Text(
+                                    'Refund Policy',
+                                    style: textbuttonstyle,
+                                  )),
+                            ),
                           ],
                         )
                       ],
