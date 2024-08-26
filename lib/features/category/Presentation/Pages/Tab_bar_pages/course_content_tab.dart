@@ -121,7 +121,8 @@ class _CourseContentTabState extends State<CourseContentTab> {
                                     child: ListTile(
                                       title: Text(state
                                           .CourseDetails.groups![index].name!),
-                                      subtitle: Text('1 Lecture'),
+                                      subtitle: Text(
+                                          '${lessoncount}${lessoncount == 1 ? ' Lecture' : ' Lectures'}'),
                                     ),
                                   ),
                                 ),

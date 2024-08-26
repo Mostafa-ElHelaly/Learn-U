@@ -8,10 +8,15 @@ class UserModel {
   });
 
   // Parsing the JSON to create a CountriesModel instance
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      first_name: json['first_name'] as String?,
-      email: json['email'] as String?,
-    );
+  UserModel.fromJson(Map<String, dynamic> json) {
+    first_name = json['first_name'];
+    email = json['email'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['first_name'] = this.first_name;
+    data['email'] = this.email;
+    return data;
   }
 }

@@ -7,7 +7,7 @@ import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 import 'features/Search_Page/presentation/component/Search_Page.dart';
 import 'features/home/presentation/component/Pages/home_screen.dart';
-import 'features/profile/presentation/profile_screen.dart';
+import 'features/profile/presentation/component/Pages/profile_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -78,12 +78,12 @@ class _MainScreenState extends State<MainScreen> {
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(
-          Icons.shopping_cart,
+          Icons.category,
           color: ColorManager.kPrimaryBlueDark,
           size: 40,
         ),
         inactiveIcon: const Icon(
-          Icons.shopping_cart,
+          Icons.category,
           size: 30,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
