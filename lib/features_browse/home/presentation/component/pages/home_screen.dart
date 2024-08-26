@@ -2,6 +2,7 @@ import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/core/widgets/Custom_Carsoul.dart';
 import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
+import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features_browse/home/presentation/component/Widgets/View_all_Categories_Widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -119,6 +120,10 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                           return Text(state.errorMessage);
                         }
                         if (state is CategoriesSuccessState) {
+                          List<CategoriesModel> categories =
+                              state.Categories.where(
+                                      (element) => element.parent_id != null)
+                                  .toList();
                           double carouselHeight = ConfigSize.defaultSize! * 25;
                           return // Example dynamic height
                               Expanded(
@@ -140,7 +145,7 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                                               image: NetworkImage(
                                                 ConstantImageUrl
                                                         .constantimageurl +
-                                                    state.Categories[index]
+                                                    categories[index]
                                                         .thumbnail
                                                         .toString(),
                                               ),
@@ -152,13 +157,17 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                                       SizedBox(
                                           height:
                                               ConfigSize.defaultSize! * 0.5),
-                                      Text(
-                                        state.Categories[index].name.toString(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize:
-                                                ConfigSize.defaultSize! * 2),
+                                      Container(
+                                        height: ConfigSize.defaultSize! * 2,
+                                        child: Text(
+                                          categories[index].name.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  ConfigSize.defaultSize! *
+                                                      1.5),
+                                        ),
                                       ),
                                     ],
                                   ),

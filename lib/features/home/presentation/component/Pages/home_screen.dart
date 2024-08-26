@@ -1,5 +1,6 @@
 import 'package:Learn_U/core/widgets/Custom_Carsoul.dart';
 import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
+import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features/home/presentation/component/Widgets/View_all_Categories_Widget.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Container(
                 width: ConfigSize.screenWidth,
-                height: ConfigSize.defaultSize! * 30,
+                height: ConfigSize.defaultSize! * 25,
                 decoration:
                     const BoxDecoration(color: ColorManager.kPrimaryBlueDark),
                 child: Column(
@@ -116,6 +117,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Text(state.errorMessage);
                         }
                         if (state is CategoriesSuccessState) {
+                          List<CategoriesModel> categories =
+                              state.Categories.where(
+                                      (element) => element.parent_id != null)
+                                  .toList();
                           double carouselHeight = ConfigSize.defaultSize! * 25;
                           return // Example dynamic height
                               Expanded(
@@ -137,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               image: NetworkImage(
                                                 ConstantImageUrl
                                                         .constantimageurl +
-                                                    state.Categories[index]
+                                                    categories[index]
                                                         .thumbnail
                                                         .toString(),
                                               ),
@@ -149,13 +154,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                       SizedBox(
                                           height:
                                               ConfigSize.defaultSize! * 0.5),
-                                      Text(
-                                        state.Categories[index].name.toString(),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize:
-                                                ConfigSize.defaultSize! * 2),
+                                      Container(
+                                        height: ConfigSize.defaultSize! * 2,
+                                        child: Text(
+                                          categories[index].name.toString(),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize:
+                                                  ConfigSize.defaultSize! *
+                                                      1.5),
+                                        ),
                                       ),
                                     ],
                                   ),

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class CategoriesModel {
   int? id;
   int? parent_id;
