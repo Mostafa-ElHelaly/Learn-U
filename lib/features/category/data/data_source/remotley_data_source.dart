@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features/category/data/model/course_details_model.dart';
 import 'package:Learn_U/features/category/data/model/trainers_model.dart';

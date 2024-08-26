@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/core/widgets/Loading.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
+import 'package:Learn_U/core/widgets/main_button_2.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Payment_Page.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Swarmfy_video.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features_browse/Categories/Widgets/Subscribe_Dialoge.dart';
@@ -37,10 +41,22 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
     }
   }
 
+  bool pressed = false;
   TextStyle labelStyle = TextStyle(
     fontSize: ConfigSize.defaultSize! * 2,
     fontWeight: FontWeight.bold,
   );
+  void _startLoadingAndNavigate() {
+    setState(() {
+      pressed = true;
+    });
+
+    Timer(Duration(seconds: 1), () {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => PaymentPage()),
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -101,16 +117,20 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                 ],
               ),
             ),
-            MainButton(
-                onTap: () {
-                  PersistentNavBarNavigator.pushNewScreen(
-                    context,
-                    screen: SwarmfyVideoPage(),
-                    withNavBar: false,
-                    pageTransitionAnimation: PageTransitionAnimation.fade,
-                  );
-                },
-                title: 'Subscribe Now'),
+            pressed == false
+                ? MainButton(
+                    onTap: () {
+                      _startLoadingAndNavigate();
+                    },
+                    title: 'Subscribe Now')
+                : MainButton2(
+                    color: ColorManager.gray,
+                    onTap: () {},
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: ColorManager.whiteColor,
+                      ),
+                    )),
             SizedBox(height: ConfigSize.defaultSize! * 2),
             Center(child: Text(widget.courses.desc.toString())),
             SizedBox(height: ConfigSize.defaultSize! * 2),

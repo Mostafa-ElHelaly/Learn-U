@@ -1,12 +1,15 @@
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_state.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Swarmfy_video.dart';
+import 'package:Learn_U/features/category/data/model/course_details_model.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class CourseContentTab extends StatefulWidget {
   CourseContentTab({Key? key, required this.courses}) : super(key: key);
@@ -57,7 +60,10 @@ class _CourseContentTabState extends State<CourseContentTab> {
                           .defaultSize!), // Adding space between elements
                   Expanded(
                     child: ListView.builder(
+                      physics: ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
+                        List<Groups> groups = state.CourseDetails.groups!;
+                        int lessoncount = groups[index].lessons!.length;
                         return Accordion(
                             headerBackgroundColor: ColorManager.gray,
                             contentBorderColor: ColorManager.gray,
@@ -65,12 +71,46 @@ class _CourseContentTabState extends State<CourseContentTab> {
                               AccordionSection(
                                 content: ListView.builder(
                                   itemBuilder: (context, index2) {
-                                    Text(state.CourseDetails.groups![index]
-                                        .lessons![index2].name!);
+                                    String video_link = groups[index]
+                                        .lessons![index2]
+                                        .lessonVideo
+                                        .toString();
+                                    return Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            PersistentNavBarNavigator
+                                                .pushNewScreen(
+                                              context,
+                                              screen: SwarmfyVideoPage(
+                                                  video_link: video_link),
+                                              withNavBar: false,
+                                              pageTransitionAnimation:
+                                                  PageTransitionAnimation.fade,
+                                            );
+                                          },
+                                          child: Text(groups[index]
+                                              .lessons![index2]
+                                              .name!),
+                                        ),
+                                        Visibility(
+                                          visible: lessoncount > 1 ||
+                                                  index2 != lessoncount - 1
+                                              ? true
+                                              : false,
+                                          child: Divider(
+                                            height: ConfigSize.defaultSize! * 2,
+                                          ),
+                                        ),
+                                      ],
+                                    );
                                   },
-                                  itemCount: state.CourseDetails.groups![index]
-                                      .lessons!.length,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  itemCount: lessoncount,
+                                  physics: ClampingScrollPhysics(),
                                   shrinkWrap: true,
                                 ),
                                 header: Container(
@@ -91,71 +131,6 @@ class _CourseContentTabState extends State<CourseContentTab> {
                       itemCount: state.CourseDetails.groups!.length,
                       shrinkWrap: true,
                     ),
-                    // Accordion(
-
-                    //   children: [
-                    //     AccordionSection(
-                    //       content: Text(state.CourseDetails.groups![0].name!),
-                    //       header: Container(
-                    //         height: ConfigSize.defaultSize! * 8,
-                    //         child: Padding(
-                    //           padding:
-                    //               EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                    //           child: ListTile(
-                    //             title: Text(state.CourseDetails.groups![0].name
-                    //                 .toString()),
-                    //             subtitle: Text('1 Lecture'),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     AccordionSection(
-                    //       content: ListView.builder(
-                    //         physics: NeverScrollableScrollPhysics(),
-                    //         shrinkWrap: true,
-                    //         itemCount: (widget.courses.lessonsCount! - 2),
-                    //         itemBuilder: (context, index) {
-                    //           return Padding(
-                    //             padding:
-                    //                 EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                    //             child: Center(
-                    //               child: Container(
-                    //                 width: ConfigSize.defaultSize! * 10,
-                    //                 child: Text('Lesson ${index + 1}'),
-                    //               ),
-                    //             ),
-                    //           );
-                    //         },
-                    //       ),
-                    //       header: Container(
-                    //         height: ConfigSize.defaultSize! * 8,
-                    //         child: Padding(
-                    //           padding:
-                    //               EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                    //           child: ListTile(
-                    //             title: Text('Course Content'),
-                    //             subtitle: Text(
-                    //                 '${widget.courses.lessonsCount! - 2} Lectures'),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     AccordionSection(
-                    //       content: Text('Outro'),
-                    //       header: Container(
-                    //         height: ConfigSize.defaultSize! * 8,
-                    //         child: Padding(
-                    //           padding:
-                    //               EdgeInsets.all(ConfigSize.defaultSize! * 1),
-                    //           child: ListTile(
-                    //             title: Text('Outro'),
-                    //             subtitle: Text('1 Lecture'),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
                   ),
                 ],
               );
