@@ -25,7 +25,7 @@ class _CourseContentTabState extends State<CourseContentTab> {
   final TextStyle labelstyle = TextStyle(
     color: ColorManager.black,
     fontWeight: FontWeight.w600,
-    fontSize: ConfigSize.defaultSize! * 1.7,
+    fontSize: ConfigSize.defaultSize! * 1.3,
   );
   @override
   void initState() {

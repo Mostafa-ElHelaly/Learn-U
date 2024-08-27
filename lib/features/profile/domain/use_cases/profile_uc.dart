@@ -1,8 +1,5 @@
-import 'package:Learn_U/features/auth/data/model/countries_model.dart';
-import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:Learn_U/features/profile/data/model/user_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:provider/provider.dart';
 
 import '../../../../core/base_use_case/base_use_case.dart';
 import '../../../../core/error/failure.dart';

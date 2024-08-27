@@ -8,7 +8,7 @@ class SearchModel {
   // String? slug;
   // String? slugAr;
   String? name;
-  // String? nameAr;
+  String? nameAr;
   String? desc;
   // String? descAr;
   String? image;
@@ -63,7 +63,7 @@ class SearchModel {
     // this.slug,
     // this.slugAr,
     this.name,
-    // this.nameAr,
+    this.nameAr,
     // this.desc,
     // this.descAr,
     this.image,
@@ -119,7 +119,7 @@ class SearchModel {
     // slug = json['slug'];
     // slugAr = json['slug_ar'];
     name = json['name'];
-    // nameAr = json['name_ar'];
+    nameAr = json['name_ar'];
     desc = json['desc'];
     // descAr = json['desc_ar'];
     image = json['image'];
@@ -176,7 +176,7 @@ class SearchModel {
     // data['slug'] = this.slug;
     // data['slug_ar'] = this.slugAr;
     data['name'] = this.name;
-    // data['name_ar'] = this.nameAr;
+    data['name_ar'] = this.nameAr;
     data['desc'] = this.desc;
     // data['desc_ar'] = this.descAr;
     data['image'] = this.image;

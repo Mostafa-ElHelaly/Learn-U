@@ -1,0 +1,13 @@
+{
+     "@@locale": "en",
+    "search": "Search",
+    "noresultsfound": "No Results Found",
+    "signup": "Sign Up",
+    "forgotpassword": "Forgot Password",
+    "email": "Email",
+    "password": "Password",
+    "confirmpassword": "Confirm Password",
+    "signin": "Sign In",
+    "name": "Name",
+    "phonenumber": "Phone Number"
+}

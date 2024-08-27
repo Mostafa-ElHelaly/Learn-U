@@ -1,9 +1,15 @@
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
 import 'package:Learn_U/features/category/domain/use_cases/course_details_uc.dart';
+import 'package:Learn_U/features/profile/data/data_source/locale_data_source.dart';
 import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
+import 'package:Learn_U/features/profile/data/repo_impl/locale_impl.dart';
+import 'package:Learn_U/features/profile/domain/repo/locale_repository.dart';
+import 'package:Learn_U/features/profile/domain/use_cases/translate_uc.dart';
+import 'package:Learn_U/features/profile/presentation/component/manager/translate_bloc/translate_bloc_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:Learn_U/core/service/navigation_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/Search_Page/data/data_source/remotly_data_source.dart';
 import '../../features/Search_Page/data/repo_imp/repo_imp.dart';
@@ -38,6 +44,8 @@ final getIt = GetIt.instance;
 
 class ServerLocator {
   Future<void> init() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    getIt.registerSingleton<SharedPreferences>(sharedPreferences);
     //bloc
     getIt.registerLazySingleton(() => RegisterBloc(
           registerUseCase: getIt(),
@@ -70,6 +78,9 @@ class ServerLocator {
     getIt.registerLazySingleton(() => CourseDetailsDataBloc(
           categoriesUseCase: getIt(),
         ));
+    getIt.registerLazySingleton(() => LocaleBloc(
+          changeLocaleUseCase: getIt(),
+        ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));
@@ -85,6 +96,8 @@ class ServerLocator {
     getIt.registerLazySingleton(() => TrainersUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(
         () => CourseDetailsUsecase(baseRepository: getIt()));
+    getIt.registerLazySingleton(
+        () => ChangeLocaleUseCase(localeRepository: getIt()));
     //Remote Date
     getIt.registerLazySingleton<BaseRemotelyDataSource>(
         () => AuthRemotelyDateSource());
@@ -94,6 +107,8 @@ class ServerLocator {
         () => CategoryRemotelyDateSource());
     getIt.registerLazySingleton<BaseSearchRemotelyDataSource>(
         () => SearchRemotelyDateSource());
+    getIt.registerLazySingleton<BaseLocaleDataSource>(
+        () => LocaleDataSource(preferences: getIt()));
 
     //Repository Implementation
     getIt.registerLazySingleton<BaseRepository>(
@@ -104,6 +119,8 @@ class ServerLocator {
         () => CategoriesRepositoryImp(baseRemotelyDataSource: getIt()));
     getIt.registerLazySingleton<BaseRepositorySearch>(
         () => RepositoryImpSearch(baseRemotelyDataSource: getIt()));
+    getIt.registerLazySingleton<LocaleRepository>(
+        () => LocaleRepositoryImpl(getIt()));
 
     // navigation service
     getIt.registerLazySingleton(() => NavigationService());

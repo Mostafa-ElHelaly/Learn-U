@@ -37,6 +37,11 @@ class _LoginScreenState extends State<LoginScreen> {
     prefs.setBool('is_logged', true) ?? false;
   }
 
+  void save_email() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("user_email", emailController.text);
+  }
+
   bool isVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -148,28 +153,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   Padding(
                       padding: EdgeInsets.symmetric(
                           vertical: ConfigSize.defaultSize! * 3),
-                      child: Consumer<TranslationLoginUserDataProvider>(
-                        builder: (context, user, child) {
-                          return MainButton(
-                            color: ColorManager.kPrimaryBlueDark,
-                            textColor: ColorManager.whiteColor,
-                            onTap: () {
-                              if (validation()) {
-                                user.save_email(emailController.text);
-                                BlocProvider.of<LoginBloc>(context).add(
-                                  LoginEvent(
-                                    email: emailController.text,
-                                    password: passwordController.text,
-                                  ),
-                                );
-                              } else {
-                                errorSnackBar(
-                                    context, StringManager.errorFillFields);
-                              }
-                            },
-                            title: StringManager.login.tr(),
-                          );
+                      child: MainButton(
+                        color: ColorManager.kPrimaryBlueDark,
+                        textColor: ColorManager.whiteColor,
+                        onTap: () {
+                          if (validation()) {
+                            save_email();
+                            BlocProvider.of<LoginBloc>(context).add(
+                              LoginEvent(
+                                email: emailController.text,
+                                password: passwordController.text,
+                              ),
+                            );
+                          } else {
+                            errorSnackBar(
+                                context, StringManager.errorFillFields);
+                          }
                         },
+                        title: StringManager.login.tr(),
                       )),
                 ],
               ),

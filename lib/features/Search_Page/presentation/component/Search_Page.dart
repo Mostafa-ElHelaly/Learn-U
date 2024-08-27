@@ -1,5 +1,4 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
 import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_state.dart';
@@ -12,6 +11,7 @@ import '../../../../core/resource_manger/asset_path.dart';
 import '../../../../core/utils/constant_image_url.dart';
 import '../../data/model/searchModel.dart';
 import '../manager/search_bloc/search_event.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -39,10 +39,13 @@ class _SearchPageState extends State<SearchPage> {
   List<SearchModel> _filteredItems = [];
 
   void _updateSearchQuery(String query, List<SearchModel> list) {
+    String localetype = Localizations.localeOf(context).languageCode;
+
     setState(() {
       _filteredItems = list
-          .where((item) =>
-              item.name!.toLowerCase().startsWith(query.toLowerCase()))
+          .where((item) => localetype == 'ar'
+              ? item.nameAr!.toLowerCase().startsWith(query.toLowerCase())
+              : item.name!.toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
@@ -94,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
                               focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(
                                       ConfigSize.defaultSize! * 1.5)),
-                              hintText: StringManager.search,
+                              hintText: AppLocalizations.of(context)!.search,
                               filled: true,
                               fillColor: Colors.white,
                             ),
@@ -142,9 +145,10 @@ class _SearchPageState extends State<SearchPage> {
                                           .contains(searchController.text)
                                       ? Text(
                                           _filteredItems[index].name.toString())
-                                      : const Center(
+                                      : Center(
                                           child: Text(
-                                          'No Results Found',
+                                          AppLocalizations.of(context)!
+                                              .noresultsfound,
                                           style: TextStyle(
                                               color: ColorManager.red),
                                         ))
