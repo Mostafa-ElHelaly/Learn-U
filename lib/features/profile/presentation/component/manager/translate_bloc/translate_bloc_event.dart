@@ -8,10 +8,7 @@ abstract class LocaleEvent extends Equatable {
 }
 
 class LocaleChanged extends LocaleEvent {
-  final LocaleEntity locale;
+  final Locale locale;
 
   LocaleChanged(this.locale);
-
-  @override
-  List<Object> get props => [locale];
 }

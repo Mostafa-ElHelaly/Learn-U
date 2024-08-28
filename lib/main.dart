@@ -1,7 +1,9 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
+import 'package:Learn_U/features/profile/data/data_source/locale_data_source.dart';
+import 'package:Learn_U/features/profile/data/repo_impl/locale_impl.dart';
+import 'package:Learn_U/features/profile/domain/use_cases/translate_uc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/translate_bloc/translate_bloc_bloc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/translate_bloc/translate_bloc_state.dart';
@@ -34,6 +36,10 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final user_email = prefs.getString("user_email") ?? 'false';
   final is_logged_in = prefs.getBool("is_logged") ?? false;
+  final LocaleRepositoryImpl localeRepository =
+      LocaleRepositoryImpl(LocaleDataSource());
+  final ChangeLocaleUseCase _localeService = ChangeLocaleUseCase(
+      localeRepository: LocaleRepositoryImpl(LocaleDataSource()));
 
   runApp(
     EasyLocalization(
@@ -45,6 +51,7 @@ void main() async {
       assetLoader: const CodegenLoader(),
       path: 'lib/core/translations/',
       child: MyApp(
+        localeService: _localeService,
         user_email: user_email,
         is_logged_in: is_logged_in,
       ),
@@ -57,9 +64,12 @@ class MyApp extends StatelessWidget {
     super.key,
     required this.user_email,
     required this.is_logged_in,
+    required this.localeService,
   });
   final String user_email;
   final bool is_logged_in;
+  final ChangeLocaleUseCase localeService;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -78,50 +88,51 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<CourseDetailsDataBloc>()),
           BlocProvider(create: (context) => getIt<LocaleBloc>()),
         ],
-        child: BlocBuilder<LocaleBloc, LocaleState>(
-          builder: (context, state) {
-            final locale = (state as LocaleInitial).locale.locale;
-            return MaterialApp(
-              supportedLocales: [
-                const Locale('en', ''),
-                const Locale('ar', ''),
-              ],
-              localizationsDelegates: const [
-                AppLocalizations.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate
-              ],
-              title: 'Be sure!',
-              debugShowCheckedModeBanner: false,
-              localeResolutionCallback: (locale, supportedLocales) {
-                for (var supportedLocale in supportedLocales) {
-                  if (supportedLocale.languageCode == locale!.languageCode) {
-                    return supportedLocale;
-                  }
+        child: BlocBuilder<LocaleBloc, LocaleState>(builder: (context, state) {
+          Locale locale = Locale('en'); // Default locale
+          if (state is LocaleLoaded) {
+            locale = state.locale;
+          }
+          return MaterialApp(
+            supportedLocales: [
+              const Locale('en', ''),
+              const Locale('ar', ''),
+            ],
+            localizationsDelegates: const [
+              AppLocalizations.delegate,
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate
+            ],
+            title: 'Be sure!',
+            debugShowCheckedModeBanner: false,
+            localeResolutionCallback: (locale, supportedLocales) {
+              for (var supportedLocale in supportedLocales) {
+                if (supportedLocale.languageCode == locale!.languageCode) {
+                  return supportedLocale;
                 }
-                return supportedLocales.first;
-              },
-              locale: locale.languageCode == 'ar' ? Locale('ar') : Locale('en'),
-              theme: ThemeData(
-                textButtonTheme: TextButtonThemeData(
-                    style: ButtonStyle(
-                  textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
-                      fontSize: ConfigSize.defaultSize! * 2.5,
-                      fontWeight: FontWeight.bold)),
-                  foregroundColor: MaterialStateProperty.all<Color>(
-                      ColorManager.black), // Text color
-                )),
-                scaffoldBackgroundColor: ColorManager.whiteColor,
-                canvasColor: ColorManager.whiteColor,
-                textTheme: GoogleFonts.poppinsTextTheme(),
-              ),
-              navigatorKey: getIt<NavigationService>().navigatorKey,
-              onGenerateRoute: RouteGenerator.getRoute,
-              home: is_logged_in == true ? MainScreen() : WelcomeScreen(),
-            );
-          },
-        ));
+              }
+              return supportedLocales.first;
+            },
+            locale: locale,
+            theme: ThemeData(
+              textButtonTheme: TextButtonThemeData(
+                  style: ButtonStyle(
+                textStyle: MaterialStateProperty.all<TextStyle>(TextStyle(
+                    fontSize: ConfigSize.defaultSize! * 2.5,
+                    fontWeight: FontWeight.bold)),
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    ColorManager.black), // Text color
+              )),
+              scaffoldBackgroundColor: ColorManager.whiteColor,
+              canvasColor: ColorManager.whiteColor,
+              textTheme: GoogleFonts.poppinsTextTheme(),
+            ),
+            navigatorKey: getIt<NavigationService>().navigatorKey,
+            onGenerateRoute: RouteGenerator.getRoute,
+            home: is_logged_in == true ? MainScreen() : WelcomeScreen(),
+          );
+        }));
   }
   // main
 }

@@ -3,9 +3,11 @@ import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';
 import 'package:Learn_U/features/profile/data/model/user_model.dart';
 import 'package:Learn_U/features/profile/domain/entites/locale_entity';
+import 'package:Learn_U/features/profile/presentation/component/Pages/pricing_screen.dart';
 import 'package:Learn_U/features/profile/presentation/component/Pages/privacy_and_policy_screen.dart';
 import 'package:Learn_U/features/profile/presentation/component/Pages/refund_policy.dart';
 import 'package:Learn_U/features/profile/presentation/component/Pages/terms_and_conditions.dart';
+import 'package:Learn_U/features/profile/presentation/component/Widgets/CustomGesture.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_bloc.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_event.dart';
 import 'package:Learn_U/features/profile/presentation/component/manager/profile_bloc/profile_state.dart';
@@ -44,11 +46,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         () {}); // Ensure the state is updated after SharedPreferences is initialized
   }
 
-  TextStyle textbuttonstyle = TextStyle(
-      fontWeight: FontWeight.bold,
-      color: ColorManager.blue,
-      fontSize: ConfigSize.defaultSize! * 1.5,
-      decoration: TextDecoration.underline);
   Future<void> Sign_out() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('is_logged', false) ?? false;
@@ -138,13 +135,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       width: ConfigSize.defaultSize! * 20,
                                       child: MainButton(
                                           onTap: () {
-                                            BlocProvider.of<LocaleBloc>(context)
-                                                .add(
-                                              LocaleChanged(LocaleEntity(
-                                                  localetype == 'ar'
-                                                      ? Locale('en', '')
-                                                      : Locale('ar', ''))),
-                                            );
+                                            context.read<LocaleBloc>().add(
+                                                LocaleChanged(localetype == 'ar'
+                                                    ? Locale('en', '')
+                                                    : Locale('ar', '')));
                                           },
                                           title: 'Translate')),
                                   Container(
@@ -154,7 +148,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         shape: BoxShape.circle,
                                         image: DecorationImage(
                                             image: AssetImage(
-                                              AssetsPath.arabic,
+                                              localetype == 'ar'
+                                                  ? AssetsPath.english
+                                                  : AssetsPath.arabic,
                                             ),
                                             fit: BoxFit.fill)),
                                   )
@@ -174,51 +170,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) {
-                                    return PrivacyandPolicy();
-                                  },
-                                ));
-                              },
-                              child: Text(
-                                'Privacy and Policy',
-                                style: textbuttonstyle,
-                              ),
-                            ),
+                            CustomGestureDetector(
+                                context: context,
+                                NavigatorPage: PrivacyandPolicy(),
+                                title: 'Privacy and Policy'),
                             SizedBox(
                               height: ConfigSize.defaultSize! * 0.5,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) {
-                                    return TermsandConditions();
-                                  },
-                                ));
-                              },
-                              child: Text(
-                                'Terms and Conditions',
-                                style: textbuttonstyle,
-                              ),
-                            ),
+                            CustomGestureDetector(
+                                context: context,
+                                NavigatorPage: TermsandConditions(),
+                                title: 'Terms and Conditions'),
                             SizedBox(
                               height: ConfigSize.defaultSize! * 0.5,
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) {
-                                    return RefundPolicy();
-                                  },
-                                ));
-                              },
-                              child: Text(
-                                'Refund Policy',
-                                style: textbuttonstyle,
-                              ),
-                            )
+                            CustomGestureDetector(
+                                context: context,
+                                NavigatorPage: RefundPolicy(),
+                                title: 'Refund Policy'),
+                            SizedBox(
+                              height: ConfigSize.defaultSize! * 0.5,
+                            ),
+                            CustomGestureDetector(
+                                context: context,
+                                NavigatorPage: PrcicingScreen(),
+                                title: 'Pricing'),
                           ],
                         ),
                         SizedBox(height: ConfigSize.defaultSize! * 2),

@@ -39,19 +39,17 @@ class _SearchPageState extends State<SearchPage> {
   List<SearchModel> _filteredItems = [];
 
   void _updateSearchQuery(String query, List<SearchModel> list) {
-    String localetype = Localizations.localeOf(context).languageCode;
-
     setState(() {
       _filteredItems = list
-          .where((item) => localetype == 'ar'
-              ? item.nameAr!.toLowerCase().startsWith(query.toLowerCase())
-              : item.name!.toLowerCase().startsWith(query.toLowerCase()))
+          .where((item) =>
+              item.name!.toLowerCase().startsWith(query.toLowerCase()))
           .toList();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    String localetype = Localizations.localeOf(context).languageCode;
     return BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
       if (state is SearchSuccessState) {
         return GestureDetector(

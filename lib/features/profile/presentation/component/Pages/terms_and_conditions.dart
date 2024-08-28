@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-class TermsandConditions extends StatefulWidget {
+class TermsandConditions extends StatelessWidget {
   TermsandConditions({super.key});
-
-  @override
-  State<TermsandConditions> createState() => _TermsandConditionsState();
-}
-
-class _TermsandConditionsState extends State<TermsandConditions> {
   final String url =
-      'https://devops.exabyte-eg.com/projects/learnu/web/#/privacy-policy';
-
+      'https://devops.exabyte-eg.com/projects/learnu/web/#/view/ar/terms-and-conditions';
   @override
   Widget build(BuildContext context) {
     return InAppWebView(

@@ -6,6 +6,7 @@ import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../../../../core/resource_manger/color_manager.dart';
 import '../../../../../../core/resource_manger/locale_keys.g.dart';
@@ -174,7 +175,15 @@ class _CategoriesPageState extends State<CategoriesPage> {
                   }
                   if (state is CategoriesErrorState) {
                     return Text(state.errorMessage);
-                  } else {
+                  }
+                  if (state is CategoriesLoadingState)
+                    return Shimmer(
+                        child: Card(),
+                        gradient: LinearGradient(colors: [
+                          ColorManager.black.withOpacity(0.5),
+                          ColorManager.black.withOpacity(0.1)
+                        ]));
+                  else {
                     return Center(
                       child: CircularProgressIndicator(
                         color: ColorManager.mainColor,

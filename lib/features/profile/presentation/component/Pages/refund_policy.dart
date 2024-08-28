@@ -1,17 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-class RefundPolicy extends StatefulWidget {
+class RefundPolicy extends StatelessWidget {
   RefundPolicy({super.key});
-
-  @override
-  State<RefundPolicy> createState() => _RefundPolicyState();
-}
-
-class _RefundPolicyState extends State<RefundPolicy> {
   final String url =
-      'https://devops.exabyte-eg.com/projects/learnu/web/#/privacy-policy';
-
+      'https://devops.exabyte-eg.com/projects/learnu/web/#/view/ar/refund-policy';
   @override
   Widget build(BuildContext context) {
     return InAppWebView(

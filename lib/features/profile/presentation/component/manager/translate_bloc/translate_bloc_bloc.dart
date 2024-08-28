@@ -6,18 +6,19 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 class LocaleBloc extends Bloc<LocaleEvent, LocaleState> {
-  final ChangeLocaleUseCase changeLocaleUseCase;
+  final ChangeLocaleUseCase localeService;
 
-  LocaleBloc({required this.changeLocaleUseCase})
-      : super(LocaleInitial(LocaleEntity(Locale('en', 'US')))) {
-    on<LocaleChanged>(_onLocaleChanged);
+  LocaleBloc({required this.localeService}) : super(LocaleInitial()) {
+    on<LocaleChanged>((event, emit) async {
+      await localeService.localeRepository.setLocale(event.locale);
+      emit(LocaleLoaded(event.locale));
+    });
+
+    _loadInitialLocale();
   }
-  Future<void> _onLocaleChanged(
-      LocaleChanged event, Emitter<LocaleState> emit) async {
-    final result = await changeLocaleUseCase(event.locale);
-    result.fold(
-      (exception) => emit(state), // Handle error if needed
-      (_) => emit(LocaleInitial(event.locale)),
-    );
+
+  Future<void> _loadInitialLocale() async {
+    final locale = await localeService.localeRepository.getLocale();
+    emit(LocaleLoaded(locale));
   }
 }

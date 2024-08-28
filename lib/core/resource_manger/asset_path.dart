@@ -9,7 +9,7 @@ class AssetsPath {
   static const String group = "$pathImage/Group 8@1x.png";
   static const String search = "$pathImage/Animation - 1724073585106 (1).gif";
   static const String arabic = "$pathImage/arabic.png";
-  static const String english = "$pathImage/english.png";
+  static const String english = "$pathImage/englsih.png";
 
 //icons
   static const String app1 = "$pathIcon/app-01.png";

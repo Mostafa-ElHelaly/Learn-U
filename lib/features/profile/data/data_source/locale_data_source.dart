@@ -3,23 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class BaseLocaleDataSource {
-  Future<void> saveLocale(LocaleEntity locale);
-  LocaleEntity getLocale();
+  Future<void> setLocale(Locale locale);
+  Future<Locale> getLocale();
 }
 
 class LocaleDataSource extends BaseLocaleDataSource {
-  final SharedPreferences preferences;
-  LocaleDataSource({required this.preferences});
+  static const _localeKey = 'app_locale';
 
-  // Constructor with correct syntax
-  Future<void> saveLocale(LocaleEntity locale) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("locale", locale.locale.toString());
+  Future<Locale> getLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    final languageCode = prefs.getString(_localeKey) ?? 'en';
+    return Locale(languageCode);
   }
 
-  // Retrieve locale from SharedPreferences
-  LocaleEntity getLocale() {
-    final localeString = preferences.getString('locale') ?? 'en_US';
-    return LocaleEntity(Locale(localeString));
+  Future<void> setLocale(Locale locale) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_localeKey, locale.languageCode);
   }
 }

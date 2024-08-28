@@ -44,8 +44,6 @@ final getIt = GetIt.instance;
 
 class ServerLocator {
   Future<void> init() async {
-    final sharedPreferences = await SharedPreferences.getInstance();
-    getIt.registerSingleton<SharedPreferences>(sharedPreferences);
     //bloc
     getIt.registerLazySingleton(() => RegisterBloc(
           registerUseCase: getIt(),
@@ -79,7 +77,7 @@ class ServerLocator {
           categoriesUseCase: getIt(),
         ));
     getIt.registerLazySingleton(() => LocaleBloc(
-          changeLocaleUseCase: getIt(),
+          localeService: getIt(),
         ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
@@ -107,8 +105,7 @@ class ServerLocator {
         () => CategoryRemotelyDateSource());
     getIt.registerLazySingleton<BaseSearchRemotelyDataSource>(
         () => SearchRemotelyDateSource());
-    getIt.registerLazySingleton<BaseLocaleDataSource>(
-        () => LocaleDataSource(preferences: getIt()));
+    getIt.registerLazySingleton<BaseLocaleDataSource>(() => LocaleDataSource());
 
     //Repository Implementation
     getIt.registerLazySingleton<BaseRepository>(
