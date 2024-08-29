@@ -1,16 +1,19 @@
-import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/core/utils/config_size.dart';
-import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
-import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_state.dart';
+import 'dart:async';
+import 'package:Learn_U/features/Search_Page/presentation/component/Shimmer_ListTile.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/course_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
+import '../../../../core/resource_manger/color_manager.dart';
+import '../../../../core/utils/config_size.dart';
 import '../../../../core/resource_manger/asset_path.dart';
 import '../../../../core/utils/constant_image_url.dart';
 import '../../data/model/searchModel.dart';
+import '../manager/search_bloc/search_bloc.dart';
 import '../manager/search_bloc/search_event.dart';
+import '../manager/search_bloc/search_state.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchPage extends StatefulWidget {
@@ -22,18 +25,47 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   late TextEditingController searchController;
+  bool _isLoading = false;
+  bool _showShimmer = false; // To control shimmer visibility
 
   @override
   void initState() {
-    BlocProvider.of<SearchBloc>(context).add(SearchEvent());
-    searchController = TextEditingController();
     super.initState();
+    searchController = TextEditingController();
+    BlocProvider.of<SearchBloc>(context).add(SearchEvent());
+
+    searchController.addListener(() {
+      if (searchController.text.isNotEmpty ||
+          _filteredItems.contains(searchController.text)) {
+        _startShimmer(); // Start shimmer effect if text is not empty
+      } else {
+        setState(() {
+          _showShimmer = false; // Hide shimmer if text is empty
+        });
+      }
+    });
   }
 
   @override
   void dispose() {
     searchController.dispose();
     super.dispose();
+  }
+
+  Future<void> _startShimmer() async {
+    setState(() {
+      _showShimmer = true;
+    });
+
+    // Simulate a network request or loading delay
+    await Future.delayed(Duration(seconds: 3));
+
+    if (mounted) {
+      setState(() {
+        _isLoading = true; // Show real data after delay
+        _showShimmer = false;
+      });
+    }
   }
 
   List<SearchModel> _filteredItems = [];
@@ -49,7 +81,6 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   Widget build(BuildContext context) {
-    String localetype = Localizations.localeOf(context).languageCode;
     return BlocBuilder<SearchBloc, SearchState>(builder: (context, state) {
       if (state is SearchSuccessState) {
         return GestureDetector(
@@ -76,6 +107,14 @@ class _SearchPageState extends State<SearchPage> {
                             onChanged: (value) {
                               _updateSearchQuery(
                                   searchController.text, state.SearchList);
+                              if (searchController.text.isNotEmpty) {
+                                _startShimmer(); // Start shimmer effect when typing
+                              } else {
+                                setState(() {
+                                  _showShimmer =
+                                      false; // Hide shimmer when text is empty
+                                });
+                              }
                             },
                             cursorColor: ColorManager.kPrimaryBlueDark,
                             keyboardType: TextInputType.text,
@@ -105,55 +144,66 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   SizedBox(height: ConfigSize.defaultSize! * 2),
-                  searchController.text.isNotEmpty ||
-                          state.SearchList.contains(searchController.text)
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _filteredItems.isEmpty
-                              ? state.SearchList.contains(searchController.text)
-                                  ? state.SearchList.length
-                                  : 1
-                              : _filteredItems.length,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              onTap: () {
-                                PersistentNavBarNavigator.pushNewScreen(
-                                  context,
-                                  screen: CourseTabBarView(
-                                    courses: _filteredItems[index],
-                                  ),
-                                  withNavBar: false,
-                                  pageTransitionAnimation:
-                                      PageTransitionAnimation.fade,
+                  searchController.text.isNotEmpty
+                      ? _showShimmer
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 10, // Number of shimmer placeholders
+                              itemBuilder: (context, index) {
+                                return ShimmerListTile();
+                              },
+                            )
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: _filteredItems.isEmpty
+                                  ? state.SearchList.contains(
+                                          searchController.text)
+                                      ? state.SearchList.length
+                                      : 1
+                                  : _filteredItems.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  onTap: () {
+                                    PersistentNavBarNavigator.pushNewScreen(
+                                      context,
+                                      screen: CourseTabBarView(
+                                        courses: _filteredItems[index],
+                                      ),
+                                      withNavBar: false,
+                                      pageTransitionAnimation:
+                                          PageTransitionAnimation.fade,
+                                    );
+                                  },
+                                  leading: _filteredItems.isNotEmpty
+                                      ? Image.network(
+                                          ConstantImageUrl.constantimageurl +
+                                              _filteredItems[index]
+                                                  .image
+                                                  .toString(),
+                                          filterQuality: FilterQuality.high,
+                                          height: ConfigSize.defaultSize! * 5,
+                                          width: ConfigSize.defaultSize! * 5,
+                                        )
+                                      : null,
+                                  title: _filteredItems.isEmpty
+                                      ? _filteredItems
+                                              .contains(searchController.text)
+                                          ? Text(_filteredItems[index]
+                                              .name
+                                              .toString())
+                                          : Center(
+                                              child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .noresultsfound,
+                                              style: TextStyle(
+                                                  color: ColorManager.red),
+                                            ))
+                                      : Text(_filteredItems[index]
+                                          .name
+                                          .toString()),
                                 );
                               },
-                              leading: _filteredItems.isNotEmpty
-                                  ? Image.network(
-                                      ConstantImageUrl.constantimageurl +
-                                          _filteredItems[index]
-                                              .image
-                                              .toString(),
-                                      filterQuality: FilterQuality.high,
-                                      height: ConfigSize.defaultSize! * 5,
-                                      width: ConfigSize.defaultSize! * 5,
-                                    )
-                                  : null,
-                              title: _filteredItems.isEmpty
-                                  ? _filteredItems
-                                          .contains(searchController.text)
-                                      ? Text(
-                                          _filteredItems[index].name.toString())
-                                      : Center(
-                                          child: Text(
-                                          AppLocalizations.of(context)!
-                                              .noresultsfound,
-                                          style: TextStyle(
-                                              color: ColorManager.red),
-                                        ))
-                                  : Text(_filteredItems[index].name.toString()),
-                            );
-                          },
-                        )
+                            )
                       : Image.asset(
                           AssetsPath.search,
                           height: ConfigSize.defaultSize! * 30,

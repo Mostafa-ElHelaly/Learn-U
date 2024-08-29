@@ -23,6 +23,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -103,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Hi 👋',
+                                  '${AppLocalizations.of(context)!.hi} 👋',
                                 ),
                                 SizedBox(
                                   height: ConfigSize.defaultSize! * .5,
@@ -140,7 +141,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     ? Locale('en', '')
                                                     : Locale('ar', '')));
                                           },
-                                          title: 'Translate')),
+                                          title: localetype == 'en'
+                                              ? AppLocalizations.of(context)!
+                                                  .translatetoarabic
+                                              : AppLocalizations.of(context)!
+                                                  .translatetoenglish)),
                                   Container(
                                     width: ConfigSize.defaultSize! * 3,
                                     height: ConfigSize.defaultSize! * 3,
@@ -173,28 +178,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             CustomGestureDetector(
                                 context: context,
                                 NavigatorPage: PrivacyandPolicy(),
-                                title: 'Privacy and Policy'),
+                                title: AppLocalizations.of(context)!.privacy),
                             SizedBox(
                               height: ConfigSize.defaultSize! * 0.5,
                             ),
                             CustomGestureDetector(
                                 context: context,
                                 NavigatorPage: TermsandConditions(),
-                                title: 'Terms and Conditions'),
+                                title: AppLocalizations.of(context)!.terms),
                             SizedBox(
                               height: ConfigSize.defaultSize! * 0.5,
                             ),
                             CustomGestureDetector(
                                 context: context,
                                 NavigatorPage: RefundPolicy(),
-                                title: 'Refund Policy'),
+                                title:
+                                    AppLocalizations.of(context)!.refundpolicy),
                             SizedBox(
                               height: ConfigSize.defaultSize! * 0.5,
                             ),
                             CustomGestureDetector(
                                 context: context,
                                 NavigatorPage: PrcicingScreen(),
-                                title: 'Pricing'),
+                                title: AppLocalizations.of(context)!.pricing),
                           ],
                         ),
                         SizedBox(height: ConfigSize.defaultSize! * 2),
@@ -209,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     PageTransitionAnimation.fade,
                               );
                             },
-                            title: 'Logout'),
+                            title: AppLocalizations.of(context)!.logout),
                       ],
                     ),
                   ],

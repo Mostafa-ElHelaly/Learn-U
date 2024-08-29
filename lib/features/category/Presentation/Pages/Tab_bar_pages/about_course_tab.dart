@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/Loading.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:Learn_U/core/widgets/main_button_2.dart';
@@ -10,12 +11,10 @@ import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Payment_Page.dart';
-import 'package:Learn_U/features/category/Presentation/Pages/Swarmfy_video.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
-import 'package:Learn_U/features_browse/Categories/Widgets/Subscribe_Dialoge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AboutCourseTab extends StatefulWidget {
   AboutCourseTab({super.key, required this.courses});
@@ -31,11 +30,11 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
   String modifyLevel(String level) {
     switch (level) {
       case 'low':
-        return 'Beginner';
+        return AppLocalizations.of(context)!.begninner;
       case 'med':
-        return 'Intermediate';
+        return AppLocalizations.of(context)!.intermediate;
       case 'high':
-        return 'Advanced';
+        return AppLocalizations.of(context)!.advanced;
       default:
         return 'Unknown';
     }
@@ -59,7 +58,14 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
   }
 
   @override
+  void initState() {
+    print(widget.courses.descar.toString());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String code = Methods.instance.fetch_current_languagecode(context);
     return Padding(
       padding: EdgeInsets.all(ConfigSize.defaultSize! * 1),
       child: SingleChildScrollView(
@@ -87,7 +93,11 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.courses.name ?? 'Unknown',
+                        Text(
+                            (code == 'ar'
+                                    ? widget.courses.nameAr
+                                    : widget.courses.name) ??
+                                'Unknown',
                             style: labelStyle),
                         SizedBox(height: ConfigSize.defaultSize! * 1),
                         Text(
@@ -102,7 +112,10 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                                   state.Categories.where((element) =>
                                       element.id ==
                                       widget.courses.categoryId).toList();
-                              return Text(categories.first.name ?? 'Unknown');
+                              return Text((code == 'ar'
+                                      ? categories.first.nameAr
+                                      : categories.first.name) ??
+                                  'Unknown');
                             }
                             if (state is CategoriesErrorState) {
                               return showloading(context);
@@ -132,7 +145,11 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                       ),
                     )),
             SizedBox(height: ConfigSize.defaultSize! * 2),
-            Center(child: Text(widget.courses.desc.toString())),
+            Center(
+                child: Text((code == 'ar'
+                        ? widget.courses.descar.toString()
+                        : widget.courses.desc.toString()) ??
+                    '')),
             SizedBox(height: ConfigSize.defaultSize! * 2),
             Text(
               'What Will You Learn',

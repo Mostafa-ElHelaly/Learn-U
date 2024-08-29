@@ -3,7 +3,6 @@ import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/c
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
 import 'package:Learn_U/features_browse/Categories/Pages/Child_Category_Page.dart';
-import 'package:Learn_U/features_browse/Categories/Pages/Courses_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';

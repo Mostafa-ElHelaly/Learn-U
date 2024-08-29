@@ -1,3 +1,4 @@
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/main_button_3.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_event.dart';
@@ -11,6 +12,7 @@ import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseContentTab extends StatefulWidget {
   CourseContentTab({Key? key, required this.courses}) : super(key: key);
@@ -36,30 +38,32 @@ class _CourseContentTabState extends State<CourseContentTab> {
 
   @override
   Widget build(BuildContext context) {
+    String code = Methods.instance.fetch_current_languagecode(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
         child: BlocBuilder<CourseDetailsDataBloc, CourseDetailsState>(
           builder: (context, state) {
             if (state is CourseDetailsSuccessState) {
+              String groupcount = state.CourseDetails.groups!.length.toString();
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Course Content', style: labelstyle),
+                  Text(AppLocalizations.of(context)!.coursecontent,
+                      style: labelstyle),
                   SizedBox(
                       height: ConfigSize
                           .defaultSize!), // Adding space between elements
                   Row(
                     children: [
-                      Text('${state.CourseDetails.groups!.length} Sections | '),
-                      Text('${widget.courses.lessonsCount} Lectures | '),
                       Text(
-                          '${widget.courses.courseLength}${widget.courses.courseLengthTime} Total Length'),
+                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(groupcount) : groupcount} ${AppLocalizations.of(context)!.sections} | '),
+                      Text(
+                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(widget.courses.lessonsCount.toString()) : widget.courses.lessonsCount} ${AppLocalizations.of(context)!.lectures} | '),
+                      Text(
+                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(widget.courses.courseLength.toString()) : widget.courses.courseLength}${AppLocalizations.of(context)!.h} ${AppLocalizations.of(context)!.totallength}'),
                     ],
-                  ),
-                  SizedBox(
-                      height: ConfigSize
-                          .defaultSize!), // Adding space between elements
+                  ), // Adding space between elements
                   Expanded(
                     child: ListView.builder(
                       itemBuilder: (context, index) {
@@ -142,7 +146,7 @@ class _CourseContentTabState extends State<CourseContentTab> {
                                         style: labelstyle,
                                       ),
                                       subtitle: Text(
-                                          '${lessoncount}${lessoncount == 1 ? ' Lecture' : ' Lectures'}'),
+                                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(lessoncount.toString()) : lessoncount} ${lessoncount == 1 ? AppLocalizations.of(context)!.lecture : AppLocalizations.of(context)!.lectures}'),
                                     ),
                                   ),
                                 ),

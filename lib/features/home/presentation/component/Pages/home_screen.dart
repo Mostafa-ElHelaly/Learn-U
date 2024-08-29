@@ -1,19 +1,15 @@
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/Custom_Carsoul.dart';
-import 'package:Learn_U/features/cart/presentation/cart_screen.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
+import 'package:Learn_U/features/home/presentation/component/Widgets/Expandedcarousel.dart';
 import 'package:Learn_U/features/home/presentation/component/Widgets/View_all_Categories_Widget.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
-import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
-import '../../../../../core/utils/constant_image_url.dart';
-import '../../../../../main_screen_browse.dart';
 import '../../../../category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import '../../../../category/Presentation/Manager/categories_bloc/categories_event.dart';
 import '../../../../category/Presentation/Manager/categories_bloc/categories_state.dart';
@@ -37,11 +33,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     BlocProvider.of<CategoriesDataBloc>(context).add(GetallCategoriesEvent());
+    delayData();
     super.initState();
+  }
+
+  bool _isLoading = false;
+  Future<void> delayData() async {
+    await Future.delayed(Duration(seconds: 4)); // Simulate a network request
+    setState(() {
+      _isLoading = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    String code = Methods.instance.fetch_current_languagecode(context);
+
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -98,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.symmetric(
                               horizontal: ConfigSize.defaultSize! * 2),
                           child: Text(
-                            StringManager.category.tr(),
+                            AppLocalizations.of(context)!.categories,
                             style: const TextStyle(
                                 color: ColorManager.whiteColor,
                                 fontSize: 25,
@@ -121,65 +128,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               state.Categories.where(
                                       (element) => element.parent_id != null)
                                   .toList();
-                          double carouselHeight = ConfigSize.defaultSize! * 25;
-                          return // Example dynamic height
-                              Expanded(
-                            child: CarouselSlider.builder(
-                              itemCount: 4,
-                              itemBuilder: (context, index, realIndex) {
-                                return Container(
-                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                  child: Column(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Container(
-                                          height: carouselHeight *
-                                              0.6, // Adjust height relative to the parent
-                                          width: carouselHeight * 0.6,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: NetworkImage(
-                                                ConstantImageUrl
-                                                        .constantimageurl +
-                                                    categories[index]
-                                                        .thumbnail
-                                                        .toString(),
-                                              ),
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height:
-                                              ConfigSize.defaultSize! * 0.5),
-                                      Container(
-                                        height: ConfigSize.defaultSize! * 2,
-                                        child: Text(
-                                          categories[index].name.toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize:
-                                                  ConfigSize.defaultSize! *
-                                                      1.5),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                              options: CarouselOptions(
-                                autoPlay: true,
-                                viewportFraction: 0.5,
-                                enlargeCenterPage: true,
-                                autoPlayCurve: Curves.fastOutSlowIn,
-                                autoPlayAnimationDuration: Duration(seconds: 1),
-                                height: carouselHeight,
-                              ),
-                            ),
-                          );
+                          return Expandedcarousel(
+                              categories: categories,
+                              code: code,
+                              isLoading: _isLoading);
                         } else {
                           return Center(
                             child: CircularProgressIndicator(

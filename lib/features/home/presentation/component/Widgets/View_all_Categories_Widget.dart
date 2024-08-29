@@ -4,6 +4,7 @@ import 'package:Learn_U/main_screen_browse.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ViewAllCategoriesWidget extends StatelessWidget {
   const ViewAllCategoriesWidget({super.key, required this.controller});
@@ -26,7 +27,7 @@ class ViewAllCategoriesWidget extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: ConfigSize.defaultSize! * 1),
         child: Text(
-          StringManager.viewAll.tr(),
+          AppLocalizations.of(context)!.viewall,
           style: const TextStyle(
               color: Colors.black,
               decoration: TextDecoration.underline,

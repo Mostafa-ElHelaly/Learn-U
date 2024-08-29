@@ -10,7 +10,7 @@ class SearchModel {
   String? name;
   String? nameAr;
   String? desc;
-  // String? descAr;
+  String? descar;
   String? image;
   // String? publishDate;
   // String? pricing;
@@ -42,7 +42,7 @@ class SearchModel {
   // String? addstamp;
   // String? updatestamp;
   String? brief;
-  // String? briefAr;
+  String? briefAr;
   // String? courseCurriculum;
   // String? courseCurriculumAr;
   // int? tags;
@@ -64,8 +64,8 @@ class SearchModel {
     // this.slugAr,
     this.name,
     this.nameAr,
-    // this.desc,
-    // this.descAr,
+    this.desc,
+    this.descar,
     this.image,
     // this.publishDate,
     // this.pricing,
@@ -96,8 +96,8 @@ class SearchModel {
     // this.delstamp,
     // this.addstamp,
     // this.updatestamp,
-    // this.brief,
-    // this.briefAr,
+    this.brief,
+    this.briefAr,
     // this.courseCurriculum,
     // this.courseCurriculumAr,
     // this.tags,
@@ -121,7 +121,7 @@ class SearchModel {
     name = json['name'];
     nameAr = json['name_ar'];
     desc = json['desc'];
-    // descAr = json['desc_ar'];
+    descar = json['desc_ar'];
     image = json['image'];
     // publishDate = json['publish_date'];
     // pricing = json['pricing'];
@@ -153,7 +153,7 @@ class SearchModel {
     // addstamp = json['addstamp'];
     // updatestamp = json['updatestamp'];
     brief = json['brief'];
-    // briefAr = json['brief_ar'];
+    briefAr = json['brief_ar'];
     // courseCurriculum = json['course_curriculum'];
     // courseCurriculumAr = json['course_curriculum_ar'];
     // tags = json['tags'];
@@ -178,7 +178,7 @@ class SearchModel {
     data['name'] = this.name;
     data['name_ar'] = this.nameAr;
     data['desc'] = this.desc;
-    // data['desc_ar'] = this.descAr;
+    data['desc_ar'] = this.descar;
     data['image'] = this.image;
     // data['publish_date'] = this.publishDate;
     // data['pricing'] = this.pricing;
@@ -210,7 +210,7 @@ class SearchModel {
     // data['addstamp'] = this.addstamp;
     // data['updatestamp'] = this.updatestamp;
     data['brief'] = this.brief;
-    // data['brief_ar'] = this.briefAr;
+    data['brief_ar'] = this.briefAr;
     // data['course_curriculum'] = this.courseCurriculum;
     // data['course_curriculum_ar'] = this.courseCurriculumAr;
     // data['tags'] = this.tags;

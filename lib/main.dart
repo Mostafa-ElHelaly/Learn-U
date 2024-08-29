@@ -126,7 +126,9 @@ class MyApp extends StatelessWidget {
               )),
               scaffoldBackgroundColor: ColorManager.whiteColor,
               canvasColor: ColorManager.whiteColor,
-              textTheme: GoogleFonts.poppinsTextTheme(),
+              textTheme: locale.languageCode == 'ar'
+                  ? GoogleFonts.notoSansArabicTextTheme()
+                  : GoogleFonts.poppinsTextTheme(),
             ),
             navigatorKey: getIt<NavigationService>().navigatorKey,
             onGenerateRoute: RouteGenerator.getRoute,
