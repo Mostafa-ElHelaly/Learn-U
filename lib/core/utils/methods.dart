@@ -2,6 +2,7 @@ import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/service/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:html/parser.dart' as html_parser;
 
 class Methods {
 //singleton class
@@ -57,5 +58,9 @@ class Methods {
         return char;
       }
     }).join();
+  }
+
+  String transformFromHtml(String html) {
+    return html_parser.parse(html).body?.text ?? '';
   }
 }

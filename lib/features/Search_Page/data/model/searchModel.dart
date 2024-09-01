@@ -2,7 +2,7 @@ class SearchModel {
   int? id;
   int? categoryId;
   int? trainerId;
-  // int? certificateId;
+  int? certificateId;
   // int? testId;
   // int? questionId;
   // String? slug;
@@ -14,9 +14,9 @@ class SearchModel {
   String? image;
   // String? publishDate;
   // String? pricing;
-  // int? paidCurrency;
-  // int? paidPrice;
-  // int? paidDiscount;
+  String? paidCurrency;
+  String? paidPrice;
+  String? paidDiscount;
   // int? paidDiscountStartDate;
   // int? paidDiscountEndDate;
   int? courseLength;
@@ -25,7 +25,7 @@ class SearchModel {
   // String? courseNeededSkills;
   // String? courseNeededSkillsAr;
   // String? courseTargetAudience;
-  // String? courseTargetAudienceAr;
+  String? courseTargetAudienceAr;
   // String? disableComments;
   // String? endWithoutTest;
   // String? hideTrainersNames;
@@ -57,7 +57,7 @@ class SearchModel {
     this.id,
     this.categoryId,
     this.trainerId,
-    // this.certificateId,
+    this.certificateId,
     // this.testId,
     // this.questionId,
     // this.slug,
@@ -69,9 +69,9 @@ class SearchModel {
     this.image,
     // this.publishDate,
     // this.pricing,
-    // this.paidCurrency,
-    // this.paidPrice,
-    // this.paidDiscount,
+    this.paidCurrency,
+    this.paidPrice,
+    this.paidDiscount,
     // this.paidDiscountStartDate,
     // this.paidDiscountEndDate,
     this.courseLength,
@@ -113,7 +113,7 @@ class SearchModel {
     id = json['id'];
     categoryId = json['category_id'];
     trainerId = json['trainer_id'];
-    // certificateId = json['certificate_id'];
+    certificateId = json['certificate_id'];
     // testId = json['test_id'];
     // questionId = json['question_id'];
     // slug = json['slug'];
@@ -125,9 +125,9 @@ class SearchModel {
     image = json['image'];
     // publishDate = json['publish_date'];
     // pricing = json['pricing'];
-    // paidCurrency = json['paid_currency'];
-    // paidPrice = json['paid_price'];
-    // paidDiscount = json['paid_discount'];
+    paidCurrency = json['paid_currency'];
+    paidPrice = json['paid_price'];
+    paidDiscount = json['paid_discount'];
     // paidDiscountStartDate = json['paid_discount_start_date'];
     // paidDiscountEndDate = json['paid_discount_end_date'];
     courseLength = json['course_length'];
@@ -136,7 +136,7 @@ class SearchModel {
     // courseNeededSkills = json['course_needed_skills'];
     // courseNeededSkillsAr = json['course_needed_skills_ar'];
     // courseTargetAudience = json['course_target_audience'];
-    // courseTargetAudienceAr = json['course_target_audience_ar'];
+    courseTargetAudienceAr = json['course_target_audience_ar'];
     // disableComments = json['disable_comments'];
     // endWithoutTest = json['end_without_test'];
     // hideTrainersNames = json['hide_trainers_names'];
@@ -170,7 +170,7 @@ class SearchModel {
     data['id'] = this.id;
     data['category_id'] = this.categoryId;
     data['trainer_id'] = this.trainerId;
-    // data['certificate_id'] = this.certificateId;
+    data['certificate_id'] = this.certificateId;
     // data['test_id'] = this.testId;
     // data['question_id'] = this.questionId;
     // data['slug'] = this.slug;
@@ -182,9 +182,9 @@ class SearchModel {
     data['image'] = this.image;
     // data['publish_date'] = this.publishDate;
     // data['pricing'] = this.pricing;
-    // data['paid_currency'] = this.paidCurrency;
-    // data['paid_price'] = this.paidPrice;
-    // data['paid_discount'] = this.paidDiscount;
+    data['paid_currency'] = this.paidCurrency;
+    data['paid_price'] = this.paidPrice;
+    data['paid_discount'] = this.paidDiscount;
     // data['paid_discount_start_date'] = this.paidDiscountStartDate;
     // data['paid_discount_end_date'] = this.paidDiscountEndDate;
     data['course_length'] = this.courseLength;
@@ -193,7 +193,7 @@ class SearchModel {
     // data['course_needed_skills'] = this.courseNeededSkills;
     // data['course_needed_skills_ar'] = this.courseNeededSkillsAr;
     // data['course_target_audience'] = this.courseTargetAudience;
-    // data['course_target_audience_ar'] = this.courseTargetAudienceAr;
+    data['course_target_audience_ar'] = this.courseTargetAudienceAr;
     // data['disable_comments'] = this.disableComments;
     // data['end_without_test'] = this.endWithoutTest;
     // data['hide_trainers_names'] = this.hideTrainersNames;

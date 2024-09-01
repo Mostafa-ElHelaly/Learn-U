@@ -1,17 +1,14 @@
 import 'package:Learn_U/features/auth/presentation/manager/register_bloc/register_bloc_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
-import 'package:Learn_U/features/auth/presentation/component/forget_password/change_password_screen.dart';
 import 'package:Learn_U/features/auth/presentation/component/forget_password/counter_by_minute.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:pinput/pinput.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../core/resource_manger/routs_manager.dart';
 import '../../../../../core/widgets/snack_bar.dart';
 import '../../manager/register_bloc/register_bloc_event.dart';
@@ -88,7 +85,7 @@ class _OtpScreenState extends State<OtpScreen> {
           ),
           centerTitle: true,
           title: Text(
-            StringManager.forgetPassword2.tr(),
+            AppLocalizations.of(context)!.otpscreen,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: ConfigSize.defaultSize! * 2,
@@ -101,14 +98,14 @@ class _OtpScreenState extends State<OtpScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                StringManager.pleaseEnterTheCode.tr(),
+                AppLocalizations.of(context)!.pleaseenterthecode,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: ConfigSize.defaultSize! * 1.6,
                 ),
               ),
               Text(
-                "GlobaAdvice@gmail.com",
+                widget.email,
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: ConfigSize.defaultSize! * 1.6,
@@ -151,7 +148,7 @@ class _OtpScreenState extends State<OtpScreen> {
                 height: 5,
               ),
               Text(
-                StringManager.resendCode.tr(),
+                AppLocalizations.of(context)!.resendcode,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: ConfigSize.defaultSize! * 1.6,
@@ -163,8 +160,6 @@ class _OtpScreenState extends State<OtpScreen> {
                     EdgeInsets.symmetric(vertical: ConfigSize.defaultSize! * 3),
                 child: MainButton(
                   onTap: () {
-                    print(widget.token.toString());
-                    print(pinController.text);
                     if (pinController.text == widget.token.toString()) {
                       BlocProvider.of<RegisterBloc>(context)
                           .add(RegisterBlocEvent(
@@ -182,7 +177,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       errorSnackBar(context, 'Invalid OTP');
                     }
                   },
-                  title: StringManager.verify.tr(),
+                  title: AppLocalizations.of(context)!.verify,
                 ),
               ),
             ],

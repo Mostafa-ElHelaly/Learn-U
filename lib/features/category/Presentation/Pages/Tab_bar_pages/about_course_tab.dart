@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
@@ -123,7 +122,7 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                               return showloading(context);
                             }
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -152,38 +151,48 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                     '')),
             SizedBox(height: ConfigSize.defaultSize! * 2),
             Text(
-              'What Will You Learn',
+              AppLocalizations.of(context)!.whatwillyoulearn,
               style: labelstyle,
             ),
             SizedBox(height: ConfigSize.defaultSize! * 5),
             Text(
-              'This Course Includes',
+              AppLocalizations.of(context)!.thiscourseincludes,
               style: labelstyle,
             ),
             ListTile(
               leading: Icon(Icons.library_books_outlined),
-              title: Text(widget.courses.lessonsCount.toString() + ' Lectures'),
+              title: Text(widget.courses.lessonsCount.toString() +
+                  ' ' +
+                  AppLocalizations.of(context)!.lectures),
             ),
             ListTile(
               leading: Icon(Icons.watch_later_rounded),
               title: Text(widget.courses.courseLength.toString() +
                   widget.courses.courseLengthTime.toString() +
-                  ' on demand videos'),
+                  ' ' +
+                  AppLocalizations.of(context)!.ondemandvideos),
             ),
             ListTile(
               leading: Icon(Icons.file_download_outlined),
-              title: Text('0 downloadable resources'),
+              title: Text('0' +
+                  ' ' +
+                  AppLocalizations.of(context)!.downloadableresources),
             ),
             SizedBox(height: ConfigSize.defaultSize! * 5),
             Text(
-              'Required Skills',
+              AppLocalizations.of(context)!.requiredskills,
               style: labelstyle,
             ),
             SizedBox(height: ConfigSize.defaultSize! * 5),
             Text(
-              'Who Should Take This Course',
+              AppLocalizations.of(context)!.whoshouldtakethiscourse,
               style: labelstyle,
             ),
+            SizedBox(height: ConfigSize.defaultSize! * 1),
+            code == 'ar'
+                ? Text(Methods.instance.transformFromHtml(
+                    widget.courses.courseTargetAudienceAr.toString()))
+                : Text(''),
           ],
         ),
       ),

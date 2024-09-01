@@ -25,10 +25,6 @@ class _AboutTrainerTabState extends State<AboutTrainerTab> {
     super.initState();
   }
 
-  String transformFromHtml(String html) {
-    return html_parser.parse(html).body?.text ?? '';
-  }
-
   TextStyle labelStyle = TextStyle(
     fontSize: ConfigSize.defaultSize! * 2,
     fontWeight: FontWeight.bold,
@@ -76,7 +72,7 @@ class _AboutTrainerTabState extends State<AboutTrainerTab> {
                       ),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       Text(
-                        transformFromHtml((code == 'ar'
+                        Methods.instance.transformFromHtml((code == 'ar'
                                 ? trainer.aboutAr
                                 : trainer.about?.replaceAll('    ', '')) ??
                             ''),

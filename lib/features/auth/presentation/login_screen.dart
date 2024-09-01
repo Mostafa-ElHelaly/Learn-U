@@ -1,4 +1,3 @@
-import 'package:Learn_U/core/service/translation_login_userdata_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
@@ -9,14 +8,11 @@ import 'package:Learn_U/core/widgets/custom_text_field.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:Learn_U/features/auth/presentation/component/create_account/create_account_screen.dart';
 import 'package:Learn_U/features/auth/presentation/component/forget_password/forget_password_screen.dart';
-import 'package:Learn_U/main_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/resource_manger/routs_manager.dart';
-import '../../../core/utils/methods.dart';
 import '../../../core/widgets/snack_bar.dart';
 import 'manager/login_bloc/login_bloc.dart';
 import 'manager/login_bloc/login_event.dart';
@@ -82,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    StringManager.email.tr(),
+                    AppLocalizations.of(context)!.email,
                     style: TextStyle(
                       fontSize: ConfigSize.defaultSize! * 1.6,
                       fontWeight: FontWeight.w600,
@@ -99,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: ConfigSize.defaultSize! * 2,
                   ),
                   Text(
-                    StringManager.password.tr(),
+                    AppLocalizations.of(context)!.password,
                     style: TextStyle(
                       fontSize: ConfigSize.defaultSize! * 1.6,
                       fontWeight: FontWeight.w600,
@@ -140,7 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           );
                         },
                         child: Text(
-                          StringManager.forgetPassword.tr(),
+                          AppLocalizations.of(context)!.forgetyourpassword,
                           style: TextStyle(
                             fontSize: ConfigSize.defaultSize! * 1.6,
                             fontWeight: FontWeight.w600,
@@ -167,10 +163,12 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
                           } else {
                             errorSnackBar(
-                                context, StringManager.errorFillFields);
+                                context,
+                                AppLocalizations.of(context)!
+                                    .pleasefillallfields);
                           }
                         },
-                        title: StringManager.login.tr(),
+                        title: AppLocalizations.of(context)!.login,
                       )),
                 ],
               ),
@@ -182,7 +180,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    StringManager.dontHaveAccount.tr(),
+                    AppLocalizations.of(context)!.donthaveaccount,
                     style: const TextStyle(
                       color: ColorManager.gray,
                     ),
@@ -214,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           horizontal: ConfigSize.defaultSize! * 3,
                         ),
                         child: Text(
-                          StringManager.createAccount.tr(),
+                          AppLocalizations.of(context)!.createaccount,
                           style: TextStyle(
                             color: ColorManager.kPrimaryBlueDark,
                             fontWeight: FontWeight.bold,

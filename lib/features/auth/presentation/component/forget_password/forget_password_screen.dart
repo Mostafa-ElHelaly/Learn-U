@@ -5,10 +5,9 @@ import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/widgets/custom_text_field.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
-import 'package:Learn_U/features/auth/presentation/component/forget_password/otp_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../core/resource_manger/routs_manager.dart';
 import '../../../../../core/widgets/snack_bar.dart';
 import '../../manager/forget_password_bloc/forget_password_bloc.dart';
@@ -53,7 +52,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
             ),
             centerTitle: true,
             title: Text(
-              StringManager.forgetPassword2.tr(),
+              AppLocalizations.of(context)!.forgetyourpassword,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: ConfigSize.defaultSize! * 2,
@@ -66,7 +65,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  StringManager.forgetPasswordHint.tr(),
+                  AppLocalizations.of(context)!.forgetpasswordhint,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: ConfigSize.defaultSize! * 1.5,
@@ -76,7 +75,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                   height: ConfigSize.defaultSize! * 2,
                 ),
                 Text(
-                  StringManager.enterYourEmail.tr(),
+                  AppLocalizations.of(context)!.enteryouremail,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.4,
                     fontWeight: FontWeight.w600,
@@ -97,7 +96,7 @@ class _ForgetPasswordScreenState extends State<ForgetPasswordScreen> {
                       BlocProvider.of<ForgetPasswordBloc>(context).add(
                           ForgetPasswordEvent(email: emailController.text));
                     },
-                    title: StringManager.sendCode.tr(),
+                    title: AppLocalizations.of(context)!.sendcode,
                   ),
                 ),
               ],
