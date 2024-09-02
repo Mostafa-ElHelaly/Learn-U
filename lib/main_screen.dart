@@ -97,7 +97,7 @@ class _MainScreenState extends State<MainScreen> {
         ),
         inactiveIcon: const Icon(
           Icons.account_circle_outlined,
-          size: 20,
+          size: 40,
         ),
         activeColorPrimary: ColorManager.kPrimaryBlueDark,
         inactiveColorPrimary: CupertinoColors.systemGrey,

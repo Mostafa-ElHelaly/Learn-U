@@ -4,6 +4,7 @@ import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:Learn_U/features/profile/data/model/user_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
 import '../../../../core/utils/api_helper.dart';
 import '../../domain/repo/base_repo.dart';
@@ -19,6 +20,16 @@ class ProfileRepositoryImp extends ProfileBaseRepository {
     try {
       final result = await baseRemotelyDataSource.getuserdata();
       print('result :' + result.toString());
+      return Left(result);
+    } on Exception catch (e) {
+      return right(DioHelper.buildFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<void, Failure>> translate(BuildContext context) async {
+    try {
+      final result = await baseRemotelyDataSource.getuserdata();
       return Left(result);
     } on Exception catch (e) {
       return right(DioHelper.buildFailure(e));

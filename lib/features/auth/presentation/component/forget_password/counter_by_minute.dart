@@ -1,9 +1,8 @@
 import 'dart:async';
-
-import 'package:easy_localization/easy_localization.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:flutter/material.dart';
-import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CounterByMinute extends StatefulWidget {
   const CounterByMinute({super.key});
@@ -70,7 +69,7 @@ class _CounterByMinuteState extends State<CounterByMinute> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          StringManager.youCanSendCodeAfter.tr(),
+          AppLocalizations.of(context)!.youcansendcodeafter,
           style: TextStyle(
             fontWeight: FontWeight.normal,
             fontSize: ConfigSize.defaultSize! * 1.5,
@@ -80,7 +79,7 @@ class _CounterByMinuteState extends State<CounterByMinute> {
           width: ConfigSize.defaultSize! - 5,
         ),
         Text(
-          _formatTime(_start),
+          Methods.instance.convertToArabicNumbers(_formatTime(_start)),
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: ConfigSize.defaultSize! * 1.5,

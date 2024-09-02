@@ -1,9 +1,11 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features_browse/Categories/Widgets/Rating_Bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseCardWidget extends StatelessWidget {
   CourseCardWidget({super.key, required this.courses, required this.index});
@@ -14,18 +16,20 @@ class CourseCardWidget extends StatelessWidget {
     fontWeight: FontWeight.bold,
     color: ColorManager.whiteColor,
   );
-  String modify_level(String level) {
-    if (level == 'low') {
-      return 'Begninner';
-    } else if (level == 'med') {
-      return 'Intermediate';
-    } else {
-      return 'Advanced';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    String modify_level(String level) {
+      if (level == 'low') {
+        return AppLocalizations.of(context)!.begninner;
+      } else if (level == 'med') {
+        return AppLocalizations.of(context)!.intermediate;
+      } else {
+        return AppLocalizations.of(context)!.advanced;
+      }
+    }
+
+    String code = Methods.instance.fetch_current_languagecode(context);
     return Card(
         child: Stack(
       children: [
@@ -68,7 +72,11 @@ class CourseCardWidget extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(courses[index].name.toString(), style: labelstyle),
+                      Text(
+                          code == 'ar'
+                              ? courses[index].nameAr.toString()
+                              : courses[index].name.toString(),
+                          style: labelstyle),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       RatingBarWidgetBrowse(),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
@@ -79,12 +87,15 @@ class CourseCardWidget extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            courses[index].courseLength.toString(),
+                            code == 'ar '
+                                ? Methods.instance.convertToArabicNumbers(
+                                    courses[index].courseLength.toString())
+                                : courses[index].courseLength.toString(),
                             style:
                                 labelstyle.copyWith(color: ColorManager.gray),
                           ),
                           Text(
-                            courses[index].courseLengthTime.toString(),
+                            AppLocalizations.of(context)!.h,
                             style:
                                 labelstyle.copyWith(color: ColorManager.gray),
                           ),

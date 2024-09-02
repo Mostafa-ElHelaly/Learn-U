@@ -12,7 +12,9 @@ class SwarmfyVideoPage extends StatelessWidget {
     return Scaffold(
       body: InAppWebView(
         initialUrlRequest: URLRequest(
-          url: WebUri.uri(Uri.parse("${base_video_url}${video_link}")),
+          url: WebUri.uri(Uri.parse(video_link.contains('youtu')
+              ? video_link
+              : "${base_video_url}${video_link}")),
         ),
         onReceivedServerTrustAuthRequest: (controller, challenge) async {
           print("challenge $challenge");

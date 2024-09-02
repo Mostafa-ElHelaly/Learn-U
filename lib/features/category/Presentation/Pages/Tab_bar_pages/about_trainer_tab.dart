@@ -1,6 +1,7 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/trainers_bloc/trainers_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/trainers_bloc/trainers_event.dart';
@@ -24,16 +25,14 @@ class _AboutTrainerTabState extends State<AboutTrainerTab> {
     super.initState();
   }
 
-  String transformFromHtml(String html) {
-    return html_parser.parse(html).body?.text ?? '';
-  }
-
   TextStyle labelStyle = TextStyle(
     fontSize: ConfigSize.defaultSize! * 2,
     fontWeight: FontWeight.bold,
   );
   @override
   Widget build(BuildContext context) {
+    String code = Methods.instance.fetch_current_languagecode(context);
+
     return Padding(
       padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
       child: SingleChildScrollView(
@@ -65,13 +64,18 @@ class _AboutTrainerTabState extends State<AboutTrainerTab> {
                             ),
                           ),
                           SizedBox(width: ConfigSize.defaultSize! * 2),
-                          Text(trainer.name ?? 'Unknown', style: labelStyle),
+                          Text(
+                              (code == 'ar' ? trainer.nameAr : trainer.name) ??
+                                  'Unknown',
+                              style: labelStyle),
                         ],
                       ),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       Text(
-                        transformFromHtml(
-                            trainer.about?.replaceAll('    ', '') ?? ''),
+                        Methods.instance.transformFromHtml((code == 'ar'
+                                ? trainer.aboutAr
+                                : trainer.about?.replaceAll('    ', '')) ??
+                            ''),
                         style: TextStyle(letterSpacing: 0.5),
                       ),
                     ],

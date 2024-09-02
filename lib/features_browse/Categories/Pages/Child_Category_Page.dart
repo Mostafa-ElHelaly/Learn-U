@@ -1,9 +1,9 @@
-import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features_browse/Categories/Pages/Courses_Page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../core/resource_manger/color_manager.dart';
 import '../../../core/utils/config_size.dart';
 import '../../../core/utils/constant_image_url.dart';
@@ -40,10 +40,12 @@ class _CategoryChildPageBrowseState extends State<CategoryChildPageBrowse> {
 
   @override
   Widget build(BuildContext context) {
+    String code = Methods.instance.fetch_current_languagecode(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          StringManager.categories,
+          AppLocalizations.of(context)!.categories,
           style: TextStyle(
               fontSize: ConfigSize.defaultSize! * 2.5,
               fontWeight: FontWeight.bold,
@@ -141,7 +143,13 @@ class _CategoryChildPageBrowseState extends State<CategoryChildPageBrowse> {
                                             padding: EdgeInsets.all(
                                                 ConfigSize.defaultSize! * 1),
                                             child: Text(
-                                              categories[index].name.toString(),
+                                              code == 'ar'
+                                                  ? categories[index]
+                                                      .nameAr
+                                                      .toString()
+                                                  : categories[index]
+                                                      .name
+                                                      .toString(),
                                               style: labelstyle,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -157,7 +165,11 @@ class _CategoryChildPageBrowseState extends State<CategoryChildPageBrowse> {
                                       padding: EdgeInsets.all(
                                           ConfigSize.defaultSize! * 1),
                                       child: Text(
-                                        categories[index].desc.toString(),
+                                        code == 'ar'
+                                            ? categories[index]
+                                                .descAr
+                                                .toString()
+                                            : categories[index].desc.toString(),
                                         style: labelstyle.copyWith(
                                             fontWeight: FontWeight.w200),
                                         maxLines: 5,

@@ -3,9 +3,9 @@ import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/main_screen_browse.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
 import 'core/resource_manger/asset_path.dart';
 import 'features/auth/presentation/login_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -42,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
                     filterQuality: FilterQuality.high,
                   ),
                   Text(
-                    'Learning Has No Limits',
+                    AppLocalizations.of(context)!.learninghasnolimts,
                     style: TextStyle(
                         fontSize: ConfigSize.defaultSize! * 2,
                         fontWeight: FontWeight.bold,
@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   SizedBox(height: ConfigSize.defaultSize! * 2),
                   Text(
-                    'Welcome to Learn U',
+                    AppLocalizations.of(context)!.welcometolearnu,
                     style: TextStyle(
                         fontSize: ConfigSize.defaultSize! * 2.5,
                         fontWeight: FontWeight.bold,
@@ -80,11 +80,7 @@ class WelcomeScreen extends StatelessWidget {
                           pageTransitionAnimation: PageTransitionAnimation.fade,
                         );
                       },
-                      child: const Text('LogIn')),
-                  // VerticalDivider(
-                  //   color: ColorManager.whiteColor,
-                  //   thickness: 2,
-                  // ),
+                      child: Text(AppLocalizations.of(context)!.login)),
                   TextButton(
                       style: ButtonStyle(
                         foregroundColor: WidgetStateProperty.all<Color>(
@@ -98,7 +94,7 @@ class WelcomeScreen extends StatelessWidget {
                           pageTransitionAnimation: PageTransitionAnimation.fade,
                         );
                       },
-                      child: const Text('Browse')),
+                      child: Text(AppLocalizations.of(context)!.browse)),
                 ],
               ),
             )

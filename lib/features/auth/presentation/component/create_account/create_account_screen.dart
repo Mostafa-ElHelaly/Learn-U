@@ -1,3 +1,4 @@
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/snack_bar.dart';
 import 'package:Learn_U/features/auth/presentation/component/forget_password/otp_screen.dart';
 import 'package:Learn_U/features/auth/presentation/login_screen.dart';
@@ -15,10 +16,11 @@ import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/widgets/custom_text_field.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../manager/countries_bloc/countries_event.dart';
 import '../../manager/countries_bloc/countries_state.dart';
 import '../../manager/otp_email_bloc/otp_email_bloc.dart';
@@ -94,13 +96,20 @@ class _CreateAccountState extends State<CreateAccount> {
   String? selectedEducation;
   bool isVisible = true;
   bool isVisible1 = true;
-  final List<String> education = [
-    'Student',
-    'Graduate',
-    'Post Graduate',
-    'Masters',
-    'Phd',
-  ];
+  String modify_education_value() {
+    if (selectedEducation == 'طالب') {
+      return 'Student';
+    } else if (selectedEducation == 'حديث التخرج') {
+      return 'Graduate';
+    } else if (selectedEducation == 'خريج') {
+      return 'Post Graduate';
+    } else if (selectedEducation == 'ماجيستير') {
+      return 'Masters';
+    } else {
+      return 'Phd';
+    }
+  }
+
   DateTime selectedDate = DateTime.now();
 
   Future<Null> _selectDate(BuildContext context) async {
@@ -135,6 +144,14 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
+    final List<String> education = [
+      AppLocalizations.of(context)!.student,
+      AppLocalizations.of(context)!.graduate,
+      AppLocalizations.of(context)!.postGraduate,
+      AppLocalizations.of(context)!.masters,
+      AppLocalizations.of(context)!.phd,
+    ];
+    String languagecode = Methods.instance.fetch_current_languagecode(context);
     return BlocListener<OtpEmailBloc, OtpEmailState>(
       listener: (context, state) {
         if (state is OtpEmailSuccessState) {
@@ -152,7 +169,9 @@ class _CreateAccountState extends State<CreateAccount> {
                       password: passwordController.text,
                       mobile: mobileController.text,
                       country_id: selectedValue!,
-                      education: selectedEducation!.toLowerCase())),
+                      education: languagecode == 'ar'
+                          ? modify_education_value().toLowerCase()
+                          : selectedEducation!.toLowerCase())),
               (route) => false);
         }
         if (state is OtpEmailErrorState) {
@@ -176,7 +195,7 @@ class _CreateAccountState extends State<CreateAccount> {
           ),
           centerTitle: true,
           title: Text(
-            StringManager.signUpWithUs.tr(),
+            AppLocalizations.of(context)!.signupwithUs,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: ConfigSize.defaultSize! * 2,
@@ -204,7 +223,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   height: ConfigSize.defaultSize! * 5,
                 ),
                 Text(
-                  StringManager.firstName.tr(),
+                  AppLocalizations.of(context)!.firstName,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -219,7 +238,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.middleName.tr(),
+                  AppLocalizations.of(context)!.middleName,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -234,7 +253,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.lastName.tr(),
+                  AppLocalizations.of(context)!.lastName,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -251,7 +270,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   height: ConfigSize.defaultSize! * 2,
                 ),
                 Text(
-                  StringManager.countryId.tr(),
+                  AppLocalizations.of(context)!.countryId,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -267,12 +286,14 @@ class _CreateAccountState extends State<CreateAccount> {
                       child: DropdownButton2<String>(
                         isDense: true,
                         isExpanded: true,
-                        hint: const Text(StringManager.countryId),
+                        hint: Text(AppLocalizations.of(context)!.countryId),
                         items: state.countries.map((country) {
                           return DropdownMenuItem<String>(
                             value: country.id, // Ensure value is not null
                             child: Text(
-                              country.name.toUpperCase(),
+                              languagecode == 'ar'
+                                  ? country.name_native
+                                  : country.name.toUpperCase(),
                               style: TextStyle(
                                   fontSize: ConfigSize.defaultSize! * 1.6,
                                   fontWeight: FontWeight.bold,
@@ -307,14 +328,14 @@ class _CreateAccountState extends State<CreateAccount> {
                   } else if (state is CountriesErrorState) {
                     return Text(state.errorMessage);
                   } else {
-                    return const CircularProgressIndicator(
+                    return CircularProgressIndicator(
                       color: ColorManager.mainColor,
                     );
                   }
                 }),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.education.tr(),
+                  AppLocalizations.of(context)!.education,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -326,7 +347,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 DropdownButton2<String>(
                   isExpanded: true,
                   hint: Text(
-                    StringManager.education,
+                    AppLocalizations.of(context)!.education,
                     style: TextStyle(
                       fontSize: 14,
                       color: Theme.of(context).hintColor,
@@ -366,7 +387,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.email.tr(),
+                  AppLocalizations.of(context)!.email,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -381,7 +402,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.phone.tr(),
+                  AppLocalizations.of(context)!.phone,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -396,7 +417,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.birthdate.tr(),
+                  AppLocalizations.of(context)!.birthdate,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -417,7 +438,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.password.tr(),
+                  AppLocalizations.of(context)!.password,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -443,7 +464,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
                 SizedBox(height: ConfigSize.defaultSize! * 2),
                 Text(
-                  StringManager.confirmPassword.tr(),
+                  AppLocalizations.of(context)!.confirmPassword,
                   style: TextStyle(
                     fontSize: ConfigSize.defaultSize! * 1.6,
                     fontWeight: FontWeight.w600,
@@ -477,7 +498,7 @@ class _CreateAccountState extends State<CreateAccount> {
                       BlocProvider.of<OtpEmailBloc>(context)
                           .add(OtpEmailEvent(email: emailController.text));
                     },
-                    title: StringManager.next.tr(),
+                    title: AppLocalizations.of(context)!.next,
                   ),
                 ),
                 SizedBox(
@@ -487,11 +508,11 @@ class _CreateAccountState extends State<CreateAccount> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      StringManager.alreadyHaveAnAccount.tr(),
+                      AppLocalizations.of(context)!.alreadyHaveAnAccount,
                       style: TextStyle(
                         color: ColorManager.kPrimaryBlueDark,
                         fontWeight: FontWeight.bold,
-                        fontSize: ConfigSize.defaultSize! * 2,
+                        fontSize: ConfigSize.defaultSize! * 1.5,
                       ),
                     ),
                     InkWell(
@@ -521,7 +542,7 @@ class _CreateAccountState extends State<CreateAccount> {
                             horizontal: ConfigSize.defaultSize! * 3,
                           ),
                           child: Text(
-                            StringManager.login.tr(),
+                            AppLocalizations.of(context)!.login,
                             style: TextStyle(
                               color: ColorManager.kPrimaryBlueDark,
                               fontWeight: FontWeight.bold,

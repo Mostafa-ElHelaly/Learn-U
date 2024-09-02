@@ -22,8 +22,9 @@ class CourseContentTabBrowse extends StatefulWidget {
 
 class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
   final TextStyle labelstyle = TextStyle(
-    fontSize: ConfigSize.defaultSize! * 1.5,
-    fontWeight: FontWeight.bold,
+    color: ColorManager.black,
+    fontWeight: FontWeight.w600,
+    fontSize: ConfigSize.defaultSize! * 1.7,
   );
   @override
   void initState() {
@@ -60,7 +61,6 @@ class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
                           .defaultSize!), // Adding space between elements
                   Expanded(
                     child: ListView.builder(
-                      physics: ClampingScrollPhysics(),
                       itemBuilder: (context, index) {
                         List<Groups> groups = state.CourseDetails.groups!;
                         int lessoncount = groups[index].lessons!.length;
@@ -69,41 +69,42 @@ class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
                             contentBorderColor: ColorManager.gray,
                             children: [
                               AccordionSection(
-                                content: ListView.builder(
-                                  itemBuilder: (context, index2) {
-                                    String video_link = groups[index]
-                                        .lessons![index2]
-                                        .lessonVideo
-                                        .toString();
-                                    return Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                          onTap: () {
-                                            SubscribeDialog(context);
-                                          },
-                                          child: Text(groups[index]
+                                content: Container(
+                                  height: lessoncount > 1
+                                      ? ConfigSize.defaultSize! * 12
+                                      : ConfigSize.defaultSize! * 2,
+                                  child: ListView.builder(
+                                    physics: ClampingScrollPhysics(),
+                                    itemBuilder: (context, index2) {
+                                      String video_link = groups[index]
+                                          .lessons![index2]
+                                          .lessonVideo
+                                          .toString();
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(groups[index]
                                               .lessons![index2]
                                               .name!),
-                                        ),
-                                        Visibility(
-                                          visible: lessoncount > 1 ||
-                                                  index2 != lessoncount - 1
-                                              ? true
-                                              : false,
-                                          child: Divider(
-                                            height: ConfigSize.defaultSize! * 2,
+                                          Visibility(
+                                            visible: lessoncount > 1 ||
+                                                    index2 != lessoncount - 1
+                                                ? true
+                                                : false,
+                                            child: Divider(
+                                              height:
+                                                  ConfigSize.defaultSize! * 2,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                  itemCount: lessoncount,
-                                  physics: ClampingScrollPhysics(),
-                                  shrinkWrap: true,
+                                        ],
+                                      );
+                                    },
+                                    itemCount: lessoncount,
+                                    shrinkWrap: true,
+                                  ),
                                 ),
                                 header: Container(
                                   height: ConfigSize.defaultSize! * 8,
@@ -111,8 +112,10 @@ class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
                                     padding: EdgeInsets.all(
                                         ConfigSize.defaultSize! * 1),
                                     child: ListTile(
-                                      title: Text(state
-                                          .CourseDetails.groups![index].name!),
+                                      title: Text(
+                                          state.CourseDetails.groups![index]
+                                              .name!,
+                                          style: labelstyle),
                                       subtitle: Text(
                                           '${lessoncount}${lessoncount == 1 ? ' Lecture' : ' Lectures'}'),
                                     ),

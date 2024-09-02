@@ -2,7 +2,7 @@ class CountriesModel {
   String id;
   String iso3;
   String name;
-  String nameNative;
+  String name_native;
   String continents;
   String phonecodes;
   String currencies;
@@ -14,7 +14,7 @@ class CountriesModel {
     required this.id,
     required this.iso3,
     required this.name,
-    required this.nameNative,
+    required this.name_native,
     required this.continents,
     required this.phonecodes,
     required this.currencies,
@@ -27,7 +27,7 @@ class CountriesModel {
         id: json['id'],
         iso3: json['iso3'] ?? "",
         name: json['name'] ?? "",
-        nameNative: json['nameNative'] ?? "",
+        name_native: json['name_native'] ?? "",
         continents: json['continents'] ?? "",
         phonecodes: json['phonecodes'] ?? "",
         currencies: json['currencies'] ?? "",
@@ -40,7 +40,7 @@ class CountriesModel {
         "id": id,
         "iso3": iso3,
         "name": name,
-        "nameNative": nameNative,
+        "name_native": name_native,
         "continents": continents,
         "currencies": currencies,
         "languages": languages,
