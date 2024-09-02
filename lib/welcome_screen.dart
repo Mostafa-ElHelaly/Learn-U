@@ -84,7 +84,7 @@ class WelcomeScreen extends StatelessWidget {
                   TextButton(
                       style: ButtonStyle(
                         foregroundColor: WidgetStateProperty.all<Color>(
-                            ColorManager.whiteColor), // Text color
+                            ColorManager.whiteColor),
                       ),
                       onPressed: () {
                         PersistentNavBarNavigator.pushNewScreen(
