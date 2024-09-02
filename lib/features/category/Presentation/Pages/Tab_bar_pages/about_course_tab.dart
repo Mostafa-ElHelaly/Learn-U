@@ -134,7 +134,7 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                     onTap: () {
                       _startLoadingAndNavigate();
                     },
-                    title: 'Subscribe Now')
+                    title: AppLocalizations.of(context)!.subscribenow)
                 : MainButton2(
                     color: ColorManager.gray,
                     onTap: () {},
@@ -167,14 +167,15 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
             ),
             ListTile(
               leading: Icon(Icons.watch_later_rounded),
-              title: Text(widget.courses.courseLength.toString() +
-                  widget.courses.courseLengthTime.toString() +
+              title: Text(Methods.instance.convertToArabicNumbers(
+                      widget.courses.courseLength.toString()) +
+                  AppLocalizations.of(context)!.h +
                   ' ' +
                   AppLocalizations.of(context)!.ondemandvideos),
             ),
             ListTile(
               leading: Icon(Icons.file_download_outlined),
-              title: Text('0' +
+              title: Text(Methods.instance.convertToArabicNumbers('0') +
                   ' ' +
                   AppLocalizations.of(context)!.downloadableresources),
             ),

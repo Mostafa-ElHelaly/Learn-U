@@ -1,11 +1,9 @@
-import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/Custom_Carsoul.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features/home/presentation/component/Widgets/Expandedcarousel.dart';
 import 'package:Learn_U/features_browse/home/presentation/component/Widgets/View_all_Categories_Widget.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import '../../../../../features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import '../../../../../features/category/Presentation/Manager/categories_bloc/categories_event.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreenBrowse extends StatefulWidget {
   const HomeScreenBrowse({super.key});
@@ -109,7 +108,7 @@ class _HomeScreenBrowseState extends State<HomeScreenBrowse> {
                           padding: EdgeInsets.symmetric(
                               horizontal: ConfigSize.defaultSize! * 2),
                           child: Text(
-                            StringManager.category.tr(),
+                            AppLocalizations.of(context)!.categories,
                             style: const TextStyle(
                                 color: ColorManager.whiteColor,
                                 fontSize: 25,

@@ -11,6 +11,7 @@ import '../../../features/category/Presentation/Manager/categories_bloc/categori
 import '../../../features/category/Presentation/Manager/categories_bloc/categories_event.dart';
 import '../../../features/category/Presentation/Manager/categories_bloc/categories_state.dart';
 import '../../../features/category/data/model/categories_model.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CategoryChildPageBrowse extends StatefulWidget {
   const CategoryChildPageBrowse({super.key, required this.id});

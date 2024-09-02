@@ -1,6 +1,7 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/trainers_bloc/trainers_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/trainers_bloc/trainers_state.dart';
@@ -25,7 +26,7 @@ class _AboutTrainerTabBrowseState extends State<AboutTrainerTabBrowse> {
     super.initState();
   }
 
-  String transformFromHtml(String html) {
+  String transformFromHtml(String? html) {
     return html_parser.parse(html).body?.text ?? '';
   }
 
@@ -35,6 +36,7 @@ class _AboutTrainerTabBrowseState extends State<AboutTrainerTabBrowse> {
   );
   @override
   Widget build(BuildContext context) {
+    String localetype = Methods.instance.fetch_current_languagecode(context);
     return Padding(
       padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
       child: SingleChildScrollView(
@@ -66,13 +68,19 @@ class _AboutTrainerTabBrowseState extends State<AboutTrainerTabBrowse> {
                             ),
                           ),
                           SizedBox(width: ConfigSize.defaultSize! * 2),
-                          Text(trainer.name ?? 'Unknown', style: labelStyle),
+                          Text(
+                              (localetype == 'ar'
+                                      ? trainer.nameAr
+                                      : trainer.name) ??
+                                  'Unknown',
+                              style: labelStyle),
                         ],
                       ),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       Text(
-                        transformFromHtml(
-                            trainer.about?.replaceAll('    ', '') ?? ''),
+                        transformFromHtml(localetype == 'ar'
+                            ? trainer.aboutAr?.replaceAll('    ', '')
+                            : trainer.about?.replaceAll('    ', '')),
                         style: TextStyle(letterSpacing: 0.5),
                       ),
                     ],

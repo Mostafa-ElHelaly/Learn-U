@@ -141,8 +141,11 @@ class _CourseContentTabState extends State<CourseContentTab> {
                                         ConfigSize.defaultSize! * 1),
                                     child: ListTile(
                                       title: Text(
-                                        state
-                                            .CourseDetails.groups![index].name!,
+                                        code == 'ar'
+                                            ? state.CourseDetails.groups![index]
+                                                .nameAr!
+                                            : state.CourseDetails.groups![index]
+                                                .name!,
                                         style: labelstyle,
                                       ),
                                       subtitle: Text(

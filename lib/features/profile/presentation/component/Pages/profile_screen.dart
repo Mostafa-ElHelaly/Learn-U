@@ -63,7 +63,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(
-          StringManager.myProfile.tr(),
+          AppLocalizations.of(context)!.profilesettings,
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: ConfigSize.defaultSize! * 2,

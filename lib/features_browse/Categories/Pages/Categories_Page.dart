@@ -1,4 +1,5 @@
 import 'package:Learn_U/core/utils/constant_image_url.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_state.dart';
@@ -6,7 +7,7 @@ import 'package:Learn_U/features_browse/Categories/Pages/Child_Category_Page.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../../../core/resource_manger/color_manager.dart';
 import '../../../../../../core/resource_manger/locale_keys.g.dart';
 import '../../../../../../core/utils/config_size.dart';
@@ -42,6 +43,7 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
 
   @override
   Widget build(BuildContext context) {
+    String localetype = Methods.instance.fetch_current_languagecode(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -141,7 +143,13 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                                             padding: EdgeInsets.all(
                                                 ConfigSize.defaultSize! * 1),
                                             child: Text(
-                                              categories[index].name.toString(),
+                                              localetype == 'ar'
+                                                  ? categories[index]
+                                                      .nameAr
+                                                      .toString()
+                                                  : categories[index]
+                                                      .name
+                                                      .toString(),
                                               style: labelstyle,
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
@@ -157,7 +165,11 @@ class _CategoriesPageBrowseState extends State<CategoriesPageBrowse> {
                                       padding: EdgeInsets.all(
                                           ConfigSize.defaultSize! * 1),
                                       child: Text(
-                                        categories[index].desc.toString(),
+                                        localetype == 'ar'
+                                            ? categories[index]
+                                                .descAr
+                                                .toString()
+                                            : categories[index].desc.toString(),
                                         style: descstyle,
                                         maxLines: 5,
                                         overflow: TextOverflow.ellipsis,

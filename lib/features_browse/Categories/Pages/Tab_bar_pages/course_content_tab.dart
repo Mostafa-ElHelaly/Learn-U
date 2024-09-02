@@ -1,8 +1,9 @@
+import 'package:Learn_U/core/utils/methods.dart';
+import 'package:Learn_U/core/widgets/main_button_3.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_state.dart';
 import 'package:Learn_U/features/category/data/model/course_details_model.dart';
-import 'package:Learn_U/features_browse/Categories/Widgets/Subscribe_Dialoge.dart';
 import 'package:flutter/material.dart';
 import 'package:accordion/accordion.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
@@ -10,6 +11,7 @@ import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CourseContentTabBrowse extends StatefulWidget {
   CourseContentTabBrowse({Key? key, required this.courses}) : super(key: key);
@@ -24,7 +26,7 @@ class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
   final TextStyle labelstyle = TextStyle(
     color: ColorManager.black,
     fontWeight: FontWeight.w600,
-    fontSize: ConfigSize.defaultSize! * 1.7,
+    fontSize: ConfigSize.defaultSize! * 1.3,
   );
   @override
   void initState() {
@@ -35,30 +37,32 @@ class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
 
   @override
   Widget build(BuildContext context) {
+    String code = Methods.instance.fetch_current_languagecode(context);
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
         child: BlocBuilder<CourseDetailsDataBloc, CourseDetailsState>(
           builder: (context, state) {
             if (state is CourseDetailsSuccessState) {
+              String groupcount = state.CourseDetails.groups!.length.toString();
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Course Content', style: labelstyle),
+                  Text(AppLocalizations.of(context)!.coursecontent,
+                      style: labelstyle),
                   SizedBox(
                       height: ConfigSize
                           .defaultSize!), // Adding space between elements
                   Row(
                     children: [
-                      Text('${state.CourseDetails.groups!.length} Sections | '),
-                      Text('${widget.courses.lessonsCount} Lectures | '),
                       Text(
-                          '${widget.courses.courseLength}${widget.courses.courseLengthTime} Total Length'),
+                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(groupcount) : groupcount} ${AppLocalizations.of(context)!.sections} | '),
+                      Text(
+                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(widget.courses.lessonsCount.toString()) : widget.courses.lessonsCount} ${AppLocalizations.of(context)!.lectures} | '),
+                      Text(
+                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(widget.courses.courseLength.toString()) : widget.courses.courseLength}${AppLocalizations.of(context)!.h} ${AppLocalizations.of(context)!.totallength}'),
                     ],
-                  ),
-                  SizedBox(
-                      height: ConfigSize
-                          .defaultSize!), // Adding space between elements
+                  ), // Adding space between elements
                   Expanded(
                     child: ListView.builder(
                       itemBuilder: (context, index) {
@@ -80,26 +84,37 @@ class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
                                           .lessons![index2]
                                           .lessonVideo
                                           .toString();
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(groups[index]
-                                              .lessons![index2]
-                                              .name!),
-                                          Visibility(
-                                            visible: lessoncount > 1 ||
-                                                    index2 != lessoncount - 1
-                                                ? true
-                                                : false,
-                                            child: Divider(
+                                      return Container(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Container(
                                               height:
                                                   ConfigSize.defaultSize! * 2,
+                                              child: MainButton3(
+                                                  color: Colors.transparent,
+                                                  onTap: () {},
+                                                  title: groups[index]
+                                                      .lessons![index2]
+                                                      .name!),
                                             ),
-                                          ),
-                                        ],
+                                            Visibility(
+                                              visible: lessoncount > 1 &&
+                                                      index2 != lessoncount - 1
+                                                  ? true
+                                                  : false,
+                                              child: Divider(
+                                                indent: 0,
+                                                endIndent: 0,
+                                                height:
+                                                    ConfigSize.defaultSize! * 2,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       );
                                     },
                                     itemCount: lessoncount,
@@ -113,11 +128,15 @@ class _CourseContentTabBrowseState extends State<CourseContentTabBrowse> {
                                         ConfigSize.defaultSize! * 1),
                                     child: ListTile(
                                       title: Text(
-                                          state.CourseDetails.groups![index]
-                                              .name!,
-                                          style: labelstyle),
+                                        code == 'ar'
+                                            ? state.CourseDetails.groups![index]
+                                                .nameAr!
+                                            : state.CourseDetails.groups![index]
+                                                .name!,
+                                        style: labelstyle,
+                                      ),
                                       subtitle: Text(
-                                          '${lessoncount}${lessoncount == 1 ? ' Lecture' : ' Lectures'}'),
+                                          '${code == 'ar' ? Methods.instance.convertToArabicNumbers(lessoncount.toString()) : lessoncount} ${lessoncount == 1 ? AppLocalizations.of(context)!.lecture : AppLocalizations.of(context)!.lectures}'),
                                     ),
                                   ),
                                 ),

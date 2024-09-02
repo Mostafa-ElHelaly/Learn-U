@@ -1,4 +1,5 @@
 import 'package:Learn_U/core/utils/config_size.dart';
+import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/Loading.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
@@ -6,7 +7,7 @@ import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/c
 import 'package:Learn_U/features_browse/Categories/Widgets/Subscribe_Dialoge.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../../core/resource_manger/color_manager.dart';
 import '../../../../core/utils/constant_image_url.dart';
 import '../../../../features/category/Presentation/Manager/categories_bloc/categories_state.dart';
@@ -26,11 +27,11 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
   String modifyLevel(String level) {
     switch (level) {
       case 'low':
-        return 'Beginner';
+        return AppLocalizations.of(context)!.begninner;
       case 'med':
-        return 'Intermediate';
+        return AppLocalizations.of(context)!.intermediate;
       case 'high':
-        return 'Advanced';
+        return AppLocalizations.of(context)!.advanced;
       default:
         return 'Unknown';
     }
@@ -43,6 +44,7 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
 
   @override
   Widget build(BuildContext context) {
+    String code = Methods.instance.fetch_current_languagecode(context);
     return Padding(
       padding: EdgeInsets.all(ConfigSize.defaultSize! * 1),
       child: SingleChildScrollView(
@@ -70,7 +72,11 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(widget.courses.name ?? 'Unknown',
+                        Text(
+                            (code == 'ar'
+                                    ? widget.courses.nameAr
+                                    : widget.courses.name) ??
+                                'Unknown',
                             style: labelStyle),
                         SizedBox(height: ConfigSize.defaultSize! * 1),
                         Text(
@@ -85,7 +91,10 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
                                   state.Categories.where((element) =>
                                       element.id ==
                                       widget.courses.categoryId).toList();
-                              return Text(categories.first.name ?? 'Unknown');
+                              return Text((code == 'ar'
+                                      ? categories.first.nameAr
+                                      : categories.first.name) ??
+                                  'Unknown');
                             }
                             if (state is CategoriesErrorState) {
                               return showloading(context);
@@ -93,7 +102,7 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
                               return showloading(context);
                             }
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -104,43 +113,58 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
                 onTap: () {
                   SubscribeDialog(context);
                 },
-                title: 'Subscribe Now'),
+                title: AppLocalizations.of(context)!.subscribenow),
             SizedBox(height: ConfigSize.defaultSize! * 2),
-            Center(child: Text(widget.courses.desc.toString())),
+            Center(
+                child: Text((code == 'ar'
+                        ? widget.courses.descar.toString()
+                        : widget.courses.desc.toString()) ??
+                    '')),
             SizedBox(height: ConfigSize.defaultSize! * 2),
             Text(
-              'What Will You Learn',
+              AppLocalizations.of(context)!.whatwillyoulearn,
               style: labelstyle,
             ),
             SizedBox(height: ConfigSize.defaultSize! * 5),
             Text(
-              'This Course Includes',
+              AppLocalizations.of(context)!.thiscourseincludes,
               style: labelstyle,
             ),
             ListTile(
               leading: Icon(Icons.library_books_outlined),
-              title: Text(widget.courses.lessonsCount.toString() + ' Lectures'),
+              title: Text(widget.courses.lessonsCount.toString() +
+                  ' ' +
+                  AppLocalizations.of(context)!.lectures),
             ),
             ListTile(
               leading: Icon(Icons.watch_later_rounded),
-              title: Text(widget.courses.courseLength.toString() +
-                  widget.courses.courseLengthTime.toString() +
-                  ' on demand videos'),
+              title: Text(Methods.instance.convertToArabicNumbers(
+                      widget.courses.courseLength.toString()) +
+                  AppLocalizations.of(context)!.h +
+                  ' ' +
+                  AppLocalizations.of(context)!.ondemandvideos),
             ),
             ListTile(
               leading: Icon(Icons.file_download_outlined),
-              title: Text('0 downloadable resources'),
+              title: Text(Methods.instance.convertToArabicNumbers('0') +
+                  ' ' +
+                  AppLocalizations.of(context)!.downloadableresources),
             ),
             SizedBox(height: ConfigSize.defaultSize! * 5),
             Text(
-              'Required Skills',
+              AppLocalizations.of(context)!.requiredskills,
               style: labelstyle,
             ),
             SizedBox(height: ConfigSize.defaultSize! * 5),
             Text(
-              'Who Should Take This Course',
+              AppLocalizations.of(context)!.whoshouldtakethiscourse,
               style: labelstyle,
             ),
+            SizedBox(height: ConfigSize.defaultSize! * 1),
+            code == 'ar'
+                ? Text(Methods.instance.transformFromHtml(
+                    widget.courses.courseTargetAudienceAr.toString()))
+                : Text(''),
           ],
         ),
       ),

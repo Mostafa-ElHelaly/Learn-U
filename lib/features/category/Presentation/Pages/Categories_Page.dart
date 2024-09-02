@@ -183,7 +183,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                             padding: EdgeInsets.all(
                                                 ConfigSize.defaultSize! * 1),
                                             child: Text(
-                                              categories[index].desc.toString(),
+                                              code == 'ar'
+                                                  ? categories[index]
+                                                      .descAr
+                                                      .toString()
+                                                  : categories[index]
+                                                      .desc
+                                                      .toString(),
                                               style: descstyle,
                                               maxLines: 5,
                                               overflow: TextOverflow.ellipsis,

@@ -69,5 +69,6 @@
 "pleaseenterthecode":"Please enter the code which sent to",
 "verify":"Verify",
 "resendcode":"Resend the code",
-"youcansendcodeafter":"You can resend the verification code after"
+"youcansendcodeafter":"You can resend the verification code after",
+"profilesettings":"Profile Settings"
 }
