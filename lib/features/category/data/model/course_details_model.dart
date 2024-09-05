@@ -1,11 +1,9 @@
 class CourseDetailsModel {
   Course? course;
   List<Groups>? groups;
+  Test? test;
 
-  CourseDetailsModel({
-    this.course,
-    this.groups,
-  });
+  CourseDetailsModel({this.course, this.groups, this.test});
 
   CourseDetailsModel.fromJson(Map<String, dynamic> json) {
     course =
@@ -16,6 +14,7 @@ class CourseDetailsModel {
         groups!.add(new Groups.fromJson(v));
       });
     }
+    test = json['test'] != null ? new Test.fromJson(json['test']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -27,7 +26,9 @@ class CourseDetailsModel {
     if (this.groups != null) {
       data['groups'] = this.groups!.map((v) => v.toJson()).toList();
     }
-
+    if (this.test != null) {
+      data['test'] = this.test!.toJson();
+    }
     return data;
   }
 }
@@ -265,6 +266,151 @@ class Lessons {
     data['name'] = this.name;
     data['name_ar'] = this.nameAr;
     data['lesson_video'] = this.lessonVideo;
+    data['addstamp'] = this.addstamp;
+    data['updatestamp'] = this.updatestamp;
+    return data;
+  }
+}
+
+class Test {
+  int? id;
+  String? name;
+  String? nameAr;
+  String? desc;
+  String? descAr;
+  String? instantGrading;
+  String? showAnswers;
+  int? duration;
+  String? durationTime;
+  String? deleted;
+  String? addstamp;
+  String? updatestamp;
+  List<Questions>? questions;
+
+  Test(
+      {this.id,
+      this.name,
+      this.nameAr,
+      this.desc,
+      this.descAr,
+      this.instantGrading,
+      this.showAnswers,
+      this.duration,
+      this.durationTime,
+      this.deleted,
+      this.addstamp,
+      this.updatestamp,
+      this.questions});
+
+  Test.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    nameAr = json['name_ar'];
+    desc = json['desc'];
+    descAr = json['desc_ar'];
+    instantGrading = json['instant_grading'];
+    showAnswers = json['show_answers'];
+    duration = json['duration'];
+    durationTime = json['duration_time'];
+    deleted = json['deleted'];
+    addstamp = json['addstamp'];
+    updatestamp = json['updatestamp'];
+    if (json['questions'] != null) {
+      questions = <Questions>[];
+      json['questions'].forEach((v) {
+        questions!.add(new Questions.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['name_ar'] = this.nameAr;
+    data['desc'] = this.desc;
+    data['desc_ar'] = this.descAr;
+    data['instant_grading'] = this.instantGrading;
+    data['show_answers'] = this.showAnswers;
+    data['duration'] = this.duration;
+    data['duration_time'] = this.durationTime;
+    data['deleted'] = this.deleted;
+    data['addstamp'] = this.addstamp;
+    data['updatestamp'] = this.updatestamp;
+    if (this.questions != null) {
+      data['questions'] = this.questions!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Questions {
+  int? id;
+  int? testId;
+  String? type;
+  String? name;
+  String? nameAr;
+  String? desc;
+  String? descAr;
+  String? clarification;
+  String? clarificationAr;
+  int? points;
+  int? duration;
+  String? durationTime;
+  String? deleted;
+  String? addstamp;
+  String? updatestamp;
+
+  Questions(
+      {this.id,
+      this.testId,
+      this.type,
+      this.name,
+      this.nameAr,
+      this.desc,
+      this.descAr,
+      this.clarification,
+      this.clarificationAr,
+      this.points,
+      this.duration,
+      this.durationTime,
+      this.deleted,
+      this.addstamp,
+      this.updatestamp});
+
+  Questions.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    testId = json['test_id'];
+    type = json['type'];
+    name = json['name'];
+    nameAr = json['name_ar'];
+    desc = json['desc'];
+    descAr = json['desc_ar'];
+    clarification = json['clarification'];
+    clarificationAr = json['clarification_ar'];
+    points = json['points'];
+    duration = json['duration'];
+    durationTime = json['duration_time'];
+    deleted = json['deleted'];
+    addstamp = json['addstamp'];
+    updatestamp = json['updatestamp'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['test_id'] = this.testId;
+    data['type'] = this.type;
+    data['name'] = this.name;
+    data['name_ar'] = this.nameAr;
+    data['desc'] = this.desc;
+    data['desc_ar'] = this.descAr;
+    data['clarification'] = this.clarification;
+    data['clarification_ar'] = this.clarificationAr;
+    data['points'] = this.points;
+    data['duration'] = this.duration;
+    data['duration_time'] = this.durationTime;
+    data['deleted'] = this.deleted;
     data['addstamp'] = this.addstamp;
     data['updatestamp'] = this.updatestamp;
     return data;

@@ -2,6 +2,7 @@ import 'package:Learn_U/core/resource_manger/asset_path.dart';
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
+import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/Tests_Tab.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/about_course_tab.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/about_trainer_tab.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/course_content_tab.dart';
@@ -22,7 +23,7 @@ class CourseTabBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -78,6 +79,14 @@ class CourseTabBarView extends StatelessWidget {
                       size: icon_size,
                     )),
               ),
+              Tab(
+                child: Container(
+                    width: ConfigSize.defaultSize! * 10,
+                    child: Icon(
+                      Icons.table_restaurant_rounded,
+                      size: icon_size,
+                    )),
+              ),
             ],
           ),
         ),
@@ -87,7 +96,10 @@ class CourseTabBarView extends StatelessWidget {
             AboutCourseTab(courses: courses),
             CourseContentTab(courses: courses),
             ReviewsTab(),
-            AboutTrainerTab(courses: courses)
+            AboutTrainerTab(courses: courses),
+            TestsTab(
+              courses: courses,
+            )
           ],
         ),
       ),

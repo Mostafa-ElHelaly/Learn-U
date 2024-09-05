@@ -99,7 +99,7 @@ class CategoryRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
   }
 
   @override
-  Future<CourseDetailsModel> unsavedcoursedetails(int course_id) async {
+  Future<CourseDetailsModel> getcoursedetails(int course_id) async {
     Dio dio = Dio();
     dio.interceptors.add(LogInterceptor(responseBody: true));
 
@@ -112,7 +112,7 @@ class CategoryRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
         final Map<String, dynamic> details = jsonResponse['data'];
         print("==============================");
         print(details);
-        save_course_details(CourseDetailsModel.fromJson(details), course_id);
+        // save_course_details(CourseDetailsModel.fromJson(details), course_id);
         return CourseDetailsModel.fromJson(details);
       } else {
         throw Exception('Getting Countries Failed: ${response.statusCode}');
@@ -129,15 +129,15 @@ class CategoryRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
     await prefs.setString('course_details_$course_id', data);
   }
 
-  Future<CourseDetailsModel> getcoursedetails(int course_id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? data = prefs.getString('course_details_$course_id');
+  // Future<CourseDetailsModel> getcoursedetails(int course_id) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? data = prefs.getString('course_details_$course_id');
 
-    if (data != null) {
-      final Map<String, dynamic> jsonData = json.decode(data);
-      return CourseDetailsModel.fromJson(jsonData);
-    } else {
-      return await unsavedcoursedetails(course_id);
-    }
-  }
+  //   if (data != null) {
+  //     final Map<String, dynamic> jsonData = json.decode(data);
+  //     return CourseDetailsModel.fromJson(jsonData);
+  //   } else {
+  //     return await unsavedcoursedetails(course_id);
+  //   }
+  // }
 }
