@@ -1,6 +1,5 @@
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/methods.dart';
-import 'package:Learn_U/core/widgets/Loading.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
@@ -97,9 +96,13 @@ class _AboutCourseTabBrowseState extends State<AboutCourseTabBrowse> {
                                   'Unknown');
                             }
                             if (state is CategoriesErrorState) {
-                              return showloading(context);
+                              return Text(state.errorMessage);
                             } else {
-                              return showloading(context);
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: ColorManager.mainColor,
+                                ),
+                              );
                             }
                           },
                         ),

@@ -83,7 +83,9 @@ class CourseTabBarViewBrowse extends StatelessWidget {
           children: [
             AboutCourseTabBrowse(courses: courses),
             CourseContentTabBrowse(courses: courses),
-            ReviewsTabBrowse(),
+            ReviewsTabBrowse(
+              courses: courses,
+            ),
             AboutTrainerTabBrowse(courses: courses)
           ],
         ),

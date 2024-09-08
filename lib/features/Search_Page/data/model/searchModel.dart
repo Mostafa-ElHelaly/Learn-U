@@ -48,9 +48,9 @@ class SearchModel {
   // int? tags;
   // int? preCourseId;
   int? lessonsCount;
-  // int? reviews;
-  // int? review;
-  // int? reviewsSum;
+  int? reviews;
+  String? review;
+  String? reviewsSum;
   // int? takers;
 
   SearchModel({
@@ -103,9 +103,9 @@ class SearchModel {
     // this.tags,
     // this.preCourseId,
     this.lessonsCount,
-    // this.reviews,
-    // this.review,
-    // this.reviewsSum,
+    this.reviews,
+    this.review,
+    this.reviewsSum,
     // this.takers
   });
 
@@ -159,9 +159,9 @@ class SearchModel {
     // tags = json['tags'];
     // preCourseId = json['pre_course_id'];
     lessonsCount = json['lessons_count'];
-    // reviews = json['reviews'];
-    // review = json['review'];
-    // reviewsSum = json['reviews_sum'];
+    reviews = json['reviews'];
+    review = json['review'];
+    reviewsSum = json['reviews_sum'];
     // takers = json['takers'];
   }
 
@@ -216,9 +216,9 @@ class SearchModel {
     // data['tags'] = this.tags;
     // data['pre_course_id'] = this.preCourseId;
     data['lessons_count'] = this.lessonsCount;
-    // data['reviews'] = this.reviews;
-    // data['review'] = this.review;
-    // data['reviews_sum'] = this.reviewsSum;
+    data['reviews'] = this.reviews;
+    data['review'] = this.review;
+    data['reviews_sum'] = this.reviewsSum;
     // data['takers'] = this.takers;
     return data;
   }

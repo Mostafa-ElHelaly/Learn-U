@@ -28,7 +28,7 @@ class RepositoryImp extends BaseRepository {
   }
 
   @override
-  Future<Either<Unit, Failure>> loginWithEmailAndPassword(
+  Future<Either<Map<String, dynamic>, Failure>> loginWithEmailAndPassword(
       LoginModel authModel) async {
     try {
       final result =

@@ -1,6 +1,10 @@
 import 'package:Learn_U/features/category/Presentation/Manager/categories_bloc/categories_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/get_reviews_bloc/get_reviews_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/send_review_bloc/send_review_bloc.dart';
 import 'package:Learn_U/features/category/domain/use_cases/course_details_uc.dart';
+import 'package:Learn_U/features/category/domain/use_cases/get_reviews_uc.dart';
+import 'package:Learn_U/features/category/domain/use_cases/send_review_uc.dart';
 import 'package:Learn_U/features/profile/data/data_source/locale_data_source.dart';
 import 'package:Learn_U/features/profile/data/data_source/remotly_data_source.dart';
 import 'package:Learn_U/features/profile/data/repo_impl/locale_impl.dart';
@@ -79,6 +83,12 @@ class ServerLocator {
     getIt.registerLazySingleton(() => LocaleBloc(
           localeService: getIt(),
         ));
+    getIt.registerLazySingleton(() => GetReviewsBloc(
+          getreviewsUseCase: getIt(),
+        ));
+    getIt.registerLazySingleton(() => SendReviewsBloc(
+          sendreviewsUseCase: getIt(),
+        ));
     //use_case
     getIt.registerLazySingleton(() => RegisterUseCase(baseRepository: getIt()));
     getIt.registerLazySingleton(() => LoginUseCase(baseRepository: getIt()));
@@ -96,6 +106,10 @@ class ServerLocator {
         () => CourseDetailsUsecase(baseRepository: getIt()));
     getIt.registerLazySingleton(
         () => ChangeLocaleUseCase(localeRepository: getIt()));
+    getIt.registerLazySingleton(
+        () => GetReviewsUsecase(baseRepository: getIt()));
+    getIt.registerLazySingleton(
+        () => SendReviewUsecase(baseRepository: getIt()));
     //Remote Date
     getIt.registerLazySingleton<BaseRemotelyDataSource>(
         () => AuthRemotelyDateSource());

@@ -23,7 +23,7 @@ final class LoginErrorState extends LoginState {
 }
 
 final class LoginSuccessState extends LoginState {
-  final Unit loginAuthModelResponse;
+  final Map<String, dynamic> loginAuthModelResponse;
 
   const LoginSuccessState({required this.loginAuthModelResponse});
 }

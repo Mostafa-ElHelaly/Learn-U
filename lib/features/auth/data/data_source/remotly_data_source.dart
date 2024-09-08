@@ -1,20 +1,15 @@
-import 'dart:convert';
-import 'dart:math';
-
-import 'package:Learn_U/features/auth/data/model/CountriesModel.dart';
 import 'package:Learn_U/features/auth/data/model/countries_model.dart';
 import 'package:Learn_U/features/auth/data/model/login_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 
-import '../../../../core/error/failures_strings.dart';
 import '../../../../core/utils/api_helper.dart';
 import '../../../../core/utils/constant_api.dart';
 
 abstract class BaseRemotelyDataSource {
   Future<Unit> registerWithEmailAndPassword(LoginModel registerAuthModel);
 
-  Future<Unit> loginWithEmailAndPassword(LoginModel authModel);
+  Future<Map<String, dynamic>> loginWithEmailAndPassword(LoginModel authModel);
   Future<Unit> forgetpassword(LoginModel resetPasswordModel);
   Future<Map<String, dynamic>> otpemail(LoginModel resetPasswordModel);
 
@@ -76,7 +71,8 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
   }
 
   @override
-  Future<Unit> loginWithEmailAndPassword(LoginModel authModel) async {
+  Future<Map<String, dynamic>> loginWithEmailAndPassword(
+      LoginModel authModel) async {
     final body = {
       "email": authModel.email,
       "password": authModel.password,
@@ -84,13 +80,18 @@ class AuthRemotelyDateSource extends BaseRemotelyDataSource {
 
     try {
       final response = await Dio().post(
+        options: Options(
+          headers: {
+            'Content-Type': Headers.formUrlEncodedContentType,
+          },
+        ),
         ConstantApi.login,
         data: FormData.fromMap(body),
       );
 
       Map<String, dynamic> jsonData = response.data;
       if (jsonData['status'] == 200) {
-        return Future.value(unit); // Return response data
+        return jsonData;
       } else {
         throw Exception('Login failed with status code ${jsonData['error']}');
       }

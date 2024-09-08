@@ -3,6 +3,7 @@ import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/constant_image_url.dart';
 import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
+import 'package:Learn_U/features/category/Presentation/Widgets/Rating_Bar.dart';
 import 'package:Learn_U/features_browse/Categories/Widgets/Rating_Bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -78,7 +79,7 @@ class CourseCardWidget extends StatelessWidget {
                               : courses[index].name.toString(),
                           style: labelstyle),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
-                      RatingBarWidgetBrowse(),
+                      RatingBarWidget(),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       Text(
                         modify_level(courses[index].courseLevel.toString()),

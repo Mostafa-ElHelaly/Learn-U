@@ -79,7 +79,20 @@ class CourseCardWidgetBrowse extends StatelessWidget {
                               : courses[index].name.toString(),
                           style: labelstyle),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
-                      RatingBarWidgetBrowse(),
+                      Row(
+                        children: [
+                          RatingBarWidgetBrowse(),
+                          Text(
+                            courses[index].review != null
+                                ? courses[index]
+                                    .review!
+                                    .substring(0, 3)
+                                    .toString()
+                                : '5',
+                            style: labelstyle,
+                          ),
+                        ],
+                      ),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       Text(
                         modify_level(courses[index].courseLevel.toString()),
@@ -88,8 +101,10 @@ class CourseCardWidgetBrowse extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            Methods.instance.convertToArabicNumbers(
-                                courses[index].courseLength.toString()),
+                            localetype == 'ar'
+                                ? Methods.instance.convertToArabicNumbers(
+                                    courses[index].courseLength.toString())
+                                : courses[index].courseLength.toString(),
                             style:
                                 labelstyle.copyWith(color: ColorManager.gray),
                           ),

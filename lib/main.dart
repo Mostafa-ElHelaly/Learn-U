@@ -1,6 +1,8 @@
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/features/auth/presentation/manager/otp_email_bloc/otp_email_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/course_details_bloc/course_details_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/get_reviews_bloc/get_reviews_bloc.dart';
+import 'package:Learn_U/features/category/Presentation/Manager/send_review_bloc/send_review_bloc.dart';
 import 'package:Learn_U/features/profile/data/data_source/locale_data_source.dart';
 import 'package:Learn_U/features/profile/data/repo_impl/locale_impl.dart';
 import 'package:Learn_U/features/profile/domain/use_cases/translate_uc.dart';
@@ -36,8 +38,6 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   final user_email = prefs.getString("user_email") ?? 'false';
   final is_logged_in = prefs.getBool("is_logged") ?? false;
-  final LocaleRepositoryImpl localeRepository =
-      LocaleRepositoryImpl(LocaleDataSource());
   final ChangeLocaleUseCase _localeService = ChangeLocaleUseCase(
       localeRepository: LocaleRepositoryImpl(LocaleDataSource()));
 
@@ -87,6 +87,8 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => getIt<TrainersDataBloc>()),
           BlocProvider(create: (context) => getIt<CourseDetailsDataBloc>()),
           BlocProvider(create: (context) => getIt<LocaleBloc>()),
+          BlocProvider(create: (context) => getIt<GetReviewsBloc>()),
+          BlocProvider(create: (context) => getIt<SendReviewsBloc>()),
         ],
         child: BlocBuilder<LocaleBloc, LocaleState>(builder: (context, state) {
           Locale locale = Locale('en'); // Default locale

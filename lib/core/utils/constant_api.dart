@@ -12,4 +12,6 @@ class ConstantApi {
   static const String search = "$baseUrl/public/courses";
   static const String trainers = "$baseUrl/admin/trainers/get";
   static const String coursedetails = "$baseUrl/public/course/";
+  static const String sendreview = "$baseUrl/client/review/add";
+  static const String getreview = "$baseUrl/public/course/reviews/";
 }

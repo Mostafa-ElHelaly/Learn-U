@@ -9,7 +9,8 @@ import '../../data/model/countries_model.dart';
 abstract class BaseRepository {
   Future<Either<Unit, Failure>> registerWithEmailAndPassword(
       LoginModel registerAuthModel);
-  Future<Either<Unit, Failure>> loginWithEmailAndPassword(LoginModel authModel);
+  Future<Either<Map<String, dynamic>, Failure>> loginWithEmailAndPassword(
+      LoginModel authModel);
   Future<Either<Unit, Failure>> forgetpassword(LoginModel resetPasswordModel);
   Future<Either<Map<String, dynamic>, Failure>> otpemail(
       LoginModel otpemailModel);

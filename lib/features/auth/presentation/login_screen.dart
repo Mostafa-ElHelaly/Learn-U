@@ -1,3 +1,4 @@
+import 'package:Learn_U/core/widgets/Loading.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:Learn_U/core/resource_manger/asset_path.dart';
@@ -50,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.mainscreen, (route) => false);
         } else if (state is LoginErrorState) {
+          print(state.errorMessage);
           errorSnackBar(context, state.errorMessage);
         } else if (state is LoginLoadingState) {
           Center(
@@ -154,6 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textColor: ColorManager.whiteColor,
                         onTap: () {
                           if (validation()) {
+                            showLoading(context);
                             save_email();
                             BlocProvider.of<LoginBloc>(context).add(
                               LoginEvent(

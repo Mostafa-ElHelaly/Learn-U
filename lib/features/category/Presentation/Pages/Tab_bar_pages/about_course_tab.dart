@@ -117,9 +117,13 @@ class _AboutCourseTabState extends State<AboutCourseTab> {
                                   'Unknown');
                             }
                             if (state is CategoriesErrorState) {
-                              return showloading(context);
+                              return Text(state.errorMessage);
                             } else {
-                              return showloading(context);
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: ColorManager.mainColor,
+                                ),
+                              );
                             }
                           },
                         ),

@@ -7,12 +7,6 @@ import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/about
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/about_trainer_tab.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/course_content_tab.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/reviews_tab.dart';
-import 'package:Learn_U/features/category/data/model/categories_model.dart';
-import 'package:Learn_U/features/courses/presentation/my_polcies_screen.dart';
-import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/about_course_tab.dart';
-import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/about_trainer_tab.dart';
-import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/course_content_tab.dart';
-import 'package:Learn_U/features_browse/Categories/Pages/Tab_bar_pages/reviews_tab.dart';
 import 'package:flutter/material.dart';
 
 class CourseTabBarView extends StatelessWidget {
@@ -95,7 +89,9 @@ class CourseTabBarView extends StatelessWidget {
           children: [
             AboutCourseTab(courses: courses),
             CourseContentTab(courses: courses),
-            ReviewsTab(),
+            ReviewsTab(
+              courses: courses,
+            ),
             AboutTrainerTab(courses: courses),
             TestsTab(
               courses: courses,
