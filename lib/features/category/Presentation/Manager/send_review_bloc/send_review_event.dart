@@ -4,7 +4,7 @@ abstract class SendReviewsEvent {}
 
 class SendallSendReviewEvent extends SendReviewsEvent {
   int? course_id;
-  int? review_value;
+  double? review_value;
   String? review_message;
 
   SendallSendReviewEvent({

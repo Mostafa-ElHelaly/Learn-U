@@ -20,7 +20,7 @@ class SendReviewUsecase extends BaseUseCase<Unit, SendReviewModel> {
 
 class SendReviewModel {
   int? course_id;
-  int? review_value;
+  double? review_value;
   String? review_message;
 
   SendReviewModel({

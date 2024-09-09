@@ -39,6 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
     prefs.setString("user_email", emailController.text);
   }
 
+  void save_cid(String user_cid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("user_cid", user_cid);
+  }
+
   bool isVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -47,6 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
+          String user_cid = state.loginAuthModelResponse['data']['cid'];
+          save_cid(user_cid);
           Sign_in();
           Navigator.pushNamedAndRemoveUntil(
               context, Routes.mainscreen, (route) => false);

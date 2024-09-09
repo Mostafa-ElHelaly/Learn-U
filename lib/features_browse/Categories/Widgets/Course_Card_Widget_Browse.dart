@@ -79,20 +79,8 @@ class CourseCardWidgetBrowse extends StatelessWidget {
                               : courses[index].name.toString(),
                           style: labelstyle),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
-                      Row(
-                        children: [
-                          RatingBarWidgetBrowse(),
-                          Text(
-                            courses[index].review != null
-                                ? courses[index]
-                                    .review!
-                                    .substring(0, 3)
-                                    .toString()
-                                : '5',
-                            style: labelstyle,
-                          ),
-                        ],
-                      ),
+                      RatingBarWidgetBrowse(
+                          courses: courses[index], labelstyle: labelstyle),
                       SizedBox(height: ConfigSize.defaultSize! * 1),
                       Text(
                         modify_level(courses[index].courseLevel.toString()),

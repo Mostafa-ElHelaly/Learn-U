@@ -4,7 +4,7 @@ import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_bloc.dart';
 import 'package:Learn_U/features/Search_Page/presentation/manager/search_bloc/search_event.dart';
 import 'package:Learn_U/features/category/Presentation/Pages/Tab_bar_pages/course_tab_bar_view.dart';
-import 'package:Learn_U/features/category/Presentation/Widgets/Course_Card_Widget_Browse.dart';
+import 'package:Learn_U/features/category/Presentation/Widgets/CourseCardWidget.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

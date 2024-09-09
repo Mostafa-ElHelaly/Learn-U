@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:Learn_U/core/utils/api_helper.dart';
 import 'package:Learn_U/features/category/data/model/categories_model.dart';
 import 'package:Learn_U/features/category/data/model/course_details_model.dart';
@@ -16,7 +17,7 @@ abstract class BaseCategoriesRemotelyDataSource {
   Future<CourseDetailsModel> getcoursedetails(int course_id);
   Future<List<ReviewsModel>> getReviews(int course_id);
   Future<Unit> SendReview(
-      int course_id, int review_value, String review_message);
+      int course_id, double review_value, String review_message);
 }
 
 class CategoryRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
@@ -149,24 +150,27 @@ class CategoryRemotelyDateSource extends BaseCategoriesRemotelyDataSource {
 
   @override
   Future<Unit> SendReview(
-      int course_id, int review_value, String review_message) async {
+      int course_id, double review_value, String review_message) async {
     final body = {
       "course_id": course_id,
       "review": review_value,
       "message": review_message,
     };
-
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       final response = await Dio().post(
         options: Options(
           headers: {
-            'Content-Type': Headers.formUrlEncodedContentType,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'cid': prefs.getString("user_cid")
           },
         ),
         ConstantApi.sendreview,
         data: FormData.fromMap(body),
       );
-
+      print(body['course_id']);
+      print(body['review']);
+      print(body['message']);
       Map<String, dynamic> jsonData = response.data;
       if (jsonData['status'] == 200) {
         return Future.value(unit); // Return response data

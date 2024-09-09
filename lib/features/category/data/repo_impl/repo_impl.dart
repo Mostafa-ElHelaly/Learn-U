@@ -47,7 +47,7 @@ class CategoriesRepositoryImp extends CategoriesBaseRepository {
 
   @override
   Future<Either<Unit, Failure>> SendReview(
-      int course_id, int review_value, String review_message) async {
+      int course_id, double review_value, String review_message) async {
     try {
       final result = await baseRemotelyDataSource.SendReview(
           course_id, review_value, review_message);

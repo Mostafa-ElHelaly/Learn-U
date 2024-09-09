@@ -10,6 +10,6 @@ abstract class CategoriesBaseRepository {
   Future<Either<List<TrainersModel>, Failure>> gettrainers();
   Future<Either<CourseDetailsModel, Failure>> getcoursedetails(int course_id);
   Future<Either<Unit, Failure>> SendReview(
-      int course_id, int review_value, String review_message);
+      int course_id, double review_value, String review_message);
   Future<Either<List<ReviewsModel>, Failure>> getReviews(int course_id);
 }

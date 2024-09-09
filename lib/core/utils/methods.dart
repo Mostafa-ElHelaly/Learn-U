@@ -1,5 +1,6 @@
 import 'package:Learn_U/core/resource_manger/locale_keys.g.dart';
 import 'package:Learn_U/core/service/service_locator.dart';
+import 'package:Learn_U/features/category/data/model/reviews_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:html/parser.dart' as html_parser;
@@ -62,5 +63,15 @@ class Methods {
 
   String transformFromHtml(String html) {
     return html_parser.parse(html).body?.text ?? '';
+  }
+
+  double Calculate_Rating(List<ReviewsModel> totalreview) {
+    double sum = 0.0;
+    for (var review in totalreview) {
+      sum += double.parse(review.review.toString());
+    }
+
+    // Calculate and return the average
+    return (sum / totalreview.length) / 2;
   }
 }

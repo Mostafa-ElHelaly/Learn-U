@@ -4,6 +4,7 @@ import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/get_reviews_bloc/get_reviews_bloc.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/get_reviews_bloc/get_reviews_event.dart';
 import 'package:Learn_U/features/category/Presentation/Manager/get_reviews_bloc/get_reviews_state.dart';
+import 'package:Learn_U/features/category/Presentation/Widgets/Reviews_Card.dart';
 import 'package:Learn_U/features/category/data/model/reviews_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +43,8 @@ class _ReviewsTabBrowseState extends State<ReviewsTabBrowse> {
     return BlocBuilder<GetReviewsBloc, GetReviewsState>(
       builder: (context, state) {
         if (state is GetReviewsSuccessState) {
+          List<ReviewsModel> totalreview = state.GetReviews;
+
           return Padding(
             padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
             child: SingleChildScrollView(
@@ -56,7 +59,7 @@ class _ReviewsTabBrowseState extends State<ReviewsTabBrowse> {
                       ),
                       Text(
                           state.GetReviews.isEmpty
-                              ? "5 " +
+                              ? "0 " +
                                   AppLocalizations.of(context)!.courserating
                               : Calculate_Rating(state.GetReviews)
                                       .toStringAsFixed(1) +
@@ -72,7 +75,34 @@ class _ReviewsTabBrowseState extends State<ReviewsTabBrowse> {
                           ' ' +
                           AppLocalizations.of(context)!.reviews),
                   SizedBox(height: ConfigSize.defaultSize! * 5),
-                  Text(AppLocalizations.of(context)!.courserating),
+                  Text(
+                    AppLocalizations.of(context)!.reviews,
+                    style: labelstyle,
+                  ),
+                  SizedBox(height: ConfigSize.defaultSize! * 3),
+                  Container(
+                    height: ConfigSize.defaultSize! * 15,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: ConfigSize.defaultSize! * 1),
+                          child: ReviewsCard(
+                            user_first_name: totalreview[index].firstName,
+                            user_last_name: totalreview[index].lastName,
+                            updated_date: totalreview[index].updatestamp,
+                            review: totalreview[index].message ?? 'NONE',
+                            rating: double.parse(
+                                totalreview[index].review.toString()),
+                          ),
+                        );
+                      },
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      itemCount: state.GetReviews.length,
+                    ),
+                  )
                 ],
               ),
             ),
