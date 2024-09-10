@@ -2,6 +2,7 @@ import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/methods.dart';
 import 'package:Learn_U/core/widgets/Changing_Rating_Bar.dart';
+import 'package:Learn_U/core/widgets/Loading.dart';
 import 'package:Learn_U/core/widgets/main_button.dart';
 import 'package:Learn_U/core/widgets/snack_bar.dart';
 import 'package:Learn_U/features/Search_Page/data/model/searchModel.dart';
@@ -114,11 +115,14 @@ class _ReviewsTabState extends State<ReviewsTab> {
                         child: BlocListener<SendReviewsBloc, SendReviewsState>(
                           listener: (context, state) {
                             if (state is SendReviewsSuccessState) {
+                              showLoading(context);
                               return successSnackBar(
                                   context, 'Review Sent Successfully');
                             }
                             if (state is SendReviewsErrorState) {
                               return errorSnackBar(context, state.errorMessage);
+                            } else {
+                              return showLoading(context);
                             }
                           },
                           child: Column(
