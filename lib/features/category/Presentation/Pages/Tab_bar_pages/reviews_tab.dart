@@ -106,8 +106,11 @@ class _ReviewsTabState extends State<ReviewsTab> {
                           .toList()[0];
                       return Visibility(
                         visible: !totalreview
-                            .map((e) => e.firstName)
-                            .contains(current_user_data.first_name),
+                                .map((e) => e.firstName)
+                                .contains(current_user_data.first_name) &&
+                            !totalreview
+                                .map((e) => e.lastName)
+                                .contains(current_user_data.last_name),
                         child: BlocListener<SendReviewsBloc, SendReviewsState>(
                           listener: (context, state) {
                             if (state is SendReviewsSuccessState) {
