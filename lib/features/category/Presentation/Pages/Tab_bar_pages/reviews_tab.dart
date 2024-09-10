@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:Learn_U/core/resource_manger/color_manager.dart';
 import 'package:Learn_U/core/utils/config_size.dart';
 import 'package:Learn_U/core/utils/methods.dart';
@@ -37,6 +39,7 @@ class _ReviewsTabState extends State<ReviewsTab> {
       fontSize: ConfigSize.defaultSize! * 2, fontWeight: FontWeight.bold);
   late TextEditingController feedbackController;
   late SharedPreferences prefs;
+
   @override
   void initState() {
     _initSharedPreferences();
@@ -65,6 +68,10 @@ class _ReviewsTabState extends State<ReviewsTab> {
     return BlocBuilder<GetReviewsBloc, GetReviewsState>(
       builder: (context, state) {
         if (state is GetReviewsSuccessState) {
+          Future<List<ReviewsModel>> getReviews() async {
+            return state.GetReviews;
+          }
+
           List<ReviewsModel> totalreview = state.GetReviews;
           return Padding(
             padding: EdgeInsets.all(ConfigSize.defaultSize! * 2),
@@ -189,28 +196,32 @@ class _ReviewsTabState extends State<ReviewsTab> {
                   ),
                   SizedBox(height: ConfigSize.defaultSize! * 3),
                   Container(
-                    height: ConfigSize.defaultSize! * 15,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: ConfigSize.defaultSize! * 1),
-                          child: ReviewsCard(
-                            user_first_name: totalreview[index].firstName,
-                            user_last_name: totalreview[index].lastName,
-                            updated_date: totalreview[index].updatestamp,
-                            review: totalreview[index].message ?? 'NONE',
-                            rating: double.parse(
-                                totalreview[index].review.toString()),
-                          ),
-                        );
-                      },
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      itemCount: state.GetReviews.length,
-                    ),
-                  )
+                      height: ConfigSize.defaultSize! * 15,
+                      child: StreamBuilder(
+                        stream: getReviews().asStream(),
+                        builder: (context, snapshot) {
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: ConfigSize.defaultSize! * 1),
+                                child: ReviewsCard(
+                                  user_first_name: totalreview[index].firstName,
+                                  user_last_name: totalreview[index].lastName,
+                                  updated_date: totalreview[index].updatestamp,
+                                  review: totalreview[index].message ?? 'NONE',
+                                  rating: double.parse(
+                                      totalreview[index].review.toString()),
+                                ),
+                              );
+                            },
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            itemCount: state.GetReviews.length,
+                          );
+                        },
+                      ))
                 ],
               ),
             ),

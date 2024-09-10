@@ -69,15 +69,16 @@ class _RatingBarWidgetState extends State<RatingBarWidget> {
         }
         if (state is GetReviewsErrorState) {
           return Text(state.errorMessage);
+        } else {
+          return Center(
+              child: Container(
+            height: ConfigSize.defaultSize! * 1.5,
+            width: ConfigSize.defaultSize! * 1.5,
+            child: CircularProgressIndicator(
+              color: ColorManager.mainColor,
+            ),
+          ));
         }
-        return Center(
-            child: Container(
-          height: ConfigSize.defaultSize! * 1.5,
-          width: ConfigSize.defaultSize! * 1.5,
-          child: CircularProgressIndicator(
-            color: ColorManager.mainColor,
-          ),
-        ));
       },
     );
   }
